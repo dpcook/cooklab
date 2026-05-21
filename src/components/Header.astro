@@ -1,0 +1,129 @@
+---
+import Wordmark from './Wordmark.astro';
+
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = '' } = Astro.props;
+
+const navLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/research', label: 'Research' },
+  { href: '/people', label: 'People' },
+  { href: '/publications', label: 'Publications' },
+  { href: '/join', label: 'Join' },
+];
+
+function isActive(href: string): boolean {
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+}
+---
+
+<header class="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-navy-700/10">
+  <nav class="max-w-6xl mx-auto px-5 md:px-10 pt-5 pb-4 flex items-center gap-8">
+    <a href="/" class="text-navy-700 hover:text-navy-700 no-underline" style="text-decoration:none;">
+      <Wordmark size={20} markSize={27} />
+    </a>
+
+    <div class="flex-1"></div>
+
+    {/* Desktop nav */}
+    <div class="hidden md:flex items-center gap-7 text-[13px] font-medium">
+      {navLinks.map((link) => {
+        const active = isActive(link.href);
+        return (
+          <a
+            href={link.href}
+            class:list={[
+              'pb-[3px] transition-colors no-underline',
+              active
+                ? 'text-navy-700 border-b-[1.5px] border-rust-500'
+                : 'text-navy-700/60 hover:text-navy-700 border-b-[1.5px] border-transparent'
+            ]}
+            style="text-decoration:none;"
+          >
+            {link.label}
+          </a>
+        );
+      })}
+    </div>
+
+    {/* Hamburger */}
+    <button
+      id="mobile-menu-button"
+      type="button"
+      aria-controls="mobile-menu"
+      aria-expanded="false"
+      aria-label="Open menu"
+      class="md:hidden inline-flex items-center justify-center p-2 -mr-2 text-navy-700"
+    >
+      <svg id="mobile-menu-icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true">
+        <line x1="4" y1="7" x2="20" y2="7" />
+        <line x1="4" y1="12" x2="20" y2="12" />
+        <line x1="4" y1="17" x2="20" y2="17" />
+      </svg>
+      <svg id="mobile-menu-icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true" hidden>
+        <line x1="6" y1="6" x2="18" y2="18" />
+        <line x1="18" y1="6" x2="6" y2="18" />
+      </svg>
+    </button>
+  </nav>
+
+  {/* Mobile drawer */}
+  <div
+    id="mobile-menu"
+    class="md:hidden border-t border-navy-700/10 bg-white"
+    hidden
+  >
+    <div class="max-w-6xl mx-auto px-5 py-3 flex flex-col">
+      {navLinks.map((link) => {
+        const active = isActive(link.href);
+        return (
+          <a
+            href={link.href}
+            class:list={[
+              'py-3 text-[15px] font-medium no-underline border-b border-navy-700/10 last:border-b-0',
+              active ? 'text-rust-500' : 'text-navy-700'
+            ]}
+            style="text-decoration:none;"
+          >
+            {link.label}
+          </a>
+        );
+      })}
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  (() => {
+    const btn = document.getElementById('mobile-menu-button');
+    const menu = document.getElementById('mobile-menu');
+    const iconOpen = document.getElementById('mobile-menu-icon-open');
+    const iconClose = document.getElementById('mobile-menu-icon-close');
+    if (!btn || !menu || !iconOpen || !iconClose) return;
+
+    function setOpen(open) {
+      btn.setAttribute('aria-expanded', String(open));
+      btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      menu.hidden = !open;
+      iconOpen.hidden = open;
+      iconClose.hidden = !open;
+    }
+
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') === 'true';
+      setOpen(!open);
+    });
+
+    // Close on escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') {
+        setOpen(false);
+        btn.focus();
+      }
+    });
+  })();
+</script>

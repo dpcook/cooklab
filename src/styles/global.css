@@ -1,0 +1,113 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  /* ---- Rust (primary) ---- */
+  --color-rust-50:  #FEF3EE;
+  --color-rust-100: #FDE2D1;
+  --color-rust-200: #FABEA0;
+  --color-rust-300: #F59065;
+  --color-rust-400: #EB6235;
+  --color-rust-500: #C2410C;
+  --color-rust-600: #9C3409;
+  --color-rust-700: #7A2A09;
+  --color-rust-800: #5C210A;
+  --color-rust-900: #3E1806;
+
+  /* ---- Navy (secondary) ---- */
+  --color-navy-50:  #F1F5F9;
+  --color-navy-100: #E2E8F0;
+  --color-navy-200: #CBD5E1;
+  --color-navy-300: #94A3B8;
+  --color-navy-400: #64748B;
+  --color-navy-500: #334155;
+  --color-navy-600: #1E293B;
+  --color-navy-700: #0F172A;
+  --color-navy-800: #0A1120;
+  --color-navy-900: #050813;
+
+  /* ---- Surface neutrals (cool off-whites) ---- */
+  --color-surface-50:  #FFFFFF;
+  --color-surface-100: #FDFEFE;
+  --color-surface-200: #F8FAFC; /* surfaceAlt — alternating section bands */
+  --color-surface-300: #F1F5F9;
+  --color-surface-400: #E2E8F0;
+
+  /* ---- Teal accent ---- */
+  --color-teal-400: #2BC09A;
+  --color-teal-500: #0D9488;
+
+  /* ---- Typography ---- */
+  --font-display: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  /* ---- Animation ---- */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-navy-700 font-sans antialiased;
+    line-height: 1.55;
+    font-size: 15px;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display;
+    font-weight: 300;
+    letter-spacing: -0.035em;
+    line-height: 1.05;
+  }
+
+  h1 { @apply text-5xl md:text-6xl; }
+  h2 { @apply text-4xl md:text-5xl; }
+  h3 { @apply text-2xl md:text-3xl; }
+  h4 {
+    @apply text-xl md:text-2xl;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  h5, h6 {
+    @apply font-sans;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+  h5 { @apply text-lg; }
+  h6 { @apply text-sm; }
+
+  a {
+    @apply text-rust-500 hover:text-rust-600 transition-colors;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-rust-500;
+  }
+}
+
+@layer utilities {
+  /* MONO UPPERCASE eyebrow / section label */
+  .eyebrow {
+    @apply font-mono uppercase text-rust-500;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+  }
+
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

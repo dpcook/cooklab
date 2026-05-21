@@ -1,0 +1,250 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import UmapSpatialTwin from '../../components/UmapSpatialTwin.astro';
+
+// ── Inline HistologyTile (kind='ovarian') for the hero anchor
+const stains = ['#C2410C', '#0D9488', '#5EDDB9', '#0F172A'];
+const bg = '#0A1120';
+let s = 101;
+const r = () => (s = (s * 9301 + 49297) % 233280) / 233280;
+const stipples = Array.from({ length: 280 }, () => ({
+  x: r() * 100,
+  y: r() * 60,
+  sz: 0.3 + r() * 1.2,
+  c: stains[Math.floor(r() * stains.length)],
+  o: 0.25 + r() * 0.5,
+}));
+const blobs = Array.from({ length: 5 }, (_, i) => ({
+  cx: 15 + i * 18,
+  cy: 20 + (i % 2) * 20,
+  rx: 6 + r() * 4,
+  ry: 3 + r() * 2,
+}));
+
+const projects = [
+  {
+    slug: 'treatment-resistance',
+    q: 'Why does chemotherapy stop working?',
+    title: 'Cell state plasticity and treatment resistance',
+    body: "We've identified distinct cell states that emerge during chemotherapy in HGSC — the SecA, SecB, and ciliated (Cil) epitypes. These states are conserved across patients and enriched after treatment. We're testing whether blocking state transitions can prevent resistance.",
+    funding: 'CIHR PROJECT GRANT · 2025–2030',
+  },
+  {
+    slug: 'rare-subtypes',
+    q: 'How are rare subtypes different?',
+    title: 'Divergent features of rare ovarian cancer subtypes',
+    body: "Low-grade serous and clear cell carcinomas respond poorly to treatments designed for HGSC. We're building single-cell and spatial atlases of these subtypes to identify their unique biology — and the therapies that could target it.",
+    funding: 'CRS BRIDGING THE GAP · 2024–2027',
+  },
+  {
+    slug: 'trop2-adcs',
+    q: 'Can targeted therapy overcome resistance?',
+    title: 'TROP2-targeted antibody-drug conjugates',
+    body: "Chemotherapy pushes HGSC cells toward a state that expresses TROP2. We're testing whether precisely-timed TROP2-targeting ADCs can eliminate these cells before stable resistance develops — and mapping the immune response such therapies provoke.",
+    funding: 'OVCAN CONSORTIUM · 2024–',
+  },
+];
+---
+
+<BaseLayout title="Ovarian Cancer — Cook Lab">
+  {/* ── Hero with full-bleed histology band */}
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0" style={`background: ${bg};`}>
+      <svg viewBox="0 0 100 60" preserveAspectRatio="xMidYMid slice" class="w-full h-full block">
+        <defs>
+          <radialGradient id="hg-ovarian" cx="0.5" cy="0.5" r="0.6">
+            <stop offset="0%" stop-color={stains[3]} stop-opacity="0.45" />
+            <stop offset="100%" stop-color={bg} stop-opacity="0" />
+          </radialGradient>
+        </defs>
+        <rect width="100" height="60" fill="url(#hg-ovarian)" />
+        {stipples.map((p) => (
+          <circle cx={p.x} cy={p.y} r={p.sz} fill={p.c} opacity={p.o} />
+        ))}
+        {blobs.map((b) => (
+          <ellipse cx={b.cx} cy={b.cy} rx={b.rx} ry={b.ry} fill={stains[0]} opacity="0.25" />
+        ))}
+      </svg>
+    </div>
+    <div
+      class="absolute inset-0"
+      style="background: linear-gradient(180deg, rgba(10,17,32,0.35) 0%, rgba(255,255,255,1) 100%);"
+    >
+    </div>
+    <div class="relative max-w-6xl mx-auto px-5 md:px-10 pt-16 md:pt-24 pb-10 md:pb-16">
+      <div
+        class="font-mono uppercase"
+        style="color: rgba(255,255,255,0.9); font-size: 11px; letter-spacing: 0.16em;"
+      >
+        Research / Ovarian Cancer
+      </div>
+      <h1
+        class="font-display text-white mt-4"
+        style="font-weight: 300; font-size: clamp(40px, 9vw, 64px); letter-spacing: -0.04em; line-height: 0.98;"
+      >
+        Ovarian Cancer.
+      </h1>
+      <p
+        class="font-display mt-5 max-w-2xl"
+        style="color: rgba(255,255,255,0.88); font-style: italic; font-weight: 400; font-size: clamp(16px, 3vw, 22px); letter-spacing: -0.01em; line-height: 1.3;"
+      >
+        The most lethal gynecologic malignancy. We're decoding its complexity to design smarter
+        treatments.
+      </p>
+    </div>
+  </section>
+
+  {/* ── The challenge — two-column + stat callout */}
+  <section>
+    <div class="max-w-6xl mx-auto px-5 md:px-10 py-10 md:py-14 grid gap-8 md:gap-10 items-start grid-cols-1 md:grid-cols-[1.8fr_1fr]">
+      <div>
+        <div class="eyebrow">THE CHALLENGE</div>
+        <div class="mt-4 text-navy-700" style="font-size: 14.5px; line-height: 1.65;">
+          <p class="m-0">
+            Ovarian cancer remains the most lethal gynecologic malignancy. Most patients are
+            diagnosed at advanced stage. High-grade serous disease — the most common subtype —
+            responds well to first-line platinum chemotherapy, only to return months later with
+            resistance. Fewer than half of patients survive five years.
+          </p>
+          <p class="mt-3.5 mb-0 text-navy-700/65">
+            Immunotherapies that transformed other cancers have barely moved the needle here. Rare
+            subtypes like low-grade serous and clear cell behave differently but receive a fraction
+            of the research attention. We believe the answers lie in cellular adaptation — how
+            tumor cells change in response to their environment and treatment, and the
+            vulnerabilities these transitions expose.
+          </p>
+        </div>
+      </div>
+      <div
+        class="bg-surface-200 rounded-lg p-6 border-l-2 border-rust-500"
+      >
+        <div
+          class="font-mono uppercase text-navy-700/45"
+          style="font-size: 10px; letter-spacing: 0.1em;"
+        >
+          KEY STAT
+        </div>
+        <div
+          class="font-display text-rust-500 mt-2"
+          style="font-weight: 300; font-size: clamp(40px, 8vw, 56px); letter-spacing: -0.04em; line-height: 0.95;"
+        >
+          &lt;50%
+        </div>
+        <div class="text-navy-700/65 mt-2" style="font-size: 13px; line-height: 1.5;">
+          five-year survival for advanced-stage HGSC — essentially unchanged in three decades.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ── Signature move: UMAP ↔ spatial band */}
+  <section class="bg-surface-200 border-t border-navy-700/10">
+    <div class="max-w-6xl mx-auto px-5 md:px-10 py-12">
+      <div class="eyebrow">OUR APPROACH</div>
+      <div class="grid gap-7 md:gap-9 items-center mt-5 grid-cols-1 md:grid-cols-[1fr_1.3fr]">
+        <div
+          class="font-display text-navy-700"
+          style="font-size: 22px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.3;"
+        >
+          Same cells, two coordinate systems — gene expression
+          <em class="text-rust-500" style="font-style: italic;">and</em> tissue position. We track
+          how cells reorganize under treatment.
+        </div>
+        <UmapSpatialTwin />
+      </div>
+    </div>
+  </section>
+
+  {/* ── Current projects */}
+  <section>
+    <div class="max-w-6xl mx-auto px-5 md:px-10 pt-14 pb-10">
+      <div class="flex items-baseline justify-between mb-6">
+        <div class="eyebrow">CURRENT PROJECTS</div>
+        <div
+          class="font-mono uppercase text-navy-700/45"
+          style="font-size: 10px; letter-spacing: 0.1em;"
+        >
+          03 ACTIVE
+        </div>
+      </div>
+      <div class="flex flex-col gap-4">
+        {projects.map((p, i) => (
+          <a
+            href={`/research/ovarian-cancer/${p.slug}`}
+            class="grid gap-4 md:gap-6 p-5 md:p-6 border border-navy-700/10 rounded-lg bg-white items-start md:items-center hover:border-navy-700/20 transition-colors group grid-cols-1 md:grid-cols-[140px_1fr_1fr_40px]"
+          >
+            <div
+              class="font-mono uppercase text-rust-500"
+              style="font-size: 11px; letter-spacing: 0.1em;"
+            >
+              PROJECT 0{i + 1}
+            </div>
+            <div>
+              <div
+                class="font-display text-navy-700"
+                style="font-style: italic; font-weight: 400; font-size: 18px; line-height: 1.3; letter-spacing: -0.01em;"
+              >
+                "{p.q}"
+              </div>
+              <div
+                class="mt-2.5 ml-4 font-mono uppercase text-navy-700"
+                style="font-size: 11px; font-weight: 500; letter-spacing: 0.04em;"
+              >
+                {p.title}
+              </div>
+            </div>
+            <div>
+              <div class="text-navy-700/65" style="font-size: 12.5px; line-height: 1.55;">
+                {p.body}
+              </div>
+              <div
+                class="mt-2.5 inline-block bg-rust-50 text-rust-500 font-mono"
+                style="padding: 3px 8px; border-radius: 2px; font-size: 9px; letter-spacing: 0.08em;"
+              >
+                {p.funding}
+              </div>
+            </div>
+            <div
+              class="text-navy-700/45 text-right group-hover:text-rust-500 transition-colors"
+              style="font-size: 18px;"
+            >
+              →
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* ── Collaborators & funding */}
+  <section class="border-t border-navy-700/10">
+    <div class="max-w-6xl mx-auto px-5 md:px-10 py-10 md:py-12 grid gap-8 md:gap-10 grid-cols-1 md:grid-cols-2">
+      <div>
+        <div class="eyebrow">KEY COLLABORATORS</div>
+        <div class="flex flex-wrap gap-2.5 mt-3.5">
+          {['OvCAN Consortium', 'CRCHUM · Mes-Masson', 'MSK · Schwartz', 'DFCI · Konstantinopoulos'].map((l) => (
+            <div
+              class="bg-surface-200 border border-navy-700/10 text-navy-700/65 rounded-md"
+              style="padding: 7px 12px; font-size: 12px;"
+            >
+              {l}
+            </div>
+          ))}
+        </div>
+      </div>
+      <div>
+        <div class="eyebrow">FUNDING</div>
+        <div class="flex flex-wrap gap-2.5 mt-3.5">
+          {['CIHR', 'Canadian Cancer Society', 'Cancer Research Society', 'OvCAN'].map((l) => (
+            <div
+              class="border border-navy-700/20 text-navy-700/65 rounded-md"
+              style="padding: 7px 12px; font-size: 12px;"
+            >
+              {l}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

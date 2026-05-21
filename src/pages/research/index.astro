@@ -1,0 +1,306 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TaglineMark from '../../components/TaglineMark.astro';
+
+// ── Disease focus content
+const diseases = [
+  {
+    label: 'OVARIAN CANCER',
+    title: 'The most lethal gynecologic malignancy.',
+    body: 'High-grade serous disease responds to first-line chemotherapy — only to return with resistance. Immunotherapies that transformed other cancers have barely moved the needle here. We study why treatments fail and develop new therapeutic strategies.',
+    stat: '<50%',
+    statLabel: 'FIVE-YEAR SURVIVAL',
+    href: '/research/ovarian-cancer',
+    kind: 'ovarian',
+  },
+  {
+    label: 'ENDOMETRIOSIS',
+    title: 'Chronic, under-studied, high-impact.',
+    body: 'Affects 1 in 10 women — causing pain, infertility, and 7–10 years of diagnostic delay. Advanced lesions carry up to a 10-fold elevated risk of ovarian cancer. We\'re applying the tools that transformed cancer research to close this gap.',
+    stat: '1 in 10',
+    statLabel: 'WOMEN AFFECTED',
+    href: '/research/endometriosis',
+    kind: 'endo',
+  },
+];
+
+// ── Histology stipple data, deterministic per kind
+function makeHistology(kind) {
+  const stains = kind === 'ovarian'
+    ? ['#C2410C', '#0D9488', '#5EDDB9', '#0F172A']
+    : ['#6A3A5E', '#E8A0B8', '#4A2840', '#B06090'];
+  const bg = kind === 'ovarian' ? '#0A1120' : '#2A1520';
+  let s = kind === 'ovarian' ? 101 : 202;
+  const r = () => (s = (s * 9301 + 49297) % 233280) / 233280;
+  const stipples = Array.from({ length: 280 }, () => ({
+    x: r() * 100,
+    y: r() * 60,
+    sz: 0.3 + r() * 1.2,
+    c: stains[Math.floor(r() * stains.length)],
+    o: 0.25 + r() * 0.5,
+  }));
+  const blobs = Array.from({ length: 5 }, (_, i) => ({
+    cx: 15 + i * 18,
+    cy: 20 + (i % 2) * 20,
+    rx: 6 + r() * 4,
+    ry: 3 + r() * 2,
+  }));
+  return { stains, bg, stipples, blobs };
+}
+
+const histology = {
+  ovarian: makeHistology('ovarian'),
+  endo: makeHistology('endo'),
+};
+
+// ── Approach pillars
+const pillars = [
+  {
+    n: '01',
+    t: 'Single-cell & spatial genomics',
+    b: 'We profile individual cells to reveal hidden diversity and cell states, and we map how those cells are organized in tissue. scRNA-seq, snPATHO-seq, and Xenium.',
+  },
+  {
+    n: '02',
+    t: 'Patient-derived disease models',
+    b: 'We build organoid and primary cell models from patient samples — systems that reflect human biology and let us test findings and therapeutics.',
+  },
+  {
+    n: '03',
+    t: 'Computational biology',
+    b: 'Cell-state inference, spatial neighborhood analysis, trajectory modeling, and integration across modalities.',
+  },
+  {
+    n: '04',
+    t: 'Ottawa GynePath Biobank',
+    b: 'Our research is powered by patient-contributed samples and clinical data — grounding every project in human biology from the start.',
+    href: '/biobank',
+    cta: 'More info soon',
+  },
+];
+
+// ── Research questions, grouped by disease
+const questionGroups = [
+  {
+    title: 'OVARIAN CANCER',
+    diseaseSlug: 'ovarian-cancer',
+    qs: [
+      {
+        q: 'Why do high-grade serous ovarian cancers become resistant to chemotherapy after a strong initial response?',
+        p: 'Treatment resistance',
+        slug: 'treatment-resistance',
+      },
+      {
+        q: 'How does the biology of rare ovarian cancer subtypes differ from high-grade serous disease?',
+        p: 'Rare subtypes',
+        slug: 'rare-subtypes',
+      },
+      {
+        q: 'Why have immunotherapies failed in ovarian cancer?',
+        p: 'Novel immunotherapies',
+        slug: 'novel-immunotherapies',
+      },
+    ],
+  },
+  {
+    title: 'ENDOMETRIOSIS',
+    diseaseSlug: 'endometriosis',
+    qs: [
+      {
+        q: 'Can we detect endometriosis earlier?',
+        p: 'Early detection',
+        slug: 'early-detection',
+      },
+      {
+        q: 'Can developments in cancer therapeutics improve outcomes for women with endometriosis?',
+        p: 'Novel immunotherapies',
+        slug: 'immunotherapies',
+      },
+      {
+        q: 'How does endometriosis develop into ovarian cancer?',
+        p: 'Progression',
+        slug: 'progression',
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout title="Research — Cook Lab">
+  {/* ── Header */}
+  <section class="bg-white">
+    <div class="max-w-6xl mx-auto px-5 md:px-10 pt-8 pb-8">
+      <div class="eyebrow">OUR RESEARCH</div>
+      <h1
+        class="font-display text-navy-700 mt-4 max-w-3xl"
+        style="font-weight: 300; letter-spacing: -0.035em; font-size: clamp(28px, 5.5vw, 42px); line-height: 1.05;"
+      >
+        We study gynecologic diseases to understand their fundamental biology and translate discoveries into <em class="text-rust-500" style="font-style: italic; font-weight: 400;">better prevention, detection, and treatment</em>.
+      </h1>
+      <div class="mt-6 text-navy-700">
+        <TaglineMark size={18} showMark={false} layout="inline-tight" />
+      </div>
+    </div>
+  </section>
+
+  {/* ── Disease focus — two large cards with histology lead visuals */}
+  <section class="bg-white">
+    <div class="max-w-6xl mx-auto px-5 md:px-10 pb-10">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {diseases.map((d) => {
+          const h = histology[d.kind];
+          return (
+            <div
+              class="flex flex-col rounded-lg overflow-hidden border border-navy-700/10 bg-white"
+            >
+              {/* Lead histology visual */}
+              <div class="relative overflow-hidden" style={`background: ${h.bg}; height: 150px;`}>
+                <svg
+                  viewBox="0 0 100 60"
+                  preserveAspectRatio="xMidYMid slice"
+                  class="w-full h-full block"
+                >
+                  <defs>
+                    <radialGradient id={`hg-${d.kind}`} cx="0.5" cy="0.5" r="0.6">
+                      <stop offset="0%" stop-color={h.stains[3]} stop-opacity="0.45" />
+                      <stop offset="100%" stop-color={h.bg} stop-opacity="0" />
+                    </radialGradient>
+                  </defs>
+                  <rect width="100" height="60" fill={`url(#hg-${d.kind})`} />
+                  {h.stipples.map((p) => (
+                    <circle cx={p.x} cy={p.y} r={p.sz} fill={p.c} opacity={p.o} />
+                  ))}
+                  {h.blobs.map((b) => (
+                    <ellipse cx={b.cx} cy={b.cy} rx={b.rx} ry={b.ry} fill={h.stains[0]} opacity="0.25" />
+                  ))}
+                </svg>
+                <div
+                  class="absolute top-4 left-4 font-mono text-white"
+                  style="background: rgba(0,0,0,0.78); backdrop-filter: blur(6px); padding: 6px 12px; border-radius: 3px; font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;"
+                >
+                  {d.label}
+                </div>
+              </div>
+
+              {/* Body */}
+              <div class="p-7 flex flex-col flex-1">
+                <div
+                  class="font-display text-navy-700"
+                  style="font-weight: 300; letter-spacing: -0.025em; font-size: 26px; line-height: 1.1;"
+                >
+                  {d.title}
+                </div>
+                <p class="mt-4 text-navy-700/65" style="font-size: 13px; line-height: 1.55;">
+                  {d.body}
+                </p>
+                <div class="mt-auto pt-5 border-t border-navy-700/10 flex items-baseline gap-4">
+                  <div
+                    class="font-display text-rust-500"
+                    style="font-weight: 300; letter-spacing: -0.03em; font-size: 32px; line-height: 1;"
+                  >
+                    {d.stat}
+                  </div>
+                  <div
+                    class="font-mono text-navy-700/65"
+                    style="font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;"
+                  >
+                    {d.statLabel}
+                  </div>
+                  <div class="flex-1"></div>
+                  <span class="text-navy-700/45 text-xs font-medium italic">
+                    More info soon
+                  </span>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  {/* ── Our approach */}
+  <section class="bg-surface-200 border-t border-navy-700/10">
+    <div class="max-w-6xl mx-auto px-5 md:px-10 py-14">
+      <div class="eyebrow">OUR APPROACH</div>
+      <p class="mt-2 text-navy-700/65 max-w-xl" style="font-size: 14px;">
+        We integrate experimental and computational methods to understand disease at unprecedented resolution.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-6">
+        {pillars.map((p) => {
+          const Tag = p.href ? 'a' : 'div';
+          const linkProps = p.href
+            ? { href: p.href, class: 'group bg-white p-5 rounded-md border border-navy-700/10 hover:border-navy-700/20 transition-colors flex flex-col no-underline' }
+            : { class: 'bg-white p-5 rounded-md border border-navy-700/10 flex flex-col' };
+          return (
+            <Tag {...linkProps}>
+              <div
+                class="font-mono text-rust-500"
+                style="font-size: 10px; letter-spacing: 0.12em;"
+              >
+                {p.n}
+              </div>
+              <div
+                class="font-display text-navy-700 mt-2"
+                style="font-size: 16px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.2;"
+              >
+                {p.t}
+              </div>
+              <p
+                class="text-navy-700/65 mt-2 flex-1"
+                style="font-size: 11.5px; line-height: 1.5;"
+              >
+                {p.b}
+              </p>
+              {p.cta && (
+                <div
+                  class="text-rust-500 mt-3 flex items-center gap-1"
+                  style="font-size: 12px; font-weight: 500;"
+                >
+                  <span>{p.cta}</span><span aria-hidden="true">→</span>
+                </div>
+              )}
+            </Tag>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  {/* ── Research questions full list */}
+  <section class="bg-white border-t border-navy-700/10">
+    <div class="max-w-6xl mx-auto px-5 md:px-10 pt-12 pb-8">
+      <div class="eyebrow">WHAT WE'RE ASKING</div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
+        {questionGroups.map((g) => (
+          <div>
+            <div
+              class="font-mono text-navy-700/45"
+              style="font-size: 10px; letter-spacing: 0.12em;"
+            >
+              {g.title}
+            </div>
+            <div class="mt-4 flex flex-col">
+              {g.qs.map((item, i) => (
+                <div class={`block py-4 ${i === 0 ? '' : 'border-t border-navy-700/10'}`}>
+                  <div
+                    class="font-display text-navy-700"
+                    style="font-style: italic; font-weight: 300; font-size: 18px; letter-spacing: -0.015em; line-height: 1.35;"
+                  >
+                    {item.q}
+                  </div>
+                  <div
+                    class="text-rust-500 mt-2 ml-4"
+                    style="font-size: 11px; letter-spacing: 0.04em;"
+                  >
+                    {item.p}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

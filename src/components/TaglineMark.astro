@@ -1,0 +1,86 @@
+---
+interface Props {
+  /** Tagline word font-size in px */
+  size?: number;
+  /** Mark size in px (defaults to size * 1.3 for inline, size * 2.6 for stacked) */
+  markSize?: number;
+  showMark?: boolean;
+  layout?: 'inline-tight' | 'inline' | 'stacked';
+  /** Override colors. Default: text=currentColor, mark+dots=rust */
+  textColor?: string;
+  markColor?: string;
+}
+
+const {
+  size = 22,
+  markSize,
+  showMark = true,
+  layout = 'inline-tight',
+  textColor = 'currentColor',
+  markColor = 'var(--color-rust-500)',
+} = Astro.props;
+
+const inlineMark = markSize ?? Math.round(size * 1.3);
+const stackedMark = markSize ?? Math.round(size * 2.6);
+const inlineGap = Math.max(8, Math.round(size * 0.4));
+const stackedGap = Math.max(10, Math.round(size * 0.5));
+const stackedLineGap = Math.round(size * 0.18);
+const sepMargin = layout === 'inline-tight' ? size * 0.18 : size * 0.32;
+
+const wordStyle = `font-weight: 600; font-size: ${size}px; letter-spacing: -0.03em; line-height: 1; white-space: nowrap;`;
+const sepStyle = `font-weight: 300; font-size: ${size}px; color: ${markColor}; opacity: 0.85; margin: 0 ${sepMargin}px; line-height: 1;`;
+---
+
+{layout === 'stacked' ? (
+  <span
+    class="inline-flex items-start"
+    style={`gap: ${stackedGap}px; color: ${textColor};`}
+  >
+    {showMark && (
+      <svg
+        width={stackedMark}
+        height={stackedMark}
+        viewBox="0 0 32 32"
+        fill="none"
+        aria-hidden="true"
+        style="display:block;flex-shrink:0;"
+      >
+        <circle cx="16" cy="16" r="14" stroke={markColor} stroke-width="1.5" />
+        <circle cx="20" cy="13" r="4.5" fill={markColor} />
+        <circle cx="12" cy="19" r="1.5" fill={markColor} fill-opacity="0.55" />
+      </svg>
+    )}
+    <span class="inline-flex flex-col font-display" style={`gap: ${stackedLineGap}px;`}>
+      <span style={wordStyle}>Decode</span>
+      <span style={wordStyle}>Design</span>
+      <span style={wordStyle}>Deliver</span>
+    </span>
+  </span>
+) : (
+  <span
+    class="inline-flex items-center"
+    style={`gap: ${inlineGap}px; color: ${textColor};`}
+  >
+    {showMark && (
+      <svg
+        width={inlineMark}
+        height={inlineMark}
+        viewBox="0 0 32 32"
+        fill="none"
+        aria-hidden="true"
+        style="display:block;flex-shrink:0;"
+      >
+        <circle cx="16" cy="16" r="14" stroke={markColor} stroke-width="1.5" />
+        <circle cx="20" cy="13" r="4.5" fill={markColor} />
+        <circle cx="12" cy="19" r="1.5" fill={markColor} fill-opacity="0.55" />
+      </svg>
+    )}
+    <span class="inline-flex font-display" style="align-items: baseline;">
+      <span style={wordStyle}>Decode</span>
+      <span style={sepStyle}>·</span>
+      <span style={wordStyle}>Design</span>
+      <span style={sepStyle}>·</span>
+      <span style={wordStyle}>Deliver</span>
+    </span>
+  </span>
+)}

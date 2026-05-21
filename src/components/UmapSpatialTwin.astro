@@ -1,0 +1,268 @@
+---
+// Single-panel morphing scatter: same cells, two embeddings.
+// Build-time: parses the CSV once and inlines compact parallel arrays.
+// Client: canvas + rAF, eases between tissue and UMAP layouts on a loop.
+
+import fs from 'node:fs';
+import path from 'node:path';
+
+const csvPath = path.join(process.cwd(), 'src/data/embeddings.csv');
+const text = fs.readFileSync(csvPath, 'utf8');
+
+// Brand-compatible 12-cluster palette. Epithelial in the rust family,
+// stromal/endothelial in teal/green/blue, immune in indigo/purple/amber/slate/olive.
+const palette: Record<string, string> = {
+  'Epi_SecA':    '#C2410C',
+  'Epi_SecB':    '#B45309',
+  'Epi_Cil':     '#78350F',
+  'Mesenchymal': '#0D9488',
+  'Pericyte_SM': '#047857',
+  'Endothelial': '#0369A1',
+  'T cell':      '#3730A3',
+  'B cell':      '#7C3AED',
+  'NK cell':     '#9F1239',
+  'Macrophage':  '#A16207',
+  'Plasma cell': '#64748B',
+  'Mast':        '#4D7C0F',
+};
+
+function parseRow(line: string): string[] {
+  const out: string[] = [];
+  let i = 0;
+  while (i < line.length) {
+    if (line[i] === '"') {
+      const end = line.indexOf('"', i + 1);
+      out.push(line.slice(i + 1, end));
+      i = end + 2;
+    } else {
+      const end = line.indexOf(',', i);
+      if (end === -1) { out.push(line.slice(i)); break; }
+      out.push(line.slice(i, end));
+      i = end + 1;
+    }
+  }
+  return out;
+}
+
+const lines = text.trim().split('\n');
+const clusterIdx: Record<string, number> = {};
+const colors: string[] = [];
+const ux: number[] = [];
+const uy: number[] = [];
+const tx: number[] = [];
+const ty: number[] = [];
+const ci: number[] = [];
+
+for (let i = 1; i < lines.length; i++) {
+  const r = parseRow(lines[i]);
+  const cluster = r[5];
+  if (!(cluster in clusterIdx)) {
+    clusterIdx[cluster] = colors.length;
+    colors.push(palette[cluster] ?? '#888888');
+  }
+  ux.push(Math.round(parseFloat(r[1]) * 100) / 100);
+  uy.push(Math.round(parseFloat(r[2]) * 100) / 100);
+  tx.push(Math.round(parseFloat(r[3])));
+  ty.push(Math.round(parseFloat(r[4])));
+  ci.push(clusterIdx[cluster]);
+}
+
+let uxMin = Infinity, uxMax = -Infinity, uyMin = Infinity, uyMax = -Infinity;
+let txMin = Infinity, txMax = -Infinity, tyMin = Infinity, tyMax = -Infinity;
+for (let i = 0; i < ux.length; i++) {
+  if (ux[i] < uxMin) uxMin = ux[i];
+  if (ux[i] > uxMax) uxMax = ux[i];
+  if (uy[i] < uyMin) uyMin = uy[i];
+  if (uy[i] > uyMax) uyMax = uy[i];
+  if (tx[i] < txMin) txMin = tx[i];
+  if (tx[i] > txMax) txMax = tx[i];
+  if (ty[i] < tyMin) tyMin = ty[i];
+  if (ty[i] > tyMax) tyMax = ty[i];
+}
+
+const data = {
+  ux, uy, tx, ty, ci, colors,
+  bbox: { uxMin, uxMax, uyMin, uyMax, txMin, txMax, tyMin, tyMax },
+};
+---
+
+<canvas
+  id="cellMorphCanvas"
+  class="block w-full"
+  style="aspect-ratio: 4 / 3;"
+></canvas>
+
+<script is:inline define:vars={{ data }}>
+  (() => {
+    const canvas = document.getElementById('cellMorphCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const { ux, uy, tx, ty, ci, colors, bbox } = data;
+    const N = ux.length;
+
+    // Canvas aspect must match the CSS aspect-ratio on the <canvas> element.
+    const CANVAS_ASPECT = 4 / 3;
+
+    // Aspect-aware normalize: data fits within the canvas preserving its own
+    // aspect ratio. Output px in [0,1] mapping to canvas width, py in [0,1]
+    // mapping to canvas height. Pass `topAnchor` to lock the data's top edge
+    // to a specific fractional position (overrides vertical centering).
+    function build(xs, ys, xMin, xMax, yMin, yMax, margin, topAnchor) {
+      const w = xMax - xMin;
+      const h = yMax - yMin;
+      const dataAspect = w / h;
+      const fillFrac = 1 - margin * 2;
+      let dataW, dataH;
+      if (dataAspect >= CANVAS_ASPECT) {
+        dataW = fillFrac;
+        dataH = fillFrac * CANVAS_ASPECT / dataAspect;
+      } else {
+        dataH = fillFrac;
+        dataW = fillFrac * dataAspect / CANVAS_ASPECT;
+      }
+      const ox = (1 - dataW) / 2;
+      const oy = topAnchor !== undefined ? topAnchor : (1 - dataH) / 2;
+      const px = new Float32Array(N);
+      const py = new Float32Array(N);
+      for (let i = 0; i < N; i++) {
+        px[i] = ox + ((xs[i] - xMin) / w) * dataW;
+        py[i] = oy + ((ys[i] - yMin) / h) * dataH;
+      }
+      return { px, py };
+    }
+
+    const tissue = build(tx, ty, bbox.txMin, bbox.txMax, bbox.tyMin, bbox.tyMax, 0.04, 0.06);
+    const umap = build(ux, uy, bbox.uxMin, bbox.uxMax, bbox.uyMin, bbox.uyMax, 0.02);
+
+    // Per-color buckets for batched canvas draws.
+    const buckets = colors.map(() => []);
+    for (let i = 0; i < N; i++) buckets[ci[i]].push(i);
+
+    const cycle = [
+      { dur: 3200, kind: 'dwell', t: 0 },
+      { dur: 2400, kind: 'morph', from: 0, to: 1 },
+      { dur: 3200, kind: 'dwell', t: 1 },
+      { dur: 2400, kind: 'morph', from: 1, to: 0 },
+    ];
+
+    const easeInOut = (t) => (t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2);
+
+    let dpr = 1;
+    let cssW = 0, cssH = 0;
+    function resize() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+      const rect = canvas.getBoundingClientRect();
+      cssW = rect.width;
+      cssH = rect.height;
+      canvas.width = Math.max(1, Math.floor(cssW * dpr));
+      canvas.height = Math.max(1, Math.floor(cssH * dpr));
+    }
+
+    let stateIdx = 0;
+    let stateStart = performance.now();
+    let rafId = 0;
+    let running = false;
+
+    function frame(now) {
+      let s = cycle[stateIdx];
+      let elapsed = now - stateStart;
+      if (elapsed >= s.dur) {
+        stateIdx = (stateIdx + 1) % cycle.length;
+        stateStart = now;
+        s = cycle[stateIdx];
+        elapsed = 0;
+      }
+      const t = s.kind === 'dwell'
+        ? s.t
+        : s.from + (s.to - s.from) * easeInOut(elapsed / s.dur);
+
+      const W = canvas.width;
+      const H = canvas.height;
+      ctx.clearRect(0, 0, W, H);
+      ctx.globalAlpha = 0.82;
+
+      const r = Math.max(1.1, 1.45 * dpr);
+      const tx_p = tissue.px, ty_p = tissue.py;
+      const ux_p = umap.px,   uy_p = umap.py;
+      const oneMinusT = 1 - t;
+
+      for (let c = 0; c < colors.length; c++) {
+        const b = buckets[c];
+        ctx.fillStyle = colors[c];
+        ctx.beginPath();
+        for (let k = 0; k < b.length; k++) {
+          const i = b[k];
+          const x = (tx_p[i] * oneMinusT + ux_p[i] * t) * W;
+          const y = (ty_p[i] * oneMinusT + uy_p[i] * t) * H;
+          ctx.moveTo(x + r, y);
+          ctx.arc(x, y, r, 0, Math.PI * 2);
+        }
+        ctx.fill();
+      }
+
+      if (running) rafId = requestAnimationFrame(frame);
+    }
+
+    function start() {
+      if (running) return;
+      running = true;
+      stateStart = performance.now();
+      rafId = requestAnimationFrame(frame);
+    }
+    function stop() {
+      running = false;
+      if (rafId) cancelAnimationFrame(rafId);
+    }
+
+    function drawStatic(t) {
+      const W = canvas.width, H = canvas.height;
+      ctx.clearRect(0, 0, W, H);
+      ctx.globalAlpha = 0.82;
+      const r = Math.max(1.1, 1.45 * dpr);
+      const oneMinusT = 1 - t;
+      for (let c = 0; c < colors.length; c++) {
+        const b = buckets[c];
+        ctx.fillStyle = colors[c];
+        ctx.beginPath();
+        for (let k = 0; k < b.length; k++) {
+          const i = b[k];
+          const x = (tissue.px[i] * oneMinusT + umap.px[i] * t) * W;
+          const y = (tissue.py[i] * oneMinusT + umap.py[i] * t) * H;
+          ctx.moveTo(x + r, y);
+          ctx.arc(x, y, r, 0, Math.PI * 2);
+        }
+        ctx.fill();
+      }
+    }
+
+    resize();
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) {
+      drawStatic(0);
+      window.addEventListener('resize', () => { resize(); drawStatic(0); });
+      return;
+    }
+
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) start();
+        else stop();
+      }
+    }, { threshold: 0.01 });
+    io.observe(canvas);
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stop();
+      else if (canvas.getBoundingClientRect().bottom > 0) start();
+    });
+
+    let resizeTimer = 0;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => { resize(); }, 100);
+    });
+  })();
+</script>

@@ -1,0 +1,148 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const tracks = [
+  {
+    title: 'Postdoctoral Fellows',
+    body: "We look for postdocs with strong backgrounds in molecular biology, single-cell or spatial genomics, computational biology, or clinical/translational research. Funded positions are announced here when available; we also welcome inquiries from applicants planning their own fellowship applications (CIHR, CCS, EMBO, HFSP).",
+    apply: 'Email David directly with your CV, a brief statement of research interests, and the names of three references. Tell us which of our research questions most interests you.',
+  },
+  {
+    title: 'Graduate Students (PhD / MSc)',
+    body: 'We supervise students through the Department of Cellular and Molecular Medicine at the University of Ottawa. Prospective students should apply to the CMM program and list David as a potential supervisor.',
+    apply: "Before formally applying, email David with your CV and a short paragraph on why you're interested in our research. Informal inquiries are welcome and encouraged.",
+  },
+  {
+    title: 'Undergraduates',
+    body: 'We host honors thesis students, summer research trainees (NSERC USRA, OGS), and fourth-year co-op placements. Positions are competitive; we prioritize students with strong academic records and demonstrated interest in gynecologic research or genomics.',
+    apply: 'Email David in the fall for positions the following academic year.',
+  },
+];
+
+const phylloColors = ['#C2410C','#0F172A','#0D9488','#A16207','#7C3AED','#64748B'];
+const phylloPoints = Array.from({ length: 220 }).map((_, k) => {
+  const a = (k * 137.5) * Math.PI / 180;
+  const rad = 3 + (k * (44 / 220));
+  return {
+    x: 50 + Math.cos(a) * rad,
+    y: 50 + Math.sin(a) * rad,
+    c: phylloColors[k % phylloColors.length],
+  };
+});
+---
+
+<BaseLayout title="Join — Cook Lab">
+  {/* ── Hero */}
+  <section class="bg-white">
+    <div class="max-w-6xl mx-auto px-5 md:px-10 pt-8 pb-12 grid md:grid-cols-[1.4fr_1fr] gap-12 items-center">
+      <div>
+        <div class="eyebrow">JOIN THE LAB</div>
+        <h1
+          class="font-display text-navy-700 mt-4"
+          style="font-weight: 300; letter-spacing: -0.04em; font-size: clamp(54px, 11vw, 76px); line-height: 0.95;"
+        >
+          Join us.
+        </h1>
+        <p class="mt-6 text-navy-700/65 text-[15px] leading-[1.65] max-w-xl">
+          We're always excited to hear from talented trainees who share our commitment to
+          understanding and treating gynecologic disease. Our lab is home to people from
+          diverse backgrounds — clinical, computational, experimental — and we prioritize
+          mentorship alongside productivity.
+        </p>
+      </div>
+      <div class="justify-self-center md:justify-self-end">
+        <svg viewBox="0 0 100 100" class="w-[180px] h-[180px] md:w-[240px] md:h-[240px] block" aria-hidden="true">
+          <circle cx="50" cy="50" r="46" fill="none" stroke="rgba(15,23,42,0.10)" stroke-width="0.3" />
+          {phylloPoints.map((p) => (
+            <circle cx={p.x} cy={p.y} r="0.95" fill={p.c} opacity="0.82" />
+          ))}
+          <circle cx="50" cy="50" r="3" fill="#C2410C" />
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  {/* ── Tracks */}
+  <section class="bg-white border-t border-navy-700/10">
+    <div class="max-w-6xl mx-auto px-5 md:px-10 py-14">
+      <div class="eyebrow">HOW TO REACH US</div>
+      <div class="mt-8">
+        {tracks.map((t, i) => (
+          <div
+            class:list={[
+              'grid md:grid-cols-[60px_1.1fr_1.4fr] gap-7 py-7 items-start',
+              i === 0 ? '' : 'border-t border-navy-700/10',
+            ]}
+          >
+            <div
+              class="font-mono text-rust-500 text-[12px]"
+              style="letter-spacing: 0.1em; font-variant-numeric: tabular-nums;"
+            >
+              0{i + 1}
+            </div>
+            <div>
+              <h2
+                class="font-display text-navy-700"
+                style="font-size: 22px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.15;"
+              >
+                {t.title}
+              </h2>
+              <p class="text-navy-700/65 text-[13.5px] leading-[1.6] mt-3">{t.body}</p>
+            </div>
+            <div class="bg-surface-200 border border-navy-700/10 border-l-2 border-l-rust-500 rounded-md p-5">
+              <div
+                class="font-mono text-rust-500 text-[9px] uppercase"
+                style="letter-spacing: 0.12em;"
+              >
+                HOW TO APPLY
+              </div>
+              <p class="text-navy-700 text-[12.5px] leading-[1.55] mt-2">{t.apply}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* ── Contact */}
+  <section class="bg-surface-200 border-t border-navy-700/10">
+    <div class="max-w-6xl mx-auto px-5 md:px-10 py-14">
+      <div class="grid md:grid-cols-[1.2fr_1fr] gap-10 items-center">
+        <div>
+          <div class="eyebrow">CONTACT</div>
+          <h2
+            class="font-display text-navy-700 mt-3"
+            style="font-weight: 300; font-size: clamp(24px, 4.5vw, 32px); letter-spacing: -0.03em;"
+          >
+            Dr. David P. Cook
+          </h2>
+          <a
+            href="mailto:dacook@ohri.ca"
+            class="inline-block font-mono text-rust-500 hover:text-rust-600 text-[14px] mt-2"
+            style="letter-spacing: 0.02em;"
+          >
+            dacook@ohri.ca
+          </a>
+          <p class="text-navy-700/65 text-[13px] leading-[1.6] mt-4 max-w-lg">
+            When you reach out, please tell us which of our research questions most interests
+            you, and why. This helps us understand fit before we connect further.
+          </p>
+        </div>
+        <div class="bg-white border border-navy-700/10 rounded-lg p-5">
+          <div
+            class="font-mono text-navy-700/45 text-[10px] uppercase"
+            style="letter-spacing: 0.1em;"
+          >
+            LOCATION
+          </div>
+          <address class="not-italic text-navy-700 text-[13.5px] leading-[1.6] mt-3">
+            Ottawa Hospital Research Institute<br />
+            Centre for Cancer Therapeutics<br />
+            501 Smyth Road<br />
+            Ottawa, ON
+          </address>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

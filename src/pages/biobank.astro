@@ -1,0 +1,184 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// TMA grid: 8 cols × 6 rows of colored disc "cores" — categorical dataviz palette,
+// varying opacity per deterministic seed. Visual metaphor for tissue microarray cores.
+const palette = ['#C2410C', '#0F172A', '#0D9488', '#A16207', '#7C3AED', '#64748B'];
+let s = 77;
+const r = () => (s = (s * 9301 + 49297) % 233280) / 233280;
+const tmaCols = 8;
+const tmaRows = 6;
+const cells = Array.from({ length: tmaCols * tmaRows }, (_, i) => ({
+  fill: palette[i % palette.length],
+  opacity: 0.55 + r() * 0.45,
+}));
+
+const stats = [
+  { k: '840+', v: 'patient cases enrolled', d: '+40 Q1 2026' },
+  { k: '3,200', v: 'tissue, blood, urine samples', d: 'paired clinical data' },
+  { k: '48', v: 'organoid lines derived', d: 'viable + characterized' },
+  { k: '142', v: 'scRNA-seq datasets', d: '~10K cells / sample' },
+  { k: '50', v: 'Visium + Xenium sections', d: 'spatial transcriptomics' },
+];
+
+const fuelRows = [
+  { t: 'Mapping cell-state plasticity across 142 patients.', link: 'Treatment resistance', href: '/research/ovarian-cancer' },
+  { t: 'Identifying protein biomarkers for early endometriosis detection.', link: 'Early detection', href: '/research/endometriosis' },
+  { t: 'Tracing the transition from endometriosis to ovarian cancer.', link: 'Progression', href: '/research/endometriosis' },
+];
+
+const cards = [
+  {
+    h: 'Interested in collaborating?',
+    b: 'We actively collaborate with researchers who need high-quality patient samples and paired clinical data. We prioritize projects that complement our own and return insight to the broader research community.',
+    cta: 'Email David →',
+    href: 'mailto:dacook@ohri.ca',
+  },
+  {
+    h: 'Interested in contributing?',
+    b: "Enrollment is coordinated through The Ottawa Hospital's consent and tissue program. Learn more about how the hospital collects and manages biobank samples.",
+    cta: 'Learn more at OHRI →',
+    href: 'https://www.ohri.ca/',
+  },
+];
+---
+
+<BaseLayout title="Biobank — Cook Lab">
+  {/* ── Hero */}
+  <section class="max-w-6xl mx-auto px-5 md:px-10 pt-8 pb-12">
+    <div class="grid gap-8 md:gap-12 items-center grid-cols-1 md:grid-cols-[1.2fr_1fr]">
+      <div>
+        <div class="eyebrow">INFRASTRUCTURE</div>
+        <h1
+          class="font-display text-navy-700 mt-4"
+          style="font-weight: 300; letter-spacing: -0.035em; font-size: clamp(34px, 7vw, 52px); line-height: 1.02;"
+        >
+          Ottawa GynePath Biobank.
+        </h1>
+        <p
+          class="font-display text-navy-700/65 mt-4 max-w-lg"
+          style="font-style: italic; font-weight: 400; font-size: clamp(16px, 2.5vw, 20px); line-height: 1.35;"
+        >
+          The engine of our research — powered by patient partnership.
+        </p>
+      </div>
+
+      {/* TMA core grid — 8×6 colored discs */}
+      <div
+        class="rounded-lg border border-navy-700/10 bg-white p-5 grid gap-2"
+        style={`grid-template-columns: repeat(${tmaCols}, 1fr); aspect-ratio: ${tmaCols} / ${tmaRows};`}
+      >
+        {cells.map((cell) => (
+          <div
+            class="rounded-full"
+            style={`aspect-ratio: 1; background: ${cell.fill}; opacity: ${cell.opacity}; box-shadow: inset 0 0 4px rgba(0,0,0,0.35);`}
+          ></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* ── Framing paragraphs */}
+  <section class="max-w-6xl mx-auto px-5 md:px-10 pb-12">
+    <div class="max-w-3xl">
+      <p class="text-navy-700" style="font-size: 15px; line-height: 1.65;">
+        The Ottawa GynePath Biobank is a growing repository of tissue, blood, organoids, and clinical data
+        contributed by patients across The Ottawa Hospital. It is the foundation every project in our lab is
+        built on.
+      </p>
+      <p class="text-navy-700/65 mt-4" style="font-size: 14px; line-height: 1.65;">
+        Rather than a standalone initiative, the biobank is woven into everything we do: it grounds every
+        hypothesis in human biology from the start, and it supports collaborators across Canada and
+        internationally working on the same questions.
+      </p>
+    </div>
+  </section>
+
+  {/* ── What's in it — big number band */}
+  <section class="bg-surface-200 border-t border-b border-navy-700/10">
+    <div class="max-w-6xl mx-auto px-5 md:px-10 py-12">
+      <div class="eyebrow">WHAT'S IN IT</div>
+      <div class="grid gap-6 mt-6 items-baseline grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
+        {stats.map((stat) => (
+          <div>
+            <div
+              class="font-display text-navy-700"
+              style="font-weight: 300; font-size: clamp(36px, 6vw, 52px); letter-spacing: -0.04em; line-height: 0.95;"
+            >
+              {stat.k}
+            </div>
+            <div
+              class="font-mono text-navy-700/65 mt-2"
+              style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;"
+            >
+              {stat.v}
+            </div>
+            <div
+              class="text-navy-700/45 mt-1"
+              style="font-size: 12px; line-height: 1.4;"
+            >
+              {stat.d}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div class="font-mono text-navy-700/45 mt-6" style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;">
+        [stat] placeholder values — final numbers TBD
+      </div>
+    </div>
+  </section>
+
+  {/* ── How the biobank fuels our research */}
+  <section class="max-w-6xl mx-auto px-5 md:px-10 py-12">
+    <div class="eyebrow">HOW THE BIOBANK FUELS OUR RESEARCH</div>
+    <div class="flex flex-col gap-2.5 mt-5">
+      {fuelRows.map((row, i) => (
+        <a
+          href={row.href}
+          class="grid gap-3 md:gap-4 items-start md:items-center px-5 py-4 rounded-md border border-navy-700/10 hover:border-navy-700/20 hover:bg-surface-200 transition-colors grid-cols-[40px_1fr] md:grid-cols-[40px_1fr_auto]"
+        >
+          <span
+            class="font-mono text-rust-500"
+            style="font-size: 11px; letter-spacing: 0.1em; font-variant-numeric: tabular-nums;"
+          >
+            0{i + 1}
+          </span>
+          <span
+            class="font-display text-navy-700"
+            style="font-size: 18px; font-weight: 500; letter-spacing: -0.015em;"
+          >
+            {row.t}
+          </span>
+          <span class="text-rust-500 col-start-2 md:col-start-auto md:text-right" style="font-size: 12px; font-weight: 500;">
+            {row.link} →
+          </span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  {/* ── For collaborators / For patients */}
+  <section class="max-w-6xl mx-auto px-5 md:px-10 pb-16">
+    <div class="grid gap-6 grid-cols-1 md:grid-cols-2">
+      {cards.map((c) => (
+        <a
+          href={c.href}
+          class="block bg-surface-200 p-7 rounded-lg border border-navy-700/10 hover:border-navy-700/20 transition-colors"
+        >
+          <div
+            class="font-display text-navy-700"
+            style="font-size: 22px; font-weight: 500; letter-spacing: -0.02em;"
+          >
+            {c.h}
+          </div>
+          <p class="text-navy-700/65 mt-3" style="font-size: 13px; line-height: 1.6;">
+            {c.b}
+          </p>
+          <div class="text-rust-500 mt-4" style="font-size: 13px; font-weight: 500;">
+            {c.cta}
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

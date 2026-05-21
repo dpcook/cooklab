@@ -1,0 +1,183 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+type Pub = {
+  tag: string;
+  title: string;
+  /** May contain HTML — <strong> bolds Cook in the byline; * marks co-first authors. */
+  authors: string;
+  year: number;
+  href?: string;
+};
+
+// Curated set — first- and senior-author publications only.
+// Migrated from ~/Lab/CV/cv-master.md. Reverse chronological.
+const publications: Pub[] = [
+  {
+    tag: 'NATURE BIOTECHNOLOGY',
+    title:
+      'Standardized metrics for assessment and reproducibility of imaging-based spatial transcriptomics datasets',
+    authors:
+      'Plummer JT*, Dezem FS*, <strong>Cook DP*</strong>, Park J*, Zhang L, Liu Y, Marcao M, ... Martelotto LG',
+    year: 2025,
+    href: 'https://doi.org/10.1038/s41587-025-02811-9',
+  },
+  {
+    tag: 'COMMUNICATIONS BIOLOGY',
+    title:
+      'Comparative analysis of syngeneic mouse models of high-grade serous ovarian cancer',
+    authors:
+      '<strong>Cook DP</strong>, Galpin K, Rodriguez G, Shakfa N, Wilson-Sanchez J, Pereira M, ... Vanderhyden BC',
+    year: 2023,
+    href: 'https://doi.org/10.1038/s42003-023-05529-z',
+  },
+  {
+    tag: 'TRENDS IN CANCER',
+    title:
+      'A specialist-generalist framework for epithelial-mesenchymal plasticity in cancer',
+    authors: '<strong>Cook DP*</strong>, Wrana JL',
+    year: 2022,
+    href: 'https://doi.org/10.1016/j.trecan.2022.01.014',
+  },
+  {
+    tag: 'SCIENCE ADVANCES',
+    title: 'Transcriptional census of epithelial-mesenchymal plasticity in cancer',
+    authors: '<strong>Cook DP*</strong>, Vanderhyden BC',
+    year: 2022,
+    href: 'https://doi.org/10.1126/sciadv.abi7640',
+  },
+  {
+    tag: 'COMMUNICATIONS BIOLOGY',
+    title:
+      'Transcriptional heterogeneity of stemness phenotypes in the ovarian epithelium',
+    authors:
+      'Carter LE*, <strong>Cook DP*</strong>, McCloskey CW, Dang T, Collins O, Gamwell LF, Vanderhyden BC',
+    year: 2021,
+    href: 'https://doi.org/10.1038/s42003-021-02045-w',
+  },
+  {
+    tag: 'NATURE COMMUNICATIONS',
+    title: 'Context specificity of the EMT transcriptional response',
+    authors: '<strong>Cook DP</strong>, Vanderhyden BC',
+    year: 2020,
+    href: 'https://doi.org/10.1038/s41467-020-16066-2',
+  },
+  {
+    tag: 'BIOLOGY OF REPRODUCTION',
+    title:
+      'Ovarian cancer and the evolution of subtype classifications using transcriptional profiling',
+    authors: '<strong>Cook DP</strong>, Vanderhyden BC',
+    year: 2019,
+  },
+  {
+    tag: 'PLOS GENETICS',
+    title:
+      'Single-cell RNA sequencing reveals transcriptional dynamics of estrogen-induced dysplasia in the ovarian surface epithelium',
+    authors:
+      'Vuong NH*, <strong>Cook DP*</strong>, Forrest LA, Carter LE, Robineau-Charette P, Kofsky JM, Hodgkinson KM, Vanderhyden BC',
+    year: 2018,
+    href: 'https://doi.org/10.1371/journal.pgen.1007788',
+  },
+];
+
+// Group by year, descending.
+const byYear = publications.reduce<Record<number, Pub[]>>((acc, p) => {
+  (acc[p.year] ||= []).push(p);
+  return acc;
+}, {});
+const years = Object.keys(byYear)
+  .map(Number)
+  .sort((a, b) => b - a);
+
+const total = publications.length;
+---
+
+<BaseLayout title="Publications — Cook Lab">
+  <!-- ─────────── Header ─────────── -->
+  <section class="max-w-6xl mx-auto px-5 md:px-10 pt-8 pb-8">
+    <div class="eyebrow">PUBLICATIONS</div>
+    <h1
+      class="mt-5 text-balance font-display text-navy-700"
+      style="font-size: clamp(32px, 7vw, 52px); line-height: 1.02; font-weight: 300; letter-spacing: -0.035em; max-width: 760px;"
+    >
+      Select publications from the lab.
+    </h1>
+    <p
+      class="text-navy-700/65 mt-6"
+      style="font-size: 15px; line-height: 1.6; max-width: 640px;"
+    >
+      For the complete list of publications, see Dr. Cook's
+      {' '}
+      <a
+        href="https://scholar.google.ca/citations?user=aBCxvUIAAAAJ&hl=en"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-rust-500 hover:text-rust-600 transition-colors"
+        style="text-decoration: underline; text-underline-offset: 3px;"
+      >Google Scholar</a>.
+    </p>
+    <div
+      class="mt-6 font-mono text-navy-700/45"
+      style="font-size: 11px; letter-spacing: 0.16em;"
+    >
+      {total} ENTRIES · UPDATED {new Date().toLocaleDateString('en-CA', { year: 'numeric', month: 'short' }).toUpperCase()}
+    </div>
+  </section>
+
+  <!-- ─────────── Year-grouped list ─────────── -->
+  <section class="border-t border-navy-700/10">
+    <div class="max-w-6xl mx-auto px-5 md:px-10 py-8">
+      {years.map((year, idx) => (
+        <div class={idx > 0 ? 'mt-6' : ''}>
+          <div class="flex items-baseline justify-between mb-2">
+            <div class="eyebrow">{year}</div>
+            <div
+              class="font-mono text-navy-700/45"
+              style="font-size: 10px; letter-spacing: 0.1em;"
+            >
+              {byYear[year].length} {byYear[year].length === 1 ? 'PAPER' : 'PAPERS'}
+            </div>
+          </div>
+          {byYear[year].map((p) => {
+            const Tag = p.href ? 'a' : 'div';
+            return (
+              <Tag
+                href={p.href}
+                target={p.href ? '_blank' : undefined}
+                rel={p.href ? 'noopener noreferrer' : undefined}
+                class:list={[
+                  'flex gap-5 items-start py-3 border-t border-navy-700/10',
+                  p.href && 'group'
+                ]}
+                style="text-decoration: none;"
+              >
+                <div class="flex-1">
+                  <div
+                    class="font-mono text-rust-500"
+                    style="font-size: 9px; letter-spacing: 0.1em;"
+                  >
+                    {p.tag} · {p.year}
+                  </div>
+                  <div
+                    class="font-display text-navy-700 mt-0.5"
+                    style="font-size: 16px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.3;"
+                  >
+                    {p.title}
+                  </div>
+                  <div class="text-navy-700/65 mt-0.5" style="font-size: 12px;" set:html={p.authors}>
+                  </div>
+                </div>
+                {p.href && (
+                  <div
+                    class="text-navy-700/45 group-hover:text-rust-500 transition-colors shrink-0"
+                    style="font-size: 16px;"
+                  >→</div>
+                )}
+              </Tag>
+            );
+          })}
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
