@@ -46,7 +46,7 @@ const piLinks = [
   { label: 'dpcook.com', href: 'https://dpcook.com' },
   { label: 'Email', href: 'mailto:dacook@ohri.ca' },
   { label: 'Scholar', href: 'https://scholar.google.ca/citations?hl=en&pli=1&user=aBCxvUIAAAAJ' },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/david-cook-43266577/' },
+  { label: 'LinkedIn', href: 'https://ca.linkedin.com/in/david-cook-43266577' },
 ];
 
 ---
@@ -131,9 +131,6 @@ const piLinks = [
     <div class="max-w-6xl mx-auto px-5 md:px-10 py-16">
       <div class="flex items-baseline justify-between border-b border-navy-700/10 pb-4 mb-8">
         <div class="eyebrow">LAB MEMBERS</div>
-        <div class="font-mono text-navy-700/45 uppercase" style="font-size: 11px; letter-spacing: 0.10em;">
-          {String(members.length).padStart(2, '0')}
-        </div>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -152,7 +149,7 @@ const piLinks = [
             ) : (
               <div
                 class="w-full rounded-md flex items-center justify-center mb-4"
-                style={`aspect-ratio: 1 / 1; background: ${dv[m.c % dv.length]}; opacity: 0.92;`}
+                style="aspect-ratio: 1 / 1; background: #64748B; opacity: 0.92;"
               >
                 <span
                   class="font-display text-white"

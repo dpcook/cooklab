@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import UmapSpatialTwin from '../components/UmapSpatialTwin.astro';
+import TaglineMark from '../components/TaglineMark.astro';
 
 const questions = [
   {
@@ -48,19 +49,19 @@ const latest = [
     tag: 'FUNDING · 2025',
     title: 'CIHR Project Grant awarded — targeting malignant cell states in ovarian cancer',
     meta: '2025–2030 · $1.03M',
-    href: '/research/ovarian-cancer',
+    href: '/research',
   },
   {
     tag: 'FUNDING · 2025',
     title: 'Cook Lab joins $6.5M CCS Breakthrough Team Grant on ovarian cancer dormancy',
     meta: 'Co-PI with Dr. Francis Rodier (CRCHUM) · 2025–2030',
-    href: '/research/ovarian-cancer',
+    href: '/research',
   },
   {
     tag: 'FUNDING · 2025',
     title: 'CIHR Project Grant awarded — racial and ethnic disparities in endometriosis',
     meta: 'with Dr. Sony Singh and Benjamin Tsang · 2025–2030 · $1.05M',
-    href: '/research/endometriosis',
+    href: '/research',
   },
 ];
 ---
@@ -80,11 +81,8 @@ const latest = [
             style="font-style: italic; font-weight: 400;"
           >prevention, detection, and treatment</em>.
         </h1>
-        <div
-          class="font-display text-navy-700/45 mt-5"
-          style="font-size: 13px; font-style: italic; letter-spacing: 0.02em;"
-        >
-          Decode · Design · Deliver.
+        <div class="mt-5 text-navy-700">
+          <TaglineMark size={18} showMark={false} layout="inline-tight" />
         </div>
         <div class="mt-7 flex flex-wrap gap-3">
           <a

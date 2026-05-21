@@ -74,7 +74,6 @@ const pillars = [
     n: '04',
     t: 'Ottawa GynePath Biobank',
     b: 'Our research is powered by patient-contributed samples and clinical data, grounding every project in human biology from the start.',
-    href: '/biobank',
     cta: 'More info soon',
   },
 ];
@@ -253,11 +252,8 @@ const questionGroups = [
                 {p.b}
               </p>
               {p.cta && (
-                <div
-                  class="text-rust-500 mt-3 flex items-center gap-1"
-                  style="font-size: 12px; font-weight: 500;"
-                >
-                  <span>{p.cta}</span><span aria-hidden="true">→</span>
+                <div class="text-navy-700/45 text-xs font-medium italic mt-3">
+                  {p.cta}
                 </div>
               )}
             </Tag>
