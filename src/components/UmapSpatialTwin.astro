@@ -141,10 +141,10 @@ const data = {
     for (let i = 0; i < N; i++) buckets[ci[i]].push(i);
 
     const cycle = [
-      { dur: 3200, kind: 'dwell', t: 0 },
-      { dur: 2400, kind: 'morph', from: 0, to: 1 },
       { dur: 3200, kind: 'dwell', t: 1 },
       { dur: 2400, kind: 'morph', from: 1, to: 0 },
+      { dur: 3200, kind: 'dwell', t: 0 },
+      { dur: 2400, kind: 'morph', from: 0, to: 1 },
     ];
 
     const easeInOut = (t) => (t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2);
@@ -241,8 +241,8 @@ const data = {
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduced) {
-      drawStatic(0);
-      window.addEventListener('resize', () => { resize(); drawStatic(0); });
+      drawStatic(1);
+      window.addEventListener('resize', () => { resize(); drawStatic(1); });
       return;
     }
 
