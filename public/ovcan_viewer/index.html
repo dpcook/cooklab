@@ -151,19 +151,19 @@ h1 em{font-style:normal;color:var(--rust)}
   <div class="search-card">
     <p class="search-label">Gene lookup</p>
     <div class="search-row">
-      <input id="q" type="text" autocomplete="off" spellcheck="false" placeholder="e.g. CLDN6, MSLN, PAX8, WT1 …" aria-label="Gene symbol">
+      <input id="q" type="text" autocomplete="off" spellcheck="false" placeholder="e.g. WT1, MSLN, PAX8 …" aria-label="Gene symbol">
     </div>
     <div id="suggest" role="listbox"></div>
     <div class="hint" id="hint">Loading data…</div>
     <div class="chips">
       <span class="cl">Try</span>
-      <span class="chip" data-g="CLDN6">CLDN6</span>
+      <span class="chip" data-g="WT1">WT1</span>
       <span class="chip" data-g="MSLN">MSLN</span>
       <span class="chip" data-g="PAX8">PAX8</span>
-      <span class="chip" data-g="WT1">WT1</span>
       <span class="chip" data-g="FOLR1">FOLR1</span>
       <span class="chip" data-g="ERBB2">ERBB2</span>
       <span class="chip" data-g="MUC16">MUC16</span>
+      <span class="chip" data-g="CLDN6">CLDN6</span>
     </div>
   </div>
 
@@ -247,7 +247,7 @@ async function boot(){
   $("hint").innerHTML = SYMBOLS.length.toLocaleString()+" gene symbols · start typing, or pick a quick example.";
   wire();
   const urlGene=new URLSearchParams(location.search).get("gene");
-  show(urlGene || "CLDN6");   // ?gene=SYMBOL for shareable links; CLDN6 demo otherwise
+  show(urlGene || "WT1");   // ?gene=SYMBOL for shareable links; WT1 demo otherwise
 }
 
 /* ---------- typeahead ---------- */
