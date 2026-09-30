@@ -1,35 +1,25 @@
 ---
 import TaglineMark from './TaglineMark.astro';
 
+interface Props {
+  dark?: boolean;
+}
+const { dark = false } = Astro.props;
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="bg-surface-200 border-t border-navy-700/10 mt-6 md:mt-10 text-navy-700">
-  <div class="max-w-6xl mx-auto px-5 md:px-10 py-6">
-    <div class="grid gap-5 md:gap-10 items-center grid-cols-1 md:grid-cols-[1.1fr_1.3fr_1fr]">
-      <!-- Tagline lockup -->
-      <div class="md:text-left text-center">
-        <TaglineMark size={15} markSize={20} layout="inline-tight" />
-      </div>
+<footer class:list={['border-t', dark ? 'bg-ground border-white/8 text-on-dark' : 'bg-surface-200 border-navy-700/10 text-navy-700']}>
+  <div class="wrap py-10 grid gap-6 md:gap-12 items-start grid-cols-1 md:grid-cols-[1fr_1.2fr_auto]">
+    <TaglineMark size={16} markSize={22} markColor={dark ? 'var(--color-rust-400)' : undefined} />
 
-      <!-- Acknowledgement -->
-      <div
-        class="text-navy-700/55 leading-[1.55] text-center mx-auto"
-        style="font-size: 12px; max-width: 40ch;"
-      >
-        We are grateful to the patients and funders who continue to support our work.
-      </div>
+    <p class="meta m-0 max-w-[44ch]">
+      We are grateful to the patients and funders who continue to support our work.
+    </p>
 
-      <!-- Contact -->
-      <div class="text-center md:text-right text-[12px] text-navy-700/65 leading-[1.6]">
-        <a href="mailto:dacook@ohri.ca" class="text-navy-700/65 hover:text-rust-500" style="text-decoration:none;">
-          dacook@ohri.ca
-        </a>
-        <br />
-        501 Smyth Rd · Ottawa
-        <br />
-        <span class="text-navy-700/45">© {currentYear} Cook Lab</span>
-      </div>
+    <div class="meta md:text-right">
+      <a href="mailto:dacook@ohri.ca" class:list={[dark ? 'text-on-dark hover:text-rust-200' : 'text-navy-700 hover:text-rust-500']}>dacook@ohri.ca</a><br />
+      501 Smyth Road, Ottawa<br />
+      © {currentYear} Cook Lab
     </div>
   </div>
 </footer>

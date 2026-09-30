@@ -21,70 +21,41 @@ const tracks = [
 ---
 
 <BaseLayout title="Join — Cook Lab">
-  {/* ── Hero */}
-  <section class="bg-white">
-    <div class="max-w-6xl mx-auto px-5 md:px-10 pt-8 pb-12 grid md:grid-cols-[1.4fr_1fr] gap-12 items-center">
+  <!-- Header -->
+  <section>
+    <div class="wrap pt-14 pb-14 md:pt-20 md:pb-20 grid gap-10 md:gap-14 items-center grid-cols-1 md:grid-cols-[1.3fr_1fr]">
       <div>
-        <div class="eyebrow">JOIN THE LAB</div>
-        <h1
-          class="font-display text-navy-700 mt-4"
-          style="font-weight: 300; letter-spacing: -0.04em; font-size: clamp(54px, 11vw, 76px); line-height: 0.95;"
-        >
-          Join us.
-        </h1>
-        <p class="mt-6 text-navy-700/65 text-[15px] leading-[1.65] max-w-xl">
+        <h1 style="font-size: clamp(56px, 10vw, 84px); line-height: 0.95; letter-spacing: -0.045em;">Join us.</h1>
+        <p class="mt-7 mb-0 text-[17px] text-navy-700/75 leading-[1.7] max-w-xl">
           We're always excited to hear from talented trainees who share our commitment to
           understanding and treating gynecologic disease. Our lab is home to people from
           diverse fields and backgrounds, and we prioritize mentorship and autonomy. We're
           an energetic team that values ambition, drive, and curiosity.
         </p>
       </div>
-      <div class="justify-self-center md:justify-self-end w-full">
-        <img
-          src="/lab/group-stairs.jpeg"
-          alt="Cook Lab members"
-          class="block w-full max-w-[420px] rounded-lg mx-auto md:mx-0"
-          style="aspect-ratio: 3 / 2; object-fit: cover;"
-        />
-      </div>
+      <img
+        src="/lab/group-stairs.jpeg"
+        alt="Cook Lab members"
+        class="block w-full rounded-2xl"
+        style="aspect-ratio: 3 / 2; object-fit: cover;"
+      />
     </div>
   </section>
 
-  {/* ── Tracks */}
-  <section class="bg-white border-t border-navy-700/10">
-    <div class="max-w-6xl mx-auto px-5 md:px-10 py-14">
-      <div class="eyebrow">HOW TO REACH US</div>
-      <div class="mt-8">
+  <!-- Tracks -->
+  <section class="border-t border-navy-700/10">
+    <div class="wrap py-16 md:py-24">
+      <h2 class="section-title">How to reach us</h2>
+      <div class="mt-10">
         {tracks.map((t, i) => (
-          <div
-            class:list={[
-              'grid md:grid-cols-[60px_1.1fr_1.4fr] gap-7 py-7 items-start',
-              i === 0 ? '' : 'border-t border-navy-700/10',
-            ]}
-          >
-            <div
-              class="font-mono text-rust-500 text-[12px]"
-              style="letter-spacing: 0.1em; font-variant-numeric: tabular-nums;"
-            >
-              0{i + 1}
-            </div>
+          <div class:list={['grid gap-5 md:gap-14 py-8 items-start grid-cols-1 md:grid-cols-[1.1fr_1fr]', i === 0 ? 'border-t border-navy-700/15' : 'border-t border-navy-700/10']}>
             <div>
-              <h2
-                class="font-display text-navy-700"
-                style="font-size: 22px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.15;"
-              >
-                {t.title}
-              </h2>
-              <p class="text-navy-700/65 text-[13.5px] leading-[1.6] mt-3">{t.body}</p>
+              <h3 class="item-title text-[24px]">{t.title}</h3>
+              <p class="mt-3 mb-0 text-[15px] text-navy-700/70">{t.body}</p>
             </div>
-            <div class="bg-surface-200 border border-navy-700/10 border-l-2 border-l-rust-500 rounded-md p-5">
-              <div
-                class="font-mono text-rust-500 text-[9px] uppercase"
-                style="letter-spacing: 0.12em;"
-              >
-                HOW TO APPLY
-              </div>
-              <p class="text-navy-700 text-[12.5px] leading-[1.55] mt-2">{t.apply}</p>
+            <div class="rounded-xl bg-surface-200 p-6">
+              <h4 class="font-sans text-[15px] font-semibold tracking-normal text-navy-700" style="line-height: 1.3;">How to apply</h4>
+              <p class="mt-2 mb-0 text-[15px] text-navy-700/80">{t.apply}</p>
             </div>
           </div>
         ))}
@@ -92,45 +63,23 @@ const tracks = [
     </div>
   </section>
 
-  {/* ── Contact */}
-  <section class="bg-surface-200 border-t border-navy-700/10">
-    <div class="max-w-6xl mx-auto px-5 md:px-10 py-14">
-      <div class="grid md:grid-cols-[1.2fr_1fr] gap-10 items-center">
-        <div>
-          <div class="eyebrow">CONTACT</div>
-          <h2
-            class="font-display text-navy-700 mt-3"
-            style="font-weight: 300; font-size: clamp(24px, 4.5vw, 32px); letter-spacing: -0.03em;"
-          >
-            Dr. David P. Cook
-          </h2>
-          <a
-            href="mailto:dacook@ohri.ca"
-            class="inline-block font-mono text-rust-500 hover:text-rust-600 text-[14px] mt-2"
-            style="letter-spacing: 0.02em;"
-          >
-            dacook@ohri.ca
-          </a>
-          <p class="text-navy-700/65 text-[13px] leading-[1.6] mt-4 max-w-lg">
-            When you reach out, please tell us which of our research questions most interests
-            you, and why. This helps us understand fit before we connect further.
-          </p>
-        </div>
-        <div class="bg-white border border-navy-700/10 rounded-lg p-5">
-          <div
-            class="font-mono text-navy-700/45 text-[10px] uppercase"
-            style="letter-spacing: 0.1em;"
-          >
-            LOCATION
-          </div>
-          <address class="not-italic text-navy-700 text-[13.5px] leading-[1.6] mt-3">
-            Ottawa Hospital Research Institute<br />
-            Centre for Cancer Therapeutics<br />
-            501 Smyth Road<br />
-            Ottawa, ON
-          </address>
-        </div>
+  <!-- Contact: dark ground -->
+  <section class="dark-band">
+    <div class="wrap py-16 md:py-20 grid gap-10 md:gap-16 items-end grid-cols-1 md:grid-cols-[1.4fr_1fr]">
+      <div>
+        <h2 class="section-title text-white">Dr. David P. Cook</h2>
+        <a href="mailto:dacook@ohri.ca" class="inline-block mt-3 text-[20px]">dacook@ohri.ca</a>
+        <p class="mt-6 mb-0 text-[16px] text-navy-200 max-w-lg leading-[1.65]">
+          When you reach out, please tell us which of our research questions most interests
+          you, and why. This helps us understand fit before we connect further.
+        </p>
       </div>
+      <address class="not-italic meta text-[15px] leading-[1.7]">
+        Ottawa Hospital Research Institute<br />
+        Centre for Cancer Therapeutics<br />
+        501 Smyth Road<br />
+        Ottawa, ON
+      </address>
     </div>
   </section>
 </BaseLayout>

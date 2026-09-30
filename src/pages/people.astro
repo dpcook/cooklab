@@ -1,27 +1,23 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-// Categorical dataviz palette (rustNavy) — used for placeholder member avatars
-const dv = ['#C2410C', '#0F172A', '#0D9488', '#A16207', '#7C3AED', '#64748B', '#DC2626', '#0369A1'];
-
-// Lab members from brief §5.7 — active first, then incoming.
-// Roles per brief; "TBC" left intentionally as placeholder for v1.
+// Lab members — active first, then incoming.
 const members = [
   // Research Technician
-  { name: 'Hugh Deng', role: 'Research Technician', c: 4, photo: true },
+  { name: 'Hugh Deng', role: 'Research Technician', photo: true },
   // Postdoctoral Fellows
-  { name: 'Sarah Nersesian, PhD', role: 'Postdoctoral Fellow', c: 0, photo: true },
-  { name: 'John Abou-Hamad, PhD', role: 'Postdoctoral Fellow', c: 1, photo: true },
-  { name: 'Elizabeth Hughes, PhD', role: 'Postdoctoral Fellow', incoming: true, c: 0 },
+  { name: 'Sarah Nersesian, PhD', role: 'Postdoctoral Fellow', photo: true },
+  { name: 'John Abou-Hamad, PhD', role: 'Postdoctoral Fellow', photo: true },
+  { name: 'Elizabeth Hughes, PhD', role: 'Postdoctoral Fellow', incoming: true },
   // PhD
-  { name: 'Emma Durocher', role: 'PhD (Cellular and Molecular Medicine)', c: 2, photo: true },
-  { name: "Colin O'Dwyer", role: 'PhD (Microbiology and Immunology)', note: 'co-supervised w/ Dr. Michele Ardolino', c: 6, photo: true },
+  { name: 'Emma Durocher', role: 'PhD (Cellular and Molecular Medicine)', photo: true },
+  { name: "Colin O'Dwyer", role: 'PhD (Microbiology and Immunology)', note: 'co-supervised w/ Dr. Michele Ardolino', photo: true },
   // MSc
-  { name: 'Athena Southworth', role: 'MSc (Cellular and Molecular Medicine)', c: 3, photo: true },
+  { name: 'Athena Southworth', role: 'MSc (Cellular and Molecular Medicine)', photo: true },
   // Undergraduate
-  { name: 'Katrina Verey', role: 'Undergraduate (TMM-PhD)', c: 1, photo: true },
-  { name: 'Michelle Sukadil', role: 'Undergraduate (Biomedical Sciences)', c: 2, photo: true },
-  { name: 'Sara Popovic', role: 'Undergraduate (Computing, Queen’s University)', c: 3, photo: true },
+  { name: 'Katrina Verey', role: 'Undergraduate (TMM-PhD)', photo: true },
+  { name: 'Michelle Sukadil', role: 'Undergraduate (Biomedical Sciences)', photo: true },
+  { name: 'Sara Popovic', role: 'Undergraduate (Computing, Queen’s University)', photo: true },
 ];
 
 const alumni = [
@@ -35,7 +31,7 @@ const slugify = (name: string) =>
 
 const initials = (name: string) =>
   name
-    .replace(/[^A-Za-z\s'-]/g, '')
+    .split(',')[0]
     .split(/\s+/)
     .map((p) => p[0])
     .filter(Boolean)
@@ -46,97 +42,70 @@ const initials = (name: string) =>
 const piLinks = [
   { label: 'dpcook.com', href: 'https://dpcook.com' },
   { label: 'Email', href: 'mailto:dacook@ohri.ca' },
-  { label: 'Scholar', href: 'https://scholar.google.ca/citations?hl=en&pli=1&user=aBCxvUIAAAAJ' },
+  { label: 'Google Scholar', href: 'https://scholar.google.ca/citations?hl=en&pli=1&user=aBCxvUIAAAAJ' },
   { label: 'LinkedIn', href: 'https://ca.linkedin.com/in/david-cook-43266577' },
 ];
-
 ---
 
 <BaseLayout title="People — Cook Lab">
-  <!-- ── Intro ───────────────────────────────────────────────────────── -->
-  <section class="max-w-6xl mx-auto px-5 md:px-10 pt-8 pb-8">
-    <div class="eyebrow">PEOPLE</div>
-    <h1
-      class="font-display text-navy-700 mt-4 max-w-3xl"
-      style="font-weight: 300; letter-spacing: -0.035em; font-size: clamp(28px, 6vw, 44px); line-height: 1.05;"
-    >
-      We value
-      <em class="text-rust-500" style="font-style: italic; font-weight: 400;">curiosity</em>,
-      <em class="text-rust-500" style="font-style: italic; font-weight: 400;">care</em>, and
-      <em class="text-rust-500" style="font-style: italic; font-weight: 400;">drive</em>
-      to address the most impactful challenges in gynecologic disease.
-    </h1>
-    <p class="mt-6 text-navy-700/65 text-[15px] leading-relaxed max-w-3xl">
-      We're always looking for talented people.
-      <a href="/join" class="text-rust-500 hover:text-rust-600 font-medium">Join the lab →</a>
-    </p>
+  <!-- Intro -->
+  <section>
+    <div class="wrap pt-14 pb-12 md:pt-20 md:pb-16">
+      <h1 class="page-title max-w-4xl">
+        We value
+        <em class="text-rust-500" style="font-style: italic; font-weight: 300;">curiosity</em>,
+        <em class="text-rust-500" style="font-style: italic; font-weight: 300;">care</em>, and
+        <em class="text-rust-500" style="font-style: italic; font-weight: 300;">drive</em>
+        to address the most impactful challenges in gynecologic disease.
+      </h1>
+      <p class="mt-7 mb-0 text-[17px] text-navy-700/70">
+        We're always looking for talented people.
+        <a href="/join" class="font-medium">Join the lab →</a>
+      </p>
+    </div>
   </section>
 
-  <!-- ── PI feature card ─────────────────────────────────────────────── -->
+  <!-- PI -->
   <section class="bg-surface-200 border-t border-navy-700/10">
-    <div class="max-w-6xl mx-auto px-5 md:px-10 pt-10 pb-16">
-      <div class="eyebrow mb-6">PI</div>
-      <div class="grid gap-6 md:gap-8 p-6 md:p-8 bg-white border border-navy-700/10 rounded-xl items-start grid-cols-1 lg:grid-cols-[340px_1fr_auto]">
-        <!-- PI portrait -->
-        <img
-          src="/people/david-cook.jpeg"
-          alt="David P. Cook"
-          width="1200"
-          height="1200"
-          class="rounded-lg block w-full max-w-[340px] mx-auto lg:mx-0"
-          style="aspect-ratio: 1 / 1; object-fit: cover;"
-        />
-
-        <!-- PI text -->
-        <div class="min-w-0">
-          <div class="font-mono text-rust-500 uppercase" style="font-size: 11px; letter-spacing: 0.16em;">
-            PRINCIPAL INVESTIGATOR
-          </div>
-          <h2
-            class="font-display text-navy-700 mt-2"
-            style="font-weight: 300; letter-spacing: -0.035em; font-size: clamp(26px, 5vw, 36px); line-height: 1;"
-          >
-            David P. Cook, PhD
-          </h2>
-          <div class="mt-4 text-navy-700/65 text-[13px] leading-relaxed">
-            <span class="font-semibold text-navy-700">Scientist</span> — Cancer Research Program, Ottawa Hospital Research Institute<br />
-            <span class="font-semibold text-navy-700">Assistant Professor</span> — Dept. of Cellular &amp; Molecular Medicine, University of Ottawa
-          </div>
-          <p class="mt-5 text-navy-700/65 text-[14px] leading-relaxed max-w-xl">
-            David's research focuses on cellular plasticity in gynecologic disease. He studies how
-            cells and tissues remodel during disease and therapy. He trained in ovarian cancer with
-            Barbara Vanderhyden at the University of Ottawa and in spatial genomics with Jeff Wrana
-            at the Lunenfeld-Tanenbaum Research Institute (Toronto, ON), with work supported by a CIHR Banting
-            Postdoctoral Fellowship and recognized by a John Charles Polanyi Prize.
-          </p>
-        </div>
-
-        <!-- PI links -->
-        <div class="flex flex-wrap lg:flex-col gap-2">
+    <div class="wrap py-14 md:py-20 grid gap-8 md:gap-14 items-start grid-cols-1 md:grid-cols-[minmax(0,340px)_1fr]">
+      <img
+        src="/people/david-cook.jpeg"
+        alt="David P. Cook"
+        width="1200"
+        height="1200"
+        class="block w-full max-w-[340px] rounded-2xl"
+        style="aspect-ratio: 1 / 1; object-fit: cover;"
+      />
+      <div class="min-w-0 md:pt-2">
+        <h2 class="section-title">David P. Cook, PhD</h2>
+        <p class="mt-2 mb-0 text-[16px] text-rust-500 font-medium">Principal Investigator</p>
+        <p class="mt-5 mb-0 text-[15px] text-navy-700/70 leading-relaxed">
+          <span class="font-semibold text-navy-700">Scientist</span> — Cancer Research Program, Ottawa Hospital Research Institute<br />
+          <span class="font-semibold text-navy-700">Assistant Professor</span> — Dept. of Cellular &amp; Molecular Medicine, University of Ottawa
+        </p>
+        <p class="mt-5 mb-0 text-[16px] text-navy-700/80 leading-[1.7] max-w-2xl">
+          David's research focuses on cellular plasticity in gynecologic disease. He studies how
+          cells and tissues remodel during disease and therapy. He trained in ovarian cancer with
+          Barbara Vanderhyden at the University of Ottawa and in spatial genomics with Jeff Wrana
+          at the Lunenfeld-Tanenbaum Research Institute (Toronto, ON), with work supported by a CIHR Banting
+          Postdoctoral Fellowship and recognized by a John Charles Polanyi Prize.
+        </p>
+        <ul class="mt-7 m-0 p-0 list-none flex flex-wrap gap-x-6 gap-y-2">
           {piLinks.map((l) => (
-            <a
-              href={l.href}
-              class="px-4 py-2 text-[12px] text-navy-700 border border-navy-700/20 rounded-md text-center hover:border-rust-500 hover:text-rust-500 transition-colors"
-              style="min-width: 110px;"
-            >
-              {l.label} →
-            </a>
+            <li><a href={l.href} class="arrow-link">{l.label} <span aria-hidden="true">→</span></a></li>
           ))}
-        </div>
+        </ul>
       </div>
     </div>
   </section>
 
-  <!-- ── Team wall ───────────────────────────────────────────────────── -->
-  <section class="bg-white border-t border-navy-700/10">
-    <div class="max-w-6xl mx-auto px-5 md:px-10 py-16">
-      <div class="flex items-baseline justify-between border-b border-navy-700/10 pb-4 mb-8">
-        <div class="eyebrow">LAB MEMBERS</div>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  <!-- Lab members -->
+  <section class="border-t border-navy-700/10">
+    <div class="wrap py-16 md:py-24">
+      <h2 class="section-title">Lab members</h2>
+      <ul class="mt-10 m-0 p-0 list-none grid grid-cols-2 lg:grid-cols-3 gap-x-6 md:gap-x-8 gap-y-10">
         {members.map((m) => (
-          <div class="bg-white border border-navy-700/10 rounded-lg p-5 flex flex-col">
+          <li>
             {m.photo ? (
               <img
                 src={`/people/${slugify(m.name)}.jpeg`}
@@ -144,71 +113,41 @@ const piLinks = [
                 width="1200"
                 height="1200"
                 loading="lazy"
-                class="w-full rounded-md mb-4 block"
+                class="block w-full rounded-xl"
                 style="aspect-ratio: 1 / 1; object-fit: cover;"
               />
             ) : (
-              <div
-                class="w-full rounded-md flex items-center justify-center mb-4"
-                style="aspect-ratio: 1 / 1; background: #64748B; opacity: 0.92;"
-              >
-                <span
-                  class="font-display text-white"
-                  style="font-weight: 300; letter-spacing: -0.035em; font-size: 56px; line-height: 1;"
-                >
+              <div class="w-full rounded-xl bg-navy-400 flex items-center justify-center" style="aspect-ratio: 1 / 1;" aria-hidden="true">
+                <span class="font-display text-white" style="font-weight: 300; letter-spacing: -0.035em; font-size: clamp(36px, 6vw, 56px); line-height: 1;">
                   {initials(m.name)}
                 </span>
               </div>
             )}
-            <div class="flex items-baseline justify-between gap-2">
-              <div class="text-navy-700 font-semibold text-[15px]" style="letter-spacing: -0.01em;">
-                {m.name}
-              </div>
-              {m.incoming && (
-                <span
-                  class="font-mono text-rust-500 uppercase shrink-0"
-                  style="font-size: 9px; letter-spacing: 0.10em;"
-                >
-                  · INCOMING
-                </span>
-              )}
-            </div>
-            <div class="text-navy-700/65 text-[13px] mt-1 leading-snug">{m.role}</div>
-            {m.note && (
-              <div class="text-navy-700/45 text-[12px] mt-0.5 leading-snug">{m.note}</div>
-            )}
-          </div>
+            <p class="mt-4 mb-0 text-[16px] font-semibold text-navy-700" style="letter-spacing: -0.01em;">{m.name}</p>
+            <p class="mt-1 mb-0 text-[14px] text-navy-700/65 leading-snug">
+              {m.role}{m.incoming && <span class="text-rust-500"> · Incoming</span>}
+            </p>
+            {m.note && <p class="mt-0.5 mb-0 meta leading-snug">{m.note}</p>}
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   </section>
 
-  <!-- ── Alumni ──────────────────────────────────────────────────────── -->
+  <!-- Alumni -->
   <section class="bg-surface-200 border-t border-navy-700/10">
-    <div class="max-w-6xl mx-auto px-5 md:px-10 py-16">
-      <div class="flex items-baseline justify-between border-b border-navy-700/10 pb-4 mb-8">
-        <div class="eyebrow">ALUMNI</div>
-        <div class="font-mono text-navy-700/45 uppercase" style="font-size: 11px; letter-spacing: 0.10em;">
-          {String(alumni.length).padStart(2, '0')}
-        </div>
-      </div>
-
-      <div class="bg-white border border-navy-700/10 rounded-lg">
+    <div class="wrap py-16 md:py-20 grid gap-8 md:gap-12 grid-cols-1 md:grid-cols-[1fr_2.6fr]">
+      <h2 class="section-title">Alumni</h2>
+      <ul class="m-0 p-0 list-none">
         {alumni.map((a, i) => (
-          <div
-            class={`px-6 py-4 grid grid-cols-1 lg:grid-cols-[1.4fr_1fr_1.5fr_auto] items-baseline gap-1 lg:gap-6 ${i > 0 ? 'border-t border-navy-700/10' : ''}`}
-          >
-            <div class="text-navy-700 font-semibold text-[15px]" style="letter-spacing: -0.01em;">
-              {a.name}
-            </div>
-            <div class="text-navy-700/65 text-[13px] leading-snug">{a.role}</div>
-            <div class="text-navy-700/65 text-[13px] leading-snug">→ {a.current}</div>
-            <div class="font-mono text-navy-700/45 uppercase lg:text-right" style="font-size: 11px; letter-spacing: 0.10em;">
-              {a.year}
-            </div>
-          </div>
+          <li class:list={['py-4 grid gap-1 md:gap-6 items-baseline grid-cols-1 md:grid-cols-[1.2fr_1.6fr_0.8fr_auto]', i > 0 && 'border-t border-navy-700/10']}>
+            <span class="text-[16px] font-semibold text-navy-700">{a.name}</span>
+            <span class="text-[14px] text-navy-700/65">{a.role}</span>
+            <span class="text-[14px] text-navy-700/65">→ {a.current}</span>
+            <span class="meta tabular-nums md:text-right">{a.year}</span>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   </section>
 </BaseLayout>

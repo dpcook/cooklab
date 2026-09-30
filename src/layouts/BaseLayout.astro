@@ -7,12 +7,15 @@ interface Props {
   title: string;
   description?: string;
   image?: string;
+  /** Put the whole page, header and footer included, on the dark ground. */
+  dark?: boolean;
 }
 
 const {
   title,
   description = 'Cook Lab — Decoding Gynecologic Disease. Single-cell and spatial genomics of ovarian cancer and endometriosis at OHRI / University of Ottawa.',
-  image = '/og-default.png'
+  image = '/og-default.png',
+  dark = false,
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
@@ -20,12 +23,13 @@ const canonicalURL = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astr
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class:list={[dark && 'bg-ground']}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonicalURL} />
+    <meta name="theme-color" content={dark ? '#0A1120' : '#FFFFFF'} />
 
     <title>{title}</title>
     <meta name="title" content={title} />
@@ -46,15 +50,15 @@ const canonicalURL = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astr
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&family=Inter:ital,wght@0,400;0,500;0,600;1,400&display=swap"
       rel="stylesheet"
     />
   </head>
-  <body class="min-h-screen flex flex-col">
-    <Header currentPath={currentPath} />
+  <body class:list={['min-h-screen flex flex-col', dark && 'dark-band']}>
+    <Header currentPath={currentPath} dark={dark} />
     <main class="flex-1">
       <slot />
     </main>
-    <Footer />
+    <Footer dark={dark} />
   </body>
 </html>

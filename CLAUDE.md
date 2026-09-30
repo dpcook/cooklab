@@ -8,7 +8,7 @@ This is the **lab website**, not David's personal site (that lives at `~/Project
 
 ## Current state
 
-Greenfield. No `src/` yet. `docs/` and `brand/` hold the design context; everything else is TBD.
+Built: Home, Research hub, People, Publications, Join, plus the ovarian cancer, endometriosis and biobank pages (not yet linked from the hub; "More info soon"). Project pages under `/research/<disease>/<project>` don't exist yet. `public/ovcan_viewer/` is a separate static tool.
 
 ## Tech stack
 
@@ -47,9 +47,13 @@ Greenfield. No `src/` yet. `docs/` and `brand/` hold the design context; everyth
 - **Tagline:** *Decode. Design. Deliver.* (all three words bold; no internal alternation)
 - **Mission:** *Decode the biology of gynecologic disease to design new approaches for prevention, detection, and treatment.*
 - **Voice:** confident, ambitious, peer-to-peer. Active verbs. First-person plural. Numbers, not adjectives. **No emoji.** Avoid hype words. Avoid "we hope to / aim to / aspire to".
-- **Casing:** section labels in MONO UPPERCASE rust with `0.12–0.16em` letter-spacing (`OUR APPROACH`, `RESEARCH / OVARIAN CANCER`); body headings sentence case.
-- **Default palette:** Rust + Navy — rust `#C2410C` primary, navy `#0F172A` secondary, off-white `#F0EEE9` background.
-- **Type:** Manrope 300 display (tight tracking `-0.035em` — never bold) + Inter 15–16px body + JetBrains Mono 11px UPPERCASE eyebrows.
+- **Casing:** headings in sentence case, stating the finding or question. **No uppercase labels above headings**; a label either becomes the heading or is dropped. Metadata (dates, venues, funders) in muted Inter, sentence case.
+- **Text:** say it once. No labels that repeat the heading, no asides explaining the design or the animation.
+- **Default palette:** Rust + Navy — rust `#C2410C` primary, navy `#0F172A` secondary, white `#FFFFFF` background.
+- **Dark ground:** `#0A1120`. The homepage is dark throughout (`<BaseLayout dark>`, which also darkens the header and footer); other pages use it for hero and feature bands (`.dark-band` in `global.css`). Accent on dark is rust-400 `#EB6235`, muted text `#94A3B8`. Cells on dark: SecA `#BCC9DC`, SecB `#EB6235`, ciliated `#2BC09A`, other `#33435E`.
+- **Type:** Manrope 300 display (tight tracking `-0.035em` — never bold) + Inter 15–16px body, also for labels and numbers. **No monospace.**
+- **Panels:** only where grouping helps; never left-border accents.
+- **Motion:** shows the data changing. One ambient loop (the homepage UMAP ↔ tissue morph); everything else is viewer- or scroll-triggered. `prefers-reduced-motion` collapses to the end state.
 - **Mark:** abstract — reads as cell w/ nucleus, scRNA-seq droplet w/ gel bead, or ovary w/ developing follicles. Don't redraw or swap for a generic icon.
 - **Iconography:** Lucide stroke-based outline, weight 1.5, `currentColor`. No filled glyphs, no emoji.
 
@@ -86,7 +90,8 @@ Top nav (5 items): **Home · Research · People · Publications · Join.**
 - Mirror `~/Projects/dpcook/` patterns where possible: `BaseLayout.astro`, `Header.astro`, `Footer.astro`, `ThemeToggle.astro`, `src/styles/global.css` `@theme` block, content collections in `src/content/`.
 - Translate `docs/colors_and_type.css` variables 1:1 into the Tailwind `@theme` block. Replace dpcook's orange/blue/neutral with rust/navy/warm.
 - Mocks in `docs/website-mocks.jsx` are pixel-level intent — match the visual output, not the React structure. Astro components, plain HTML+CSS where possible, React islands only when needed.
-- Real lab data (UMAPs, spatial slides, histology) gets swapped in at engineering time; mocks use stylized SVG stand-ins from `website-mocks.jsx` (`UmapSpatialTwin`, `PhyllotaxisMark`, `HistologyTile`, `TMAGrid`, `PanelPlot`).
+- Real lab data drives the visuals. The homepage hero (`src/components/HeroMorph.astro`, WebGL2) is the title-slide animation from the 2026 Queen's seminar: 80,000 cells from one HGSC section, exported from the deck's `data/data.js` to `public/data/morph.bin` by `scripts/export-morph.py`. The research-page tile and the ovarian hero draw a static section from `src/data/embeddings.csv` (built into `/data/cells.json` by `src/pages/data/cells.json.ts`, drawn by `CellPlot.astro`). Use real data or an honest data graphic (e.g. `DiagnosisTimeline.astro`) rather than decorative stand-ins.
+- `docs/website-mocks.jsx`, `docs/web-ui-kit.html` and `docs/primitives.jsx` predate the September 2026 brand revision and still use mono uppercase labels; follow `docs/design-system.md` where they disagree.
 - Don't add features the brief doesn't ask for (no blog, no search, no comments). Build the spec, then iterate.
 
 ## Re-syncing brand from Claude Design

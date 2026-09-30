@@ -1,0 +1,136 @@
+---
+// Years from first symptoms to an endometriosis diagnosis (7–10 on average),
+// drawn on the dark ground. The line runs out to the diagnosis window once,
+// when the graphic scrolls into view.
+
+interface Props {
+  compact?: boolean;
+  class?: string;
+}
+
+const { compact = false, class: className = '' } = Astro.props;
+const years = Array.from({ length: 11 }, (_, i) => i);
+---
+
+<figure
+  class:list={['dx-timeline m-0', compact && 'is-compact', className]}
+  aria-label="Average time from first symptoms to an endometriosis diagnosis: 7 to 10 years"
+>
+  <div class="dx-labels" aria-hidden="true">
+    <span class="dx-start">First symptoms</span>
+    <span class="dx-end">Diagnosis</span>
+  </div>
+  <div class="dx-track" aria-hidden="true">
+    <div class="dx-axis"></div>
+    <div class="dx-wait"></div>
+    <div class="dx-window"></div>
+    {years.map((y) => (
+      <span class="dx-tick" style={`left: ${y * 10}%`}></span>
+    ))}
+  </div>
+  <div class="dx-years" aria-hidden="true">
+    {years.map((y) => (
+      <span style={`left: ${y * 10}%`}>{y === 10 ? '10 years' : y}</span>
+    ))}
+  </div>
+</figure>
+
+<style>
+  .dx-timeline {
+    --dx-h: 10px;
+    position: relative;
+    color: var(--color-on-dark-muted);
+    font-size: 13px;
+    padding-right: 2.5em;
+  }
+  .dx-labels {
+    position: relative;
+    height: 1.6em;
+    margin-bottom: 10px;
+    color: var(--color-on-dark);
+    font-size: 14px;
+  }
+  .dx-start { position: absolute; left: 0; }
+  .dx-end { position: absolute; left: 70%; color: var(--color-rust-200); }
+  .dx-track {
+    position: relative;
+    height: var(--dx-h);
+  }
+  .dx-axis {
+    position: absolute;
+    left: 0; right: 0; top: 50%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.14);
+  }
+  .dx-wait {
+    position: absolute;
+    left: 0; top: 50%;
+    width: 70%;
+    height: 2px;
+    margin-top: -1px;
+    background: var(--color-cell-seca);
+    transform-origin: left center;
+    transition: transform 1600ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .dx-window {
+    position: absolute;
+    left: 70%; width: 30%;
+    top: 0; bottom: 0;
+    border-radius: 999px;
+    background: var(--color-rust-400);
+    transform-origin: left center;
+    transition: opacity 500ms 1500ms, transform 700ms 1500ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .dx-tick {
+    position: absolute;
+    top: calc(50% + 7px);
+    width: 1px; height: 5px;
+    background: rgba(255, 255, 255, 0.22);
+  }
+  .dx-years {
+    position: relative;
+    height: 1.5em;
+    margin-top: 14px;
+    font-variant-numeric: tabular-nums;
+  }
+  .dx-years span {
+    position: absolute;
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+  .dx-years span:first-child { transform: none; }
+
+  /* Start state is set only once the script runs, so the graphic is complete without JS. */
+  .dx-timeline.dx-anim .dx-wait { transform: scaleX(0); }
+  .dx-timeline.dx-anim .dx-window { opacity: 0; transform: scaleX(0.2); }
+  .dx-timeline.dx-anim.is-in .dx-wait { transform: scaleX(1); }
+  .dx-timeline.dx-anim.is-in .dx-window { opacity: 1; transform: scaleX(1); }
+
+  .is-compact { font-size: 12px; }
+  .is-compact .dx-labels { font-size: 13px; }
+  .is-compact .dx-years span:not(:first-child):not(:last-child):nth-child(even) { visibility: hidden; }
+
+  @media (max-width: 480px) {
+    .dx-years span:not(:first-child):not(:last-child):nth-child(even) { visibility: hidden; }
+  }
+
+</style>
+
+<script>
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        e.target.classList.add('is-in');
+        io.unobserve(e.target);
+      }
+    },
+    { threshold: 0.6 },
+  );
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.dx-timeline').forEach((el) => {
+      el.classList.add('dx-anim');
+      io.observe(el);
+    });
+  }
+</script>

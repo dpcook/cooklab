@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* Tokens mirror docs/colors_and_type.css (Cook Lab brand, September 2026 revision). */
 @theme {
   /* ---- Rust (primary) ---- */
   --color-rust-50:  #FEF3EE;
@@ -26,10 +27,10 @@
   --color-navy-800: #0A1120;
   --color-navy-900: #050813;
 
-  /* ---- Surface neutrals (cool off-whites) ---- */
+  /* ---- Surface neutrals ---- */
   --color-surface-50:  #FFFFFF;
   --color-surface-100: #FDFEFE;
-  --color-surface-200: #F8FAFC; /* surfaceAlt — alternating section bands */
+  --color-surface-200: #F8FAFC;
   --color-surface-300: #F1F5F9;
   --color-surface-400: #E2E8F0;
 
@@ -37,10 +38,20 @@
   --color-teal-400: #2BC09A;
   --color-teal-500: #0D9488;
 
-  /* ---- Typography ---- */
+  /* ---- Dark ground (hero and feature bands) ---- */
+  --color-ground: #0A1120;
+  --color-on-dark: #F8FAFC;
+  --color-on-dark-muted: #94A3B8;
+
+  /* ---- Cell colours on the dark ground (as in the 2026 Queen's deck) ---- */
+  --color-cell-seca: #BCC9DC;
+  --color-cell-secb: #EB6235;
+  --color-cell-cil:  #2BC09A;
+  --color-cell-other: #33435E;
+
+  /* ---- Typography (no monospace) ---- */
   --font-display: "Manrope", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 
   /* ---- Animation ---- */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -54,37 +65,23 @@
 
   body {
     @apply bg-white text-navy-700 font-sans antialiased;
-    line-height: 1.55;
-    font-size: 15px;
+    font-size: 16px;
+    line-height: 1.6;
   }
 
   h1, h2, h3, h4 {
     @apply font-display;
     font-weight: 300;
     letter-spacing: -0.035em;
-    line-height: 1.05;
+    line-height: 1.08;
+    text-wrap: balance;
   }
 
-  h1 { @apply text-5xl md:text-6xl; }
-  h2 { @apply text-4xl md:text-5xl; }
-  h3 { @apply text-2xl md:text-3xl; }
-  h4 {
-    @apply text-xl md:text-2xl;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-  }
-
-  h5, h6 {
-    @apply font-sans;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    line-height: 1.3;
-  }
-  h5 { @apply text-lg; }
-  h6 { @apply text-sm; }
+  p { text-wrap: pretty; }
 
   a {
     @apply text-rust-500 hover:text-rust-600 transition-colors;
+    text-decoration: none;
   }
 
   :focus-visible {
@@ -92,20 +89,91 @@
   }
 }
 
-@layer utilities {
-  /* MONO UPPERCASE eyebrow / section label */
-  .eyebrow {
-    @apply font-mono uppercase text-rust-500;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.16em;
+@layer components {
+  /* Page container: 48px gutters on desktop */
+  .wrap {
+    @apply max-w-6xl mx-auto px-5 md:px-12;
   }
 
-  .text-balance { text-wrap: balance; }
-  .text-pretty { text-wrap: pretty; }
+  .page-title {
+    font-size: clamp(34px, 6vw, 54px);
+    line-height: 1.06;
+  }
+
+  .section-title {
+    font-size: clamp(28px, 4vw, 38px);
+    line-height: 1.1;
+  }
+
+  /* Smaller display heading inside a section */
+  .item-title {
+    @apply font-display;
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+  }
+
+  /* Research questions, set as pull quotes */
+  .question {
+    @apply font-display;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+  }
+
+  .lede {
+    font-size: clamp(17px, 2vw, 19px);
+    line-height: 1.55;
+  }
+
+  /* Metadata: dates, venues, funders. Inter, sentence case, muted. */
+  .meta {
+    @apply text-navy-700/60;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* Headline numbers */
+  .stat {
+    @apply font-display text-rust-500;
+    font-weight: 300;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .arrow-link {
+    @apply inline-flex items-center gap-1.5 font-medium text-rust-500 hover:text-rust-600;
+    font-size: 15px;
+  }
+  .arrow-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+  .btn {
+    @apply inline-flex items-center gap-1.5 rounded-lg font-medium transition-colors;
+    padding: 11px 18px;
+    font-size: 15px;
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn-primary { @apply bg-rust-500 text-white hover:bg-rust-600 hover:text-white; }
+  .btn-secondary { @apply border border-navy-700/20 text-navy-700 hover:border-navy-700/40 hover:text-navy-700; }
+
+  /* Dark ground band: add to a section to switch its colours. */
+  .dark-band {
+    @apply bg-ground text-on-dark;
+  }
+  .dark-band a:not(.btn) { @apply text-navy-200 hover:text-rust-200; }
+  .dark-band .meta { @apply text-on-dark-muted; }
+  .dark-band .stat { @apply text-rust-400; }
+  .dark-band a.arrow-link { @apply text-rust-400 hover:text-rust-200; }
+  .dark-band .btn-primary { @apply hover:bg-rust-400; }
+  .dark-band .btn-secondary { @apply border-white/25 text-on-dark hover:border-white/50 hover:text-on-dark; }
+  .dark-band :focus-visible { @apply outline-rust-400; }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;

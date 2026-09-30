@@ -1,11 +1,10 @@
 ---
-import Wordmark from './Wordmark.astro';
-
 interface Props {
   currentPath?: string;
+  dark?: boolean;
 }
 
-const { currentPath = '' } = Astro.props;
+const { currentPath = '', dark = false } = Astro.props;
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -21,28 +20,25 @@ function isActive(href: string): boolean {
 }
 ---
 
-<header class="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-navy-700/10">
-  <nav class="max-w-6xl mx-auto px-5 md:px-10 pt-5 pb-4 flex items-center gap-8">
-    <a href="/" class="text-navy-700 hover:text-navy-700 no-underline" style="text-decoration:none;">
-      <Wordmark size={20} markSize={27} />
+<header class:list={['sticky top-0 z-50 border-b', dark ? 'bg-ground border-transparent' : 'bg-white border-navy-700/10']}>
+  <nav class="wrap h-16 flex items-center gap-8" aria-label="Main">
+    <a href="/" class="shrink-0" aria-label="Cook Lab home">
+      <img src={dark ? '/brand/cooklab-wordmark-white.svg' : '/brand/cooklab-wordmark.svg'} alt="Cook Lab" width="118" height="28" class="block h-7 w-auto" />
     </a>
 
     <div class="flex-1"></div>
 
-    {/* Desktop nav */}
-    <div class="hidden md:flex items-center gap-7 text-[13px] font-medium">
+    <div class="hidden md:flex items-center gap-8 text-[15px]">
       {navLinks.map((link) => {
         const active = isActive(link.href);
         return (
           <a
             href={link.href}
+            aria-current={active ? 'page' : undefined}
             class:list={[
-              'pb-[3px] transition-colors no-underline',
-              active
-                ? 'text-navy-700 border-b-[1.5px] border-rust-500'
-                : 'text-navy-700/60 hover:text-navy-700 border-b-[1.5px] border-transparent'
+              'nav-link py-1 border-b-[1.5px] transition-colors',
+              active ? 'is-active border-rust-500' : 'border-transparent',
             ]}
-            style="text-decoration:none;"
           >
             {link.label}
           </a>
@@ -50,44 +46,39 @@ function isActive(href: string): boolean {
       })}
     </div>
 
-    {/* Hamburger */}
     <button
       id="mobile-menu-button"
       type="button"
       aria-controls="mobile-menu"
       aria-expanded="false"
       aria-label="Open menu"
-      class="md:hidden inline-flex items-center justify-center p-2 -mr-2 text-navy-700"
+      class:list={['md:hidden inline-flex items-center justify-center p-2 -mr-2', dark ? 'text-white' : 'text-navy-700']}
     >
-      <svg id="mobile-menu-icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true">
+      <svg id="mobile-menu-icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
         <line x1="4" y1="7" x2="20" y2="7" />
         <line x1="4" y1="12" x2="20" y2="12" />
         <line x1="4" y1="17" x2="20" y2="17" />
       </svg>
-      <svg id="mobile-menu-icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true" hidden>
+      <svg id="mobile-menu-icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" hidden>
         <line x1="6" y1="6" x2="18" y2="18" />
         <line x1="18" y1="6" x2="6" y2="18" />
       </svg>
     </button>
   </nav>
 
-  {/* Mobile drawer */}
-  <div
-    id="mobile-menu"
-    class="md:hidden border-t border-navy-700/10 bg-white"
-    hidden
-  >
-    <div class="max-w-6xl mx-auto px-5 py-3 flex flex-col">
+  <div id="mobile-menu" class:list={['md:hidden border-t', dark ? 'bg-ground border-white/8' : 'bg-white border-navy-700/10']} hidden>
+    <div class="wrap py-2 flex flex-col">
       {navLinks.map((link) => {
         const active = isActive(link.href);
         return (
           <a
             href={link.href}
+            aria-current={active ? 'page' : undefined}
             class:list={[
-              'py-3 text-[15px] font-medium no-underline border-b border-navy-700/10 last:border-b-0',
-              active ? 'text-rust-500' : 'text-navy-700'
+              'nav-link py-3 text-[16px] border-b last:border-b-0',
+              dark ? 'border-white/8' : 'border-navy-700/10',
+              active && 'is-active',
             ]}
-            style="text-decoration:none;"
           >
             {link.label}
           </a>
@@ -96,6 +87,14 @@ function isActive(href: string): boolean {
     </div>
   </div>
 </header>
+
+<style>
+  .nav-link { color: rgb(15 23 42 / 0.6); }
+  .nav-link:hover, .nav-link.is-active { color: var(--color-navy-700); }
+  :global(.dark-band) .nav-link { color: var(--color-on-dark-muted); }
+  :global(.dark-band) .nav-link:hover, :global(.dark-band) .nav-link.is-active { color: var(--color-on-dark); }
+  :global(.dark-band) .nav-link.is-active { border-color: var(--color-rust-400); }
+</style>
 
 <script is:inline>
   (() => {
@@ -114,11 +113,9 @@ function isActive(href: string): boolean {
     }
 
     btn.addEventListener('click', () => {
-      const open = btn.getAttribute('aria-expanded') === 'true';
-      setOpen(!open);
+      setOpen(btn.getAttribute('aria-expanded') !== 'true');
     });
 
-    // Close on escape
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') {
         setOpen(false);

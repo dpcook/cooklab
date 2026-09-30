@@ -2,9 +2,10 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 type Pub = {
-  tag: string;
+  venue: string;
+  preprint?: boolean;
   title: string;
-  /** May contain HTML — <strong> bolds Cook in the byline; * marks co-first authors. */
+  /** May contain HTML — <strong> bolds lab members in the byline; * marks co-first authors. */
   authors: string;
   year: number;
   href?: string;
@@ -14,7 +15,7 @@ type Pub = {
 // Migrated from ~/Lab/CV/cv-master.md. Reverse chronological.
 const publications: Pub[] = [
   {
-    tag: 'BIORXIV · PREPRINT',
+    venue: 'bioRxiv', preprint: true,
     title:
       'Tumour architecture shapes polarized epithelial states that predict survival in high-grade serous ovarian cancer',
     authors:
@@ -23,14 +24,14 @@ const publications: Pub[] = [
     href: 'https://www.biorxiv.org/content/10.64898/2026.05.27.727977v1',
   },
   {
-    tag: 'NATURE REVIEWS CANCER',
+    venue: 'Nature Reviews Cancer',
     title: 'Rethinking ovarian cancer III: the past decade and future directions',
     authors: 'Balkwill FR, ... <strong>Cook DP</strong>, ... Bowtell DD',
     year: 2026,
     href: 'https://doi.org/10.1038/s41568-026-00916-0',
   },
   {
-    tag: 'NATURE BIOTECHNOLOGY',
+    venue: 'Nature Biotechnology',
     title:
       'Standardized metrics for assessment and reproducibility of imaging-based spatial transcriptomics datasets',
     authors:
@@ -39,7 +40,7 @@ const publications: Pub[] = [
     href: 'https://doi.org/10.1038/s41587-025-02811-9',
   },
   {
-    tag: 'COMMUNICATIONS BIOLOGY',
+    venue: 'Communications Biology',
     title:
       'Comparative analysis of syngeneic mouse models of high-grade serous ovarian cancer',
     authors:
@@ -48,7 +49,7 @@ const publications: Pub[] = [
     href: 'https://doi.org/10.1038/s42003-023-05529-z',
   },
   {
-    tag: 'TRENDS IN CANCER',
+    venue: 'Trends in Cancer',
     title:
       'A specialist-generalist framework for epithelial-mesenchymal plasticity in cancer',
     authors: '<strong>Cook DP*</strong>, Wrana JL',
@@ -56,14 +57,14 @@ const publications: Pub[] = [
     href: 'https://doi.org/10.1016/j.trecan.2022.01.014',
   },
   {
-    tag: 'SCIENCE ADVANCES',
+    venue: 'Science Advances',
     title: 'Transcriptional census of epithelial-mesenchymal plasticity in cancer',
     authors: '<strong>Cook DP*</strong>, Vanderhyden BC',
     year: 2022,
     href: 'https://doi.org/10.1126/sciadv.abi7640',
   },
   {
-    tag: 'COMMUNICATIONS BIOLOGY',
+    venue: 'Communications Biology',
     title:
       'Transcriptional heterogeneity of stemness phenotypes in the ovarian epithelium',
     authors:
@@ -72,21 +73,21 @@ const publications: Pub[] = [
     href: 'https://doi.org/10.1038/s42003-021-02045-w',
   },
   {
-    tag: 'NATURE COMMUNICATIONS',
+    venue: 'Nature Communications',
     title: 'Context specificity of the EMT transcriptional response',
     authors: '<strong>Cook DP</strong>, Vanderhyden BC',
     year: 2020,
     href: 'https://doi.org/10.1038/s41467-020-16066-2',
   },
   {
-    tag: 'BIOLOGY OF REPRODUCTION',
+    venue: 'Biology of Reproduction',
     title:
       'Ovarian cancer and the evolution of subtype classifications using transcriptional profiling',
     authors: '<strong>Cook DP</strong>, Vanderhyden BC',
     year: 2019,
   },
   {
-    tag: 'PLOS GENETICS',
+    venue: 'PLOS Genetics',
     title:
       'Single-cell RNA sequencing reveals transcriptional dynamics of estrogen-induced dysplasia in the ovarian surface epithelium',
     authors:
@@ -104,94 +105,52 @@ const byYear = publications.reduce<Record<number, Pub[]>>((acc, p) => {
 const years = Object.keys(byYear)
   .map(Number)
   .sort((a, b) => b - a);
-
-const total = publications.length;
 ---
 
 <BaseLayout title="Publications — Cook Lab">
-  <!-- ─────────── Header ─────────── -->
-  <section class="max-w-6xl mx-auto px-5 md:px-10 pt-8 pb-8">
-    <div class="eyebrow">PUBLICATIONS</div>
-    <h1
-      class="mt-5 text-balance font-display text-navy-700"
-      style="font-size: clamp(32px, 7vw, 52px); line-height: 1.02; font-weight: 300; letter-spacing: -0.035em; max-width: 760px;"
-    >
-      Select publications from the lab.
-    </h1>
-    <p
-      class="text-navy-700/65 mt-6"
-      style="font-size: 15px; line-height: 1.6; max-width: 640px;"
-    >
-      For the complete list of publications, see Dr. Cook's
-      {' '}
-      <a
-        href="https://scholar.google.ca/citations?user=aBCxvUIAAAAJ&hl=en"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-rust-500 hover:text-rust-600 transition-colors"
-        style="text-decoration: underline; text-underline-offset: 3px;"
-      >Google Scholar</a>.
-    </p>
-    <div
-      class="mt-6 font-mono text-navy-700/45"
-      style="font-size: 11px; letter-spacing: 0.16em;"
-    >
-      {total} ENTRIES · UPDATED {new Date().toLocaleDateString('en-CA', { year: 'numeric', month: 'short' }).toUpperCase()}
+  <section>
+    <div class="wrap pt-14 pb-12 md:pt-20 md:pb-14">
+      <h1 class="page-title">Select publications from the lab.</h1>
+      <p class="mt-6 mb-0 text-[17px] text-navy-700/70 max-w-2xl">
+        For the complete list of publications, see Dr. Cook's
+        <a
+          href="https://scholar.google.ca/citations?user=aBCxvUIAAAAJ&hl=en"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="underline underline-offset-3"
+        >Google Scholar</a>.
+      </p>
     </div>
   </section>
 
-  <!-- ─────────── Year-grouped list ─────────── -->
   <section class="border-t border-navy-700/10">
-    <div class="max-w-6xl mx-auto px-5 md:px-10 py-8">
-      {years.map((year, idx) => (
-        <div class={idx > 0 ? 'mt-6' : ''}>
-          <div class="flex items-baseline justify-between mb-2">
-            <div class="eyebrow">{year}</div>
-            <div
-              class="font-mono text-navy-700/45"
-              style="font-size: 10px; letter-spacing: 0.1em;"
-            >
-              {byYear[year].length} {byYear[year].length === 1 ? 'PAPER' : 'PAPERS'}
-            </div>
-          </div>
-          {byYear[year].map((p) => {
-            const Tag = p.href ? 'a' : 'div';
-            return (
-              <Tag
-                href={p.href}
-                target={p.href ? '_blank' : undefined}
-                rel={p.href ? 'noopener noreferrer' : undefined}
-                class:list={[
-                  'flex gap-5 items-start py-3 border-t border-navy-700/10',
-                  p.href && 'group'
-                ]}
-                style="text-decoration: none;"
-              >
-                <div class="flex-1">
-                  <div
-                    class="font-mono text-rust-500"
-                    style="font-size: 9px; letter-spacing: 0.1em;"
+    <div class="wrap py-12 md:py-16">
+      {years.map((year) => (
+        <div class="grid gap-2 md:gap-12 grid-cols-1 md:grid-cols-[1fr_4fr] py-6 md:py-8 border-b border-navy-700/10 last:border-b-0">
+          <h2 class="font-display text-navy-700 text-[30px] md:text-[34px] tabular-nums" style="font-weight: 300; letter-spacing: -0.03em; line-height: 1.2;">{year}</h2>
+          <ul class="m-0 p-0 list-none">
+            {byYear[year].map((p, i) => {
+              const Tag = p.href ? 'a' : 'div';
+              return (
+                <li class:list={[i > 0 && 'mt-7']}>
+                  <Tag
+                    href={p.href}
+                    target={p.href ? '_blank' : undefined}
+                    rel={p.href ? 'noopener noreferrer' : undefined}
+                    class="group block text-navy-700 hover:text-navy-700"
                   >
-                    {p.tag} · {p.year}
-                  </div>
-                  <div
-                    class="font-display text-navy-700 mt-0.5"
-                    style="font-size: 16px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.3;"
-                  >
-                    {p.title}
-                  </div>
-                  <div class="text-navy-700/65 mt-0.5" style="font-size: 12px;" set:html={p.authors}>
-                  </div>
-                </div>
-                {p.href && (
-                  <div
-                    class="text-navy-700/45 group-hover:text-rust-500 transition-colors shrink-0"
-                    style="font-size: 16px;"
-                  >→</div>
-                )}
-              </Tag>
-            );
-          })}
+                    <span class="block text-[17px] font-medium leading-snug group-hover:text-rust-600 transition-colors" style="letter-spacing: -0.01em;">
+                      {p.title}
+                    </span>
+                    <span class="block mt-1.5 text-[14px] text-navy-700/65 leading-snug" set:html={p.authors} />
+                    <span class="block mt-1 meta">
+                      <em>{p.venue}</em>{p.preprint && ' preprint'}
+                    </span>
+                  </Tag>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       ))}
     </div>

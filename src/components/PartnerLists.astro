@@ -1,0 +1,27 @@
+---
+// Collaborators and funders at the foot of the disease pages.
+interface Props {
+  collaborators: string[];
+  funders: string[];
+}
+const { collaborators, funders } = Astro.props;
+const groups = [
+  { title: 'Key collaborators', items: collaborators },
+  { title: 'Funding', items: funders },
+];
+---
+
+<section class="border-t border-navy-700/10">
+  <div class="wrap py-14 md:py-16 grid gap-10 md:gap-14 grid-cols-1 md:grid-cols-2">
+    {groups.map((g) => (
+      <div>
+        <h2 class="font-sans text-[15px] font-semibold tracking-normal text-navy-700">{g.title}</h2>
+        <ul class="mt-4 m-0 p-0 list-none flex flex-wrap gap-2">
+          {g.items.map((item) => (
+            <li class="rounded-md border border-navy-700/12 px-3 py-1.5 text-[14px] text-navy-700/75">{item}</li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+</section>

@@ -24,10 +24,10 @@ Context document for Claude Design. Written to be self-contained — paste the r
 
 Use the existing **Cook Lab Design Spec** as the source of truth for colors, type, components, data-viz palettes, and logos. Summary:
 
-- **Palette (default):** Rust `#C2410C` primary, Navy `#1E3A5F` secondary, off-white `#F0EEE9` background. Alternates: Rust/Teal, Teal Noir (dark mode hero moments), Warm Research.
+- **Palette (default):** Rust `#C2410C` primary, Navy `#1E3A5F` secondary, white `#FFFFFF` background (light mode). Alternates: Rust/Teal, Teal Noir (dark mode hero moments), Warm Research.
 - **Type:** Manrope (light weights for display) + Inter (body). Fraunces as editorial alternative.
 - **Mark:** the three-reading cell/droplet/ovary — don't substitute.
-- **Modes:** light and dark, both shipped. Most of the site lives in light; dark mode is a toggle for eye comfort and a few hero/section moments.
+- **Modes:** light and dark, both shipped. Most of the site lives in light; dark mode is a toggle for eye comfort and a few hero/section moments. The dark ground is `#0A1120` (see `design-system.md → Dark ground`).
 
 ### 2b. Signature visual moves — the site's motion language
 
@@ -45,7 +45,7 @@ Six signature moves to draw from:
    Use consistently for project-page heroes — visually distinctive, doubles as a cell-type legend.
 
 4. **Big-number bands** (disease pages, project pages)
-   Real stats: "142 patients", "1.4M cells profiled", "38 Visium slides", "12 Xenium sections". Manrope display at ~56px, mono sub-labels.
+   Real stats: "142 patients", "1.4M cells profiled", "38 Visium slides", "12 Xenium sections". Manrope display at ~56px, Inter sub-labels.
 
 5. **Spatial Visium / Xenium grids**
    Hex-grid overlays showing niche identity or gene expression on tissue. Use for project-page figure panels and homepage accents.
@@ -54,7 +54,7 @@ Six signature moves to draw from:
    Curved lines through UMAP space showing state transitions (e.g., how SecA → SecB → Cil states emerge under treatment). Good for the treatment-resistance project page.
 
 **Interaction principles:**
-- Scroll-triggered animations, never autoplay.
+- Scroll-triggered or viewer-triggered animations. The homepage hero morph may loop gently (it shows real data); nothing else autoplays.
 - Static-first — the page must work without JavaScript and without motion.
 - Respect `prefers-reduced-motion`: animations collapse to the end-state.
 - Lazy-load heavy visualizations below the fold.
@@ -132,6 +132,8 @@ Homepage card copy for each (2-3 sentence framing, same voice throughout):
 
 Each page includes: purpose, layout, copy scaffold (real, not placeholder), visual prescriptions.
 
+**Casing note (September 2026 revision):** labels, titles and tags written in capitals below (`OUR APPROACH`, `CIHR PROJECT GRANT · 2025–2030`) give the copy, not the casing. Set them in sentence case in Inter, per `design-system.md → Casing`. A "label" above a heading is dropped or becomes the heading itself.
+
 ### 5.1 Home (/)
 
 **Purpose:** Establish identity and mission in one screen; pull visitors into the research via questions.
@@ -142,16 +144,16 @@ The homepage is intentionally lean — it establishes identity, hooks via questi
 
 1. **Hero**
    - Mark + wordmark (top-left or centered)
-   - Small line above mission: `OTTAWA HOSPITAL RESEARCH INSTITUTE · UNIVERSITY OF OTTAWA` (mono, rust, letter-spaced)
+   - Affiliation line below the tagline: *Ottawa Hospital Research Institute · University of Ottawa* (Inter, muted)
    - Mission in Manrope display (~48-56px): *Decode the biology of gynecologic disease to design new approaches for prevention, detection, and treatment.*
    - Tagline small below: *Decode · Design · Deliver.*
    - Visual anchor: the **UMAP ↔ spatial morph** animation sits to the right of the mission (or beneath on mobile). Subtle; not loud.
    - **Layout:** text column should be wider than the visual (not 50/50). Target ~60/40 so the affiliation line doesn't wrap and the mission reads in two lines max.
 
 2. **Questions we're asking**
-   - Section label (mono, rust): `QUESTIONS WE'RE ASKING`
+   - Section heading (sentence case): *Questions we're asking*
    - 3 of the 6 questions shown in a rotating card row (client-side pick on page load, or editorial choice). Each card: question in editorial italic Manrope 22-26px, 2-3 sentence framing (Inter 14px, `textMuted`), `[Explore →]` linking to project page.
-   - Below cards: `SEE ALL OUR RESEARCH →` link to Research hub.
+   - Below cards: *See all our research →* link to Research hub.
 
 3. **Latest**
    - Pattern from the existing `ArtboardLabHome` "Recent" section. 2-3 recent items. Each item: tag (`PREPRINT · 2026` / `NAT GENET · 2025`), title, authors line. Arrow to the paper.
@@ -440,8 +442,8 @@ Copy scaffolds for each of the 6 projects:
 - Header: `PUBLICATIONS` label + headline number (e.g. *Twenty-eight papers.*)
 - Filter chips: **All · Peer-reviewed · Preprints · Methods · Reviews**
 - Reverse chronological, grouped by year (subheadings: `2026 / 2025 / 2024 / ...`)
-- Each entry: year (mono), venue (italic display), title (main), authors (PI bolded), type tag (mono uppercase), DOI/preprint link
-- Highlight flag (visual treatment: left rust-border) for featured/flagship papers
+- Each entry: year, venue (italic display), title (main), authors (PI bolded), type tag (small Inter chip), DOI/preprint link
+- Highlight flag (visual treatment: a rust dot before the title) for featured/flagship papers
 
 **Data authoring:** hand-curated TypeScript or Content Collection. Migrated from David's existing CV/publications list. Paper-by-paper control over what appears and what's highlighted.
 

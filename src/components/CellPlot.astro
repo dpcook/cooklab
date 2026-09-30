@@ -1,0 +1,86 @@
+---
+// Static view of cells from one HGSC section on the dark ground, coloured by
+// cell state (SecA, SecB, ciliated, other). Data: /data/cells.json, built from
+// src/data/embeddings.csv. The homepage animation is HeroMorph.astro.
+
+interface Props {
+  mode?: 'tissue' | 'umap';
+  /** 'contain' fits the whole layout; 'cover' fills the box and crops. */
+  fit?: 'contain' | 'cover';
+  label?: string;
+  class?: string;
+}
+
+const {
+  mode = 'tissue',
+  fit = 'contain',
+  label = 'Cells from a high-grade serous ovarian tumour section, coloured by cell state',
+  class: className = '',
+} = Astro.props;
+---
+
+<figure class:list={['cell-plot m-0', className]} data-mode={mode} data-fit={fit}>
+  <canvas class="absolute inset-0 w-full h-full block" role="img" aria-label={label}></canvas>
+</figure>
+
+<script>
+  type Cells = { n: number; umapAspect: number; tissueAspect: number; tissueWidthUm: number; p: number[] };
+
+  const COLORS = ['#BCC9DC', '#EB6235', '#2BC09A', '#33435E'];
+  const DRAW_ORDER = [3, 0, 1, 2];
+  const MARGIN = 0.04;
+
+  let dataPromise: Promise<Cells> | null = null;
+  const loadCells = () => (dataPromise ??= fetch('/data/cells.json').then((r) => r.json()));
+
+  function setup(fig: HTMLElement, d: Cells) {
+    const canvas = fig.querySelector('canvas')!;
+    const ctx = canvas.getContext('2d')!;
+    const tissue = fig.dataset.mode !== 'umap';
+    const cover = fig.dataset.fit === 'cover';
+    const off = tissue ? 3 : 1;
+    const aspect = tissue ? d.tissueAspect : d.umapAspect;
+
+    function draw() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const r = canvas.getBoundingClientRect();
+      const W = (canvas.width = Math.max(1, Math.round(r.width * dpr)));
+      const H = (canvas.height = Math.max(1, Math.round(r.height * dpr)));
+      const pick = cover ? Math.max : Math.min;
+      const h = pick((W * (1 - 2 * MARGIN)) / aspect, H * (1 - 2 * MARGIN));
+      const w = h * aspect, x0 = (W - w) / 2, y0 = (H - h) / 2;
+      // ~6.5 µm dots at the tissue scale, within sensible bounds
+      const dot = tissue ? Math.min(6 * dpr, Math.max(1.6 * dpr, (w / d.tissueWidthUm) * 6.5)) : 2 * dpr;
+
+      ctx.clearRect(0, 0, W, H);
+      ctx.globalAlpha = 0.92;
+      for (const c of DRAW_ORDER) {
+        ctx.fillStyle = COLORS[c];
+        ctx.beginPath();
+        for (let i = 0; i < d.n; i++) {
+          if (d.p[i * 5] !== c) continue;
+          const x = x0 + (d.p[i * 5 + off] / 9999) * w;
+          const y = y0 + (d.p[i * 5 + off + 1] / 9999) * h;
+          ctx.moveTo(x + dot / 2, y);
+          ctx.arc(x, y, dot / 2, 0, Math.PI * 2);
+        }
+        ctx.fill();
+      }
+    }
+
+    draw();
+    new ResizeObserver(draw).observe(canvas);
+  }
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        io.unobserve(e.target);
+        loadCells().then((d) => setup(e.target as HTMLElement, d)).catch(() => {});
+      }
+    },
+    { rootMargin: '300px' },
+  );
+  document.querySelectorAll<HTMLElement>('.cell-plot').forEach((p) => io.observe(p));
+</script>

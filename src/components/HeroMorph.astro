@@ -1,0 +1,204 @@
+---
+// Homepage hero: the title-slide animation from the 2026 Queen's seminar.
+// 80,000 cells from one HGSC section move between their UMAP and tissue
+// coordinates on a loop (WebGL2, one point per cell). Data: /data/morph.bin,
+// exported by scripts/export-morph.py.
+
+interface Props {
+  /** 'left' puts the cells near the left edge of the canvas (1024px and wider) so they sit close to the text. */
+  anchor?: 'center' | 'left';
+  class?: string;
+}
+const { anchor = 'center', class: className = '' } = Astro.props;
+---
+
+<div class:list={['hero-morph relative', className]} data-anchor={anchor}>
+  <canvas
+    class="absolute inset-0 w-full h-full block"
+    role="img"
+    aria-label="Cells from a high-grade serous ovarian tumour moving between gene-expression space and their positions in the tissue"
+  ></canvas>
+</div>
+
+<script>
+  // Deck colours, one per label (SecA, intermediate, SecB, ciliated, then immune and stromal cells)
+  const COLORS = ['#BCC9DC', '#607188', '#EB6235', '#0D9488', '#0D9488', '#7C3AED', '#A78BFA', '#8B5CF6', '#C4B5FD', '#0284C7', '#38BDF8', '#334155', '#475569', '#475569', '#5EEAD4', '#5EEAD4', '#99F6E4', '#E2E8F0', '#253247'];
+  const GROUND = [10 / 255, 17 / 255, 32 / 255]; // #0A1120
+  const DWELL = 3200;
+  const MOVE = 2600;
+  const POINT = 1.48; // CSS px (the deck's 1.85 at its 1.25× canvas scale)
+  const ALPHA = 0.88;
+
+  type Morph = { n: number; ux: Uint16Array; uy: Uint16Array; sx: Uint16Array; sy: Uint16Array; label: Uint8Array };
+
+  function parse(buf: ArrayBuffer): Morph {
+    const n = new DataView(buf).getUint32(0, true);
+    const at = (k: number) => new Uint16Array(buf, 4 + k * n * 2, n);
+    return { n, ux: at(0), uy: at(1), sx: at(2), sy: at(3), label: new Uint8Array(buf, 4 + 8 * n, n) };
+  }
+
+  const hex = (c: string) => [1, 3, 5].map((i) => parseInt(c.slice(i, i + 2), 16));
+
+  // Both layouts share one [-0.5, 0.5] square, as in the deck. Returns the clip-space
+  // scale and a horizontal offset; anchored left, the square's centre sits 0.58 of its
+  // width from the canvas edge, which leaves the UMAP a small margin.
+  function frame(w: number, h: number, left: boolean) {
+    const k = Math.min(w * 0.94, h * 0.92);
+    const cx = left ? Math.min(w / 2, 0.58 * k) : w / 2;
+    return [(2 * k) / w, (2 * k) / h, (2 * cx) / w - 1];
+  }
+  const wide = window.matchMedia('(min-width: 1024px)');
+
+  function webgl(canvas: HTMLCanvasElement, m: Morph, left: () => boolean) {
+    const gl = canvas.getContext('webgl2', { alpha: false, antialias: true });
+    if (!gl) return null;
+    const vs = `#version 300 es
+      in vec2 a_u; in vec2 a_s; in vec3 a_color;
+      uniform vec2 u_scale; uniform float u_offset, u_t, u_size;
+      out vec3 v_color;
+      void main() {
+        vec2 u = a_u / 65535.0 - 0.5, s = a_s / 65535.0 - 0.5;
+        gl_Position = vec4(mix(u, s, u_t) * u_scale + vec2(u_offset, 0.0), 0.0, 1.0);
+        gl_PointSize = u_size;
+        v_color = a_color;
+      }`;
+    const fs = `#version 300 es
+      precision highp float;
+      in vec3 v_color; uniform float u_alpha; out vec4 outColor;
+      void main() {
+        vec2 d = gl_PointCoord - 0.5;
+        if (dot(d, d) > 0.25) discard;
+        outColor = vec4(v_color, u_alpha);
+      }`;
+    const sh = (type: number, src: string) => {
+      const s = gl.createShader(type)!;
+      gl.shaderSource(s, src);
+      gl.compileShader(s);
+      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw Error(gl.getShaderInfoLog(s) ?? 'shader');
+      return s;
+    };
+    const prog = gl.createProgram()!;
+    gl.attachShader(prog, sh(gl.VERTEX_SHADER, vs));
+    gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, fs));
+    gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw Error(gl.getProgramInfoLog(prog) ?? 'link');
+    gl.useProgram(prog);
+
+    const inter = (a: Uint16Array, b: Uint16Array) => {
+      const out = new Uint16Array(m.n * 2);
+      for (let i = 0; i < m.n; i++) { out[i * 2] = a[i]; out[i * 2 + 1] = b[i]; }
+      return out;
+    };
+    const table = COLORS.map(hex);
+    const colors = new Uint8Array(m.n * 3);
+    for (let i = 0; i < m.n; i++) colors.set(table[m.label[i]] ?? [203, 213, 225], i * 3);
+
+    const vao = gl.createVertexArray();
+    gl.bindVertexArray(vao);
+    const attr = (name: string, data: ArrayBufferView, size: number, type: number, norm: boolean) => {
+      gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+      gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
+      const loc = gl.getAttribLocation(prog, name);
+      gl.enableVertexAttribArray(loc);
+      gl.vertexAttribPointer(loc, size, type, norm, 0, 0);
+    };
+    attr('a_u', inter(m.ux, m.uy), 2, gl.UNSIGNED_SHORT, false);
+    attr('a_s', inter(m.sx, m.sy), 2, gl.UNSIGNED_SHORT, false);
+    attr('a_color', colors, 3, gl.UNSIGNED_BYTE, true);
+
+    const u = (n: string) => gl.getUniformLocation(prog, n);
+    const uScale = u('u_scale'), uOffset = u('u_offset'), uT = u('u_t'), uSize = u('u_size'), uAlpha = u('u_alpha');
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
+    return (t: number, dpr: number) => {
+      const w = canvas.width, h = canvas.height;
+      gl.viewport(0, 0, w, h);
+      gl.clearColor(GROUND[0], GROUND[1], GROUND[2], 1);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      const [fx, fy, ox] = frame(w, h, left());
+      gl.uniform2f(uScale, fx, fy);
+      gl.uniform1f(uOffset, ox);
+      gl.uniform1f(uT, t);
+      gl.uniform1f(uSize, POINT * dpr);
+      gl.uniform1f(uAlpha, ALPHA);
+      gl.drawArrays(gl.POINTS, 0, m.n);
+    };
+  }
+
+  // Without WebGL2: draw the tissue once on a 2D canvas.
+  function fallback(canvas: HTMLCanvasElement, m: Morph, left: () => boolean) {
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return null;
+    return (_t: number, dpr: number) => {
+      const w = canvas.width, h = canvas.height, [fx, fy, ox] = frame(w, h, left());
+      ctx.fillStyle = '#0A1120';
+      ctx.fillRect(0, 0, w, h);
+      ctx.globalAlpha = ALPHA;
+      const p = POINT * dpr;
+      for (let i = 0; i < m.n; i++) {
+        ctx.fillStyle = COLORS[m.label[i]];
+        const x = (w / 2) * (1 + ox + (m.sx[i] / 65535 - 0.5) * fx);
+        const y = h / 2 - (m.sy[i] / 65535 - 0.5) * fy * (h / 2);
+        ctx.fillRect(x - p / 2, y - p / 2, p, p);
+      }
+      ctx.globalAlpha = 1;
+    };
+  }
+
+  function start(root: HTMLElement, m: Morph) {
+    const canvas = root.querySelector('canvas')!;
+    const left = () => root.dataset.anchor === 'left' && wide.matches;
+    let draw: ((t: number, dpr: number) => void) | null = null;
+    try { draw = webgl(canvas, m, left); } catch { draw = null; }
+    const animated = !!draw && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    draw ??= fallback(canvas, m, left);
+    if (!draw) return;
+
+    let dpr = 1;
+    const resize = () => {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const r = canvas.getBoundingClientRect();
+      canvas.width = Math.max(1, Math.round(r.width * dpr));
+      canvas.height = Math.max(1, Math.round(r.height * dpr));
+    };
+
+    // Loop as in the deck: dwell, smoothstep move, dwell, move back. Starts on UMAP.
+    const smooth = (q: number) => q * q * (3 - 2 * q);
+    const at = (ms: number) => {
+      const ph = ms % (2 * (DWELL + MOVE));
+      if (ph < DWELL) return 0;
+      if (ph < DWELL + MOVE) return smooth((ph - DWELL) / MOVE);
+      if (ph < 2 * DWELL + MOVE) return 1;
+      return 1 - smooth((ph - 2 * DWELL - MOVE) / MOVE);
+    };
+
+    let t = animated ? 0 : 1, elapsed = 0, last = 0, raf = 0, visible = false;
+    const tick = (now: number) => {
+      if (last) elapsed += now - last;
+      last = now;
+      const next = at(elapsed);
+      if (next !== t) { t = next; draw!(t, dpr); }
+      raf = requestAnimationFrame(tick);
+    };
+    const run = () => {
+      if (!animated || raf || !visible || document.hidden) return;
+      last = 0;
+      raf = requestAnimationFrame(tick);
+    };
+    const pause = () => { cancelAnimationFrame(raf); raf = 0; };
+
+    resize();
+    draw(t, dpr);
+    new ResizeObserver(() => { resize(); draw!(t, dpr); }).observe(canvas);
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; visible ? run() : pause(); }).observe(canvas);
+    document.addEventListener('visibilitychange', () => (document.hidden ? pause() : run()));
+  }
+
+  document.querySelectorAll<HTMLElement>('.hero-morph').forEach((root) => {
+    fetch('/data/morph.bin')
+      .then((r) => r.arrayBuffer())
+      .then((buf) => start(root, parse(buf)))
+      .catch(() => {});
+  });
+</script>

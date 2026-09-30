@@ -11,7 +11,7 @@
   --font-display: 'Manrope', system-ui, sans-serif;
   --font-display-alt: 'Fraunces', Georgia, serif;
   --font-body: 'Inter', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace; /* code listings only; not for labels */
 
   --display-weight: 300;
   --display-tracking: -0.035em;
@@ -52,8 +52,15 @@
   --teal-500: #0D9488;
   --teal-400: #2BC09A;
 
-  /* Brand off-white background (warmth, not blue) */
+  /* Warm off-white surface — reserved for the Warm Research palette / editorial use, NOT the default page background */
   --bg-warm: #F0EEE9;
+
+  /* Dark ground — optional; title and section-break slides, report covers, web hero bands */
+  --ground-dark:         var(--navy-800);  /* #0A1120 */
+  --on-dark-text:        #F8FAFC;
+  --on-dark-muted:       var(--navy-300);  /* #94A3B8 */
+  --on-dark-accent:      var(--rust-400);  /* #EB6235 */
+  --on-dark-accent-soft: var(--rust-200);  /* #FABEA0 */
 
   /* Semantic */
   --success: #10B981;
@@ -62,7 +69,7 @@
   --info:    #1D4ED8;
 
   /* ---------- Semantic role tokens (light mode) ---------- */
-  --color-bg:           var(--bg-warm);
+  --color-bg:           #FFFFFF;
   --color-surface:      #FFFFFF;
   --color-surface-alt:  var(--warm-300);
   --color-elevated:     #FFFFFF;
@@ -135,21 +142,22 @@
   --fs-hero:    96px;
 }
 
-/* ---------- Dark mode ---------- */
+/* ---------- Dark ground / dark mode ----------
+   Add .dark to a page or to one section (a hero band, a cover page) to put it on the dark ground. */
 .dark, [data-theme="dark"] {
-  --color-bg:           var(--navy-900);
-  --color-surface:      var(--navy-800);
-  --color-surface-alt:  var(--navy-700);
-  --color-elevated:     var(--navy-700);
+  --color-bg:           var(--ground-dark);
+  --color-surface:      var(--navy-700);
+  --color-surface-alt:  var(--navy-600);
+  --color-elevated:     var(--navy-600);
   --color-border:       rgba(255, 255, 255, 0.08);
   --color-border-strong:rgba(255, 255, 255, 0.16);
 
-  --color-text:         #F5F5F4;
-  --color-text-muted:   rgba(245, 245, 244, 0.72);
-  --color-text-faint:   rgba(245, 245, 244, 0.48);
+  --color-text:         var(--on-dark-text);
+  --color-text-muted:   var(--on-dark-muted);
+  --color-text-faint:   rgba(248, 250, 252, 0.48);
 
-  --color-primary:      var(--rust-400);
-  --color-primary-hover:var(--rust-300);
+  --color-primary:      var(--on-dark-accent);
+  --color-primary-hover:var(--on-dark-accent-soft);
   --color-primary-soft: var(--rust-900);
   --color-secondary:    var(--navy-200);
   --color-on-secondary: var(--navy-900);
@@ -191,7 +199,8 @@ a {
 }
 a:hover { text-decoration: underline; }
 
-/* Eyebrows / metadata labels */
+/* Legacy: mono uppercase eyebrows. Kept so older templates render; don't use in new work
+   (see docs/design-system.md → Casing). */
 .eyebrow,
 .mono-label {
   font-family: var(--font-mono);
@@ -221,10 +230,8 @@ a:hover { text-decoration: underline; }
   color: var(--color-text);
 }
 .big-number-sub {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
+  font-family: var(--font-body);
+  font-size: 14px;
   color: var(--color-text-muted);
   margin-top: 8px;
 }
