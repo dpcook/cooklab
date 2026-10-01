@@ -1,7 +1,8 @@
 ---
 // Header for the inside pages: a bold page name, the page's opening line in lighter type under it
 // (set like the tagline and mission line on the homepage), and a cloud of glass tiles on the right
-// that thins into the white page. The header is as tall as its text. The default slot is the
+// that thins into the white page on every side and ends at the right edge of the content, inside
+// the page margin. The header is as tall as its text. The default slot is the
 // opening line; `sub` is an optional short line under it; `aside` replaces the tiles (for a page
 // with no tissue of its own, such as endometriosis).
 interface Props {
@@ -31,7 +32,7 @@ const hasAside = Astro.slots.has('aside');
       class="ph-cloud"
       src={`${cloud}-1600.jpg`}
       srcset={`${cloud}-800.jpg 800w, ${cloud}-1600.jpg 1600w, ${cloud}-2400.jpg 2400w`}
-      sizes="(min-width: 768px) 52vw, 100vw"
+      sizes="(min-width: 1152px) 592px, (min-width: 768px) 50vw, 100vw"
       alt=""
       aria-hidden="true"
       decoding="async"
@@ -96,11 +97,12 @@ const hasAside = Astro.slots.has('aside');
     color: rgb(15 23 42 / 0.65);
   }
   .ph-sub :global(a) { font-weight: 500; }
+  /* The right edge of the content (.wrap: 72rem wide, 3rem padding from md), and 56% of its width */
   .ph-cloud {
     position: absolute;
     top: 0;
-    right: 0;
-    width: 52%;
+    right: calc(max(0px, (100% - 72rem) / 2) + 3rem);
+    width: calc((min(100%, 72rem) - 6rem) * 0.56);
     height: 100%;
     object-fit: contain;
     object-position: right center;
@@ -112,6 +114,6 @@ const hasAside = Astro.slots.has('aside');
   @media (max-width: 767px) {
     .ph-inner { padding-top: 36px; padding-bottom: 28px; }
     .has-cloud .ph-inner { min-height: 0; }
-    .ph-cloud { position: relative; width: 100%; height: auto; margin-bottom: 8px; }
+    .ph-cloud { position: relative; right: auto; width: calc(100% - 40px); height: auto; margin: 0 20px 8px; }
   }
 </style>
