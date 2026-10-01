@@ -114,12 +114,11 @@
     line-height: 1.25;
   }
 
-  /* Research questions, set as pull quotes */
+  /* Research questions: upright and medium weight (no italics anywhere on the site) */
   .question {
     @apply font-display;
-    font-style: italic;
-    font-weight: 400;
-    letter-spacing: -0.015em;
+    font-weight: 500;
+    letter-spacing: -0.02em;
     line-height: 1.25;
   }
 
@@ -161,6 +160,7 @@
   .btn-primary { @apply bg-rust-500 text-white hover:bg-rust-600 hover:text-white; }
   .btn-navy { @apply bg-navy-700 text-white hover:bg-navy-600 hover:text-white; }
   .btn-secondary { @apply border border-navy-700/20 text-navy-700 hover:border-navy-700/40 hover:text-navy-700; }
+  .btn-light { @apply bg-white text-navy-700 hover:bg-navy-100 hover:text-navy-700; }
 
   /* Dark ground band: add to a section to switch its colours. */
   .dark-band {
@@ -170,6 +170,7 @@
   .dark-band .meta { @apply text-on-dark-muted; }
   .dark-band .stat { @apply text-rust-400; }
   .dark-band a.arrow-link { @apply text-on-dark hover:text-on-dark; }
+  .dark-band a.btn-light { @apply text-navy-700 hover:text-navy-700; }
   .dark-band .btn-primary { @apply hover:bg-rust-400; }
   .dark-band .btn-secondary { @apply border-white/25 text-on-dark hover:border-white/50 hover:text-on-dark; }
   .dark-band :focus-visible { @apply outline-rust-400; }

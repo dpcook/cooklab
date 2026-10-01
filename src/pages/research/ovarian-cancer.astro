@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import CellPlot from '../../components/CellPlot.astro';
+import PageHeader from '../../components/PageHeader.astro';
 import ProjectList from '../../components/ProjectList.astro';
 import PartnerLists from '../../components/PartnerLists.astro';
 
@@ -30,21 +30,9 @@ const funders = ['CIHR', 'Canadian Cancer Society', 'Cancer Research Society', '
 ---
 
 <BaseLayout title="Ovarian Cancer — Cook Lab">
-  <!-- Hero: dark ground, a tumour section fading in from the right -->
-  <section class="dark-band relative overflow-hidden">
-    <div class="hero-tissue absolute inset-y-0 right-0 w-full md:w-[62%]" aria-hidden="true">
-      <CellPlot mode="tissue" fit="cover" class="absolute inset-0" />
-    </div>
-    <div class="wrap relative pt-14 pb-16 md:pt-24 md:pb-28">
-      <a href="/research" class="meta">← Research</a>
-      <h1 class="mt-5 text-white" style="font-size: clamp(42px, 8vw, 72px); line-height: 1; letter-spacing: -0.04em;">
-        Ovarian cancer
-      </h1>
-      <p class="question mt-6 mb-0 max-w-xl text-navy-200" style="font-size: clamp(18px, 2.6vw, 23px); line-height: 1.35;">
-        The most lethal gynecologic malignancy. We're decoding its complexity to design smarter treatments.
-      </p>
-    </div>
-  </section>
+  <PageHeader title="Ovarian cancer" cloud="/mosaic/header-ovarian-cancer" back={{ href: '/research', label: 'Research' }}>
+    The most lethal gynecologic malignancy. We're decoding its complexity to design smarter treatments.
+  </PageHeader>
 
   <!-- The challenge -->
   <section>
@@ -80,13 +68,3 @@ const funders = ['CIHR', 'Canadian Cancer Society', 'Cancer Research Society', '
   <PartnerLists collaborators={collaborators} funders={funders} />
 </BaseLayout>
 
-<style>
-  .hero-tissue {
-    opacity: 0.55;
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 45%);
-    mask-image: linear-gradient(to right, transparent 0%, #000 45%);
-  }
-  @media (max-width: 767px) {
-    .hero-tissue { opacity: 0.3; }
-  }
-</style>

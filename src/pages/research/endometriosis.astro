@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import DiagnosisTimeline from '../../components/DiagnosisTimeline.astro';
+import PageHeader from '../../components/PageHeader.astro';
 import ProjectList from '../../components/ProjectList.astro';
 import PartnerLists from '../../components/PartnerLists.astro';
 
@@ -36,24 +37,16 @@ const funders = ['CIHR', 'Endometriosis Foundation', 'OHRI Catalyst'];
 
 <BaseLayout title="Endometriosis — Cook Lab">
   <!-- Hero: dark ground, the diagnostic delay as a timeline -->
-  <section class="dark-band">
-    <div class="wrap pt-14 pb-16 md:pt-24 md:pb-24">
-      <a href="/research" class="meta">← Research</a>
-      <h1 class="mt-5 text-white" style="font-size: clamp(42px, 8vw, 72px); line-height: 1; letter-spacing: -0.04em;">
-        Endometriosis
-      </h1>
-      <p class="question mt-6 mb-0 max-w-2xl text-navy-200" style="font-size: clamp(18px, 2.6vw, 23px); line-height: 1.35;">
-        A chronic inflammatory disease that shapes millions of lives — and a frontier for modern genomics.
-      </p>
-      <div class="mt-14 md:mt-20 grid gap-8 md:gap-14 items-end grid-cols-1 md:grid-cols-[auto_1fr]">
-        <div>
-          <div class="stat" style="font-size: clamp(52px, 8vw, 76px);">7–10</div>
-          <p class="meta mt-3 mb-0">years to diagnosis, on average</p>
-        </div>
-        <DiagnosisTimeline class="w-full pb-1" />
+  <PageHeader title="Endometriosis" back={{ href: '/research', label: 'Research' }}>
+    A chronic inflammatory disease that shapes millions of lives — and a frontier for modern genomics.
+    <div slot="aside" class="flex flex-col gap-8">
+      <div>
+        <div class="stat" style="font-size: clamp(52px, 7vw, 72px);">7–10</div>
+        <p class="meta mt-3 mb-0">years to diagnosis, on average</p>
       </div>
+      <DiagnosisTimeline light class="w-full pb-1" />
     </div>
-  </section>
+  </PageHeader>
 
   <!-- The challenge -->
   <section>

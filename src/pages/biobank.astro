@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
 
 // Stylized tissue microarray: 8 × 6 cores. A stand-in until real TMA imagery is swapped in.
 const fills = ['#CBD5E1', '#94A3B8', '#64748B', '#334155', '#F59065', '#C2410C'];
@@ -50,26 +51,24 @@ const paths = [
 ---
 
 <BaseLayout title="Biobank — Cook Lab">
-  <!-- Hero -->
+  <PageHeader title="Ottawa GynePath Biobank" cloud="/mosaic/header-biobank">
+    The engine of our research — powered by patient partnership.
+  </PageHeader>
+
+  <!-- About -->
   <section>
-    <div class="wrap pt-14 pb-14 md:pt-20 md:pb-20 grid gap-10 md:gap-16 items-center grid-cols-1 md:grid-cols-[1.2fr_1fr]">
-      <div>
-        <h1 class="page-title">Ottawa GynePath Biobank</h1>
-        <p class="question mt-5 mb-0 max-w-lg text-navy-700/70" style="font-size: clamp(18px, 2.4vw, 22px); line-height: 1.35;">
-          The engine of our research — powered by patient partnership.
+    <div class="wrap pb-16 md:pb-20 grid gap-10 md:gap-16 items-center grid-cols-1 md:grid-cols-[1.2fr_1fr]">
+      <div class="max-w-xl text-[16px] leading-[1.7]">
+        <p class="m-0">
+          The Ottawa GynePath Biobank is a growing repository of tissue, blood, organoids, and clinical data
+          contributed by patients across The Ottawa Hospital. It is the foundation every project in our lab is
+          built on.
         </p>
-        <div class="mt-8 max-w-xl text-[16px] leading-[1.7]">
-          <p class="m-0">
-            The Ottawa GynePath Biobank is a growing repository of tissue, blood, organoids, and clinical data
-            contributed by patients across The Ottawa Hospital. It is the foundation every project in our lab is
-            built on.
-          </p>
-          <p class="mt-4 mb-0 text-navy-700/70">
-            Rather than a standalone initiative, the biobank is woven into everything we do: it grounds every
-            hypothesis in human biology from the start, and it supports collaborators across Canada and
-            internationally working on the same questions.
-          </p>
-        </div>
+        <p class="mt-4 mb-0 text-navy-700/70">
+          Rather than a standalone initiative, the biobank is woven into everything we do: it grounds every
+          hypothesis in human biology from the start, and it supports collaborators across Canada and
+          internationally working on the same questions.
+        </p>
       </div>
 
       <svg viewBox={`0 0 ${tmaCols * 10} ${tmaRows * 10}`} class="w-full h-auto" role="img" aria-label="Stylized tissue microarray">

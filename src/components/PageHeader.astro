@@ -1,0 +1,117 @@
+---
+// Header for the inside pages: a bold page name, the page's opening line in lighter type under it
+// (set like the tagline and mission line on the homepage), and a cloud of glass tiles on the right
+// that thins into the white page. The header is as tall as its text. The default slot is the
+// opening line; `sub` is an optional short line under it; `aside` replaces the tiles (for a page
+// with no tissue of its own, such as endometriosis).
+interface Props {
+  title: string;
+  /** Tile cloud, a path under /mosaic/ without size or extension (`/mosaic/header-people`): the
+      image comes in 800, 1600 and 2400 px wide JPEGs, flattened onto white */
+  cloud?: string;
+  back?: { href: string; label: string };
+}
+const { title, cloud, back } = Astro.props;
+const hasSub = Astro.slots.has('sub');
+const hasAside = Astro.slots.has('aside');
+---
+
+<section class:list={['page-header', cloud && 'has-cloud']}>
+  <div class:list={['wrap ph-inner', hasAside && 'has-aside']}>
+    <div class="ph-text">
+      {back && <a href={back.href} class="meta ph-back">← {back.label}</a>}
+      <h1 class="ph-title">{title}</h1>
+      <p class="ph-intro"><slot /></p>
+      {hasSub && <p class="ph-sub"><slot name="sub" /></p>}
+    </div>
+    {hasAside && <div class="ph-aside"><slot name="aside" /></div>}
+  </div>
+  {cloud && (
+    <img
+      class="ph-cloud"
+      src={`${cloud}-1600.jpg`}
+      srcset={`${cloud}-800.jpg 800w, ${cloud}-1600.jpg 1600w, ${cloud}-2400.jpg 2400w`}
+      sizes="(min-width: 768px) 52vw, 100vw"
+      alt=""
+      aria-hidden="true"
+      decoding="async"
+      fetchpriority="high"
+    />
+  )}
+</section>
+
+<style>
+  .page-header {
+    position: relative;
+    overflow: hidden;
+  }
+  .ph-inner {
+    position: relative;
+    z-index: 1;
+    padding-top: 48px;
+    padding-bottom: 56px;
+  }
+  .has-cloud .ph-inner { min-height: 260px; }
+  .ph-inner.has-aside {
+    display: grid;
+    gap: 40px 64px;
+    align-items: end;
+  }
+  .ph-text {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .ph-back { margin-bottom: -4px; }
+  .ph-title {
+    margin: 0;
+    max-width: 620px;
+    font-weight: 700;
+    font-size: clamp(44px, 4.6vw, 64px);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+  .ph-intro {
+    margin: 0;
+    max-width: 480px;
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(19px, 1.7vw, 23px);
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+    color: rgb(15 23 42 / 0.72);
+  }
+  /* Accent phrases: rust and heavier, not italic */
+  .ph-intro :global(em) {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--color-rust-500);
+  }
+  .ph-sub {
+    margin: 4px 0 0;
+    max-width: 560px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: rgb(15 23 42 / 0.65);
+  }
+  .ph-sub :global(a) { font-weight: 500; }
+  .ph-cloud {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 52%;
+    height: 100%;
+    object-fit: contain;
+    object-position: right center;
+    display: block;
+  }
+  @media (min-width: 768px) {
+    .ph-inner.has-aside { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  }
+  @media (max-width: 767px) {
+    .ph-inner { padding-top: 36px; padding-bottom: 28px; }
+    .has-cloud .ph-inner { min-height: 0; }
+    .ph-cloud { position: relative; width: 100%; height: auto; margin-bottom: 8px; }
+  }
+</style>

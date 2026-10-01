@@ -1,0 +1,175 @@
+---
+// The image on a homepage question card: the stained section, toned to the dark ground, and the
+// same cells as glass tiles, which fade in over it, each in place, while the card is hovered or
+// focused (on touch screens, once the card scrolls into view). The cells the question is about
+// appear first, then the other cells, then the background tiles. Leaving the card fades them out.
+// `name` picks /mosaic/q-<name>-he.webp, q-<name>-tiles.webp and q-<name>.json (tile outlines
+// in the tiles image's pixels; group 0 the question's cells, 1 other cells, 2 background).
+interface Props {
+  name: string;
+}
+const { name } = Astro.props;
+---
+
+<div class="qt" data-name={name} aria-hidden="true">
+  <img class="qt-he" src={`/mosaic/q-${name}-he.webp`} alt="" width="1200" height="668" loading="lazy" decoding="async" />
+  <canvas class="qt-canvas"></canvas>
+</div>
+
+<style>
+  .qt {
+    position: relative;
+    aspect-ratio: 9 / 5;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgb(255 255 255 / 0.08);
+    background: var(--color-ground);
+  }
+  .qt-he,
+  .qt-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .qt-he { object-fit: cover; }
+</style>
+
+<script>
+  type Tile = [number, number, number, number, number[]];
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const touch = window.matchMedia('(hover: none)').matches;
+  // when each group starts to appear, as a share of the fade; each tile takes WIN to fade in
+  const STARTS = [[0, 0.4], [0.22, 0.62], [0.42, 0.72]];
+  const WIN = 0.28;
+
+  function setup(el: HTMLElement) {
+    const name = el.dataset.name!;
+    const cv = el.querySelector('canvas')!;
+    const ctx = cv.getContext('2d')!;
+    const card = (el.closest('.q-card') as HTMLElement) || el;
+    let img: HTMLImageElement | null = null;
+    let sprites: { ax: number; ay: number; bx: number; by: number; bw: number; bh: number; cx: number; cy: number; s: number }[] = [];
+    let atlas: HTMLCanvasElement | null = null;
+    let W = 1200, H = 668;
+    let p = 0, target = 0, raf = 0, prev = 0, ready = false;
+
+    const load = async () => {
+      const [data, im] = await Promise.all([
+        fetch(`/mosaic/q-${name}.json`).then((r) => r.json()),
+        new Promise<HTMLImageElement>((ok, no) => {
+          const i = new Image();
+          i.onload = () => ok(i);
+          i.onerror = no;
+          i.src = `/mosaic/q-${name}-tiles.webp`;
+        }),
+      ]);
+      img = im;
+      W = data.w; H = data.h;
+      // cut each tile out of the finished mosaic into a sprite atlas
+      const T: Tile[] = data.tiles;
+      const AW = 1024;
+      let x = 0, y = 0, rowH = 0;
+      const boxes = T.map(([cx, cy, r, g, poly]) => {
+        const grow = 1 + 1.2 / Math.max(2, r);
+        const pts: number[] = [];
+        let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+        for (let j = 0; j < poly.length; j += 2) {
+          const px = cx + (poly[j] - cx) * grow, py = cy + (poly[j + 1] - cy) * grow;
+          pts.push(px, py);
+          x0 = Math.min(x0, px); y0 = Math.min(y0, py); x1 = Math.max(x1, px); y1 = Math.max(y1, py);
+        }
+        const bx = Math.floor(x0) - 1, by = Math.floor(y0) - 1, bw = Math.ceil(x1) - bx + 2, bh = Math.ceil(y1) - by + 2;
+        if (x + bw > AW) { x = 0; y += rowH + 1; rowH = 0; }
+        const [a, b] = STARTS[g];
+        const box = { ax: x, ay: y, bx, by, bw, bh, cx, cy, pts, s: a + Math.random() * (b - a) };
+        x += bw + 1;
+        rowH = Math.max(rowH, bh);
+        return box;
+      });
+      atlas = document.createElement('canvas');
+      atlas.width = AW;
+      atlas.height = y + rowH + 1;
+      const a = atlas.getContext('2d')!;
+      for (const s of boxes) {
+        a.save();
+        a.beginPath();
+        for (let j = 0; j < s.pts.length; j += 2) {
+          const px = s.pts[j] - s.bx + s.ax, py = s.pts[j + 1] - s.by + s.ay;
+          if (j) a.lineTo(px, py); else a.moveTo(px, py);
+        }
+        a.closePath();
+        a.clip();
+        a.drawImage(im, s.bx, s.by, s.bw, s.bh, s.ax, s.ay, s.bw, s.bh);
+        a.restore();
+      }
+      sprites = boxes.sort((m, n) => m.s - n.s);
+      ready = true;
+      resize();
+      kick();
+    };
+
+    const resize = () => {
+      const dpr = Math.min(2, window.devicePixelRatio || 1);
+      cv.width = Math.round(el.clientWidth * dpr);
+      cv.height = Math.round(el.clientHeight * dpr);
+      draw();
+    };
+
+    const draw = () => {
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.globalAlpha = 1;
+      ctx.clearRect(0, 0, cv.width, cv.height);
+      if (!ready || !img || !atlas || p <= 0) return;
+      const sc = Math.max(cv.width / W, cv.height / H), ox = (cv.width - W * sc) / 2, oy = (cv.height - H * sc) / 2;
+      if (p >= 1) {
+        ctx.drawImage(img, ox, oy, W * sc, H * sc);
+        return;
+      }
+      ctx.setTransform(sc, 0, 0, sc, ox, oy);
+      for (const s of sprites) {
+        const a = Math.min(1, (p - s.s) / WIN);
+        if (a <= 0) break;
+        ctx.globalAlpha = a * a * (3 - 2 * a);            // smooth fade, no movement
+        ctx.drawImage(atlas, s.ax, s.ay, s.bw, s.bh, s.bx, s.by, s.bw, s.bh);
+      }
+      // the grout and the last details settle in at the end
+      const q = Math.max(0, (p - 0.86) / 0.14);
+      if (q > 0) {
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.globalAlpha = q;
+        ctx.drawImage(img, ox, oy, W * sc, H * sc);
+      }
+    };
+
+    const step = (now: number) => {
+      const dt = Math.min(0.05, prev ? (now - prev) / 1000 : 0);
+      prev = now;
+      const rate = target > p ? 1 / 1.4 : 1 / 0.7;     // 1.4 s to fade in, 0.7 s to fade out
+      p = target > p ? Math.min(target, p + dt * rate) : Math.max(target, p - dt * rate);
+      draw();
+      if (p !== target) raf = requestAnimationFrame(step);
+      else { raf = 0; prev = 0; }
+    };
+
+    const kick = () => {
+      if (!ready) return;
+      if (reduce) { p = target; draw(); return; }
+      if (!raf && p !== target) raf = requestAnimationFrame(step);
+    };
+
+    const go = (on: boolean) => { target = on ? 1 : 0; kick(); };
+    card.addEventListener('mouseenter', () => go(true));
+    card.addEventListener('mouseleave', () => go(false));
+    card.addEventListener('focusin', () => go(true));
+    card.addEventListener('focusout', () => go(false));
+
+    new ResizeObserver(() => ready && resize()).observe(el);
+    // load a little before the card scrolls into view; on touch screens, show the tiles once it is in view
+    new IntersectionObserver((es) => { if (es[0].isIntersecting && !img) load().catch(() => {}); }, { rootMargin: '300px 0px' }).observe(el);
+    if (touch) new IntersectionObserver((es) => { if (es[0].isIntersecting) go(true); }, { threshold: 0.6 }).observe(el);
+  }
+
+  document.querySelectorAll<HTMLElement>('.qt').forEach(setup);
+</script>

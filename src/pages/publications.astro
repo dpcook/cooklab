@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
 
 type Pub = {
   venue: string;
@@ -108,20 +109,18 @@ const years = Object.keys(byYear)
 ---
 
 <BaseLayout title="Publications — Cook Lab">
-  <section>
-    <div class="wrap pt-14 pb-12 md:pt-20 md:pb-14">
-      <h1 class="page-title">Select publications from the lab.</h1>
-      <p class="mt-6 mb-0 text-[17px] text-navy-700/70 max-w-2xl">
-        For the complete list of publications, see Dr. Cook's
-        <a
-          href="https://scholar.google.ca/citations?user=aBCxvUIAAAAJ&hl=en"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="underline underline-offset-3"
-        >Google Scholar</a>.
-      </p>
-    </div>
-  </section>
+  <PageHeader title="Publications" cloud="/mosaic/header-publications">
+    Select publications from the lab.
+    <Fragment slot="sub">
+      For the complete list of publications, see Dr. Cook's
+      <a
+        href="https://scholar.google.ca/citations?user=aBCxvUIAAAAJ&hl=en"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="underline underline-offset-3"
+      >Google Scholar</a>.
+    </Fragment>
+  </PageHeader>
 
   <section class="border-t border-navy-700/10">
     <div class="wrap py-12 md:py-16">
@@ -144,7 +143,7 @@ const years = Object.keys(byYear)
                     </span>
                     <span class="block mt-1.5 text-[14px] text-navy-700/65 leading-snug" set:html={p.authors} />
                     <span class="block mt-1 meta">
-                      <em>{p.venue}</em>{p.preprint && ' preprint'}
+                      <span>{p.venue}</span>{p.preprint && ' preprint'}
                     </span>
                   </Tag>
                 </li>

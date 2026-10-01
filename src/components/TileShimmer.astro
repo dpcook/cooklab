@@ -1,0 +1,110 @@
+---
+// A few glass tiles at a time catch the light and fade, at random, over a mosaic image that
+// fills its parent with object-fit: cover and object-position: right center. `src` is the tile
+// data written for that image (outlines in its pixels, each tile's direction toward the light).
+// Loads after the page is idle; off under prefers-reduced-motion.
+interface Props {
+  src: string;
+  class?: string;
+}
+const { src, class: className = '' } = Astro.props;
+---
+
+<canvas class:list={['tile-shimmer', className]} data-src={src} aria-hidden="true"></canvas>
+
+<style>
+  .tile-shimmer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  type Tile = [number, number, number, number, number, number, number[]] & { path?: Path2D };
+  type Data = { w: number; h: number; tiles: Tile[] };
+
+  const RATE = 12; // new glints per second over a 1440 × 800 hero at 2x
+
+  function start(cv: HTMLCanvasElement) {
+    const ctx = cv.getContext('2d');
+    const host = cv.parentElement;
+    if (!ctx || !host) return;
+    let data: Data | null = null;
+    let cw = 0, ch = 0, visible = true, raf = 0, prev = 0, acc = 0;
+    let active: { tile: Tile; t0: number; dur: number }[] = [];
+
+    const resize = () => {
+      const dpr = Math.min(2, window.devicePixelRatio || 1);
+      cw = cv.width = Math.round(host.clientWidth * dpr);
+      ch = cv.height = Math.round(host.clientHeight * dpr);
+    };
+    new ResizeObserver(resize).observe(host);
+    resize();
+    new IntersectionObserver((es) => { visible = es[0].isIntersecting; }).observe(host);
+
+    const frame = (now: number) => {
+      raf = requestAnimationFrame(frame);
+      const t = now / 1000, dt = Math.min(0.05, prev ? t - prev : 0);
+      prev = t;
+      if (!data || !visible || document.hidden || !cw) return;
+      const T = data.tiles;
+      const s = Math.max(cw / data.w, ch / data.h), ox = cw - data.w * s, oy = (ch - data.h * s) / 2;
+      acc += dt * RATE * (cw * ch) / (2880 * 1600);
+      while (acc >= 1) {
+        acc -= 1;
+        const tile = T[(Math.random() * T.length) | 0];
+        const x = ox + tile[0] * s, y = oy + tile[1] * s;
+        if (x >= 0 && y >= 0 && x <= cw && y <= ch) active.push({ tile, t0: t, dur: 1.2 + Math.random() });
+      }
+      active = active.filter((a) => t - a.t0 < a.dur);
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, cw, ch);
+      ctx.globalCompositeOperation = 'screen';
+      for (const a of active) {
+        const u = (t - a.t0) / a.dur;
+        // quick rise, slow fade
+        const e = u < 0.22 ? Math.sin((u / 0.22) * Math.PI / 2) : Math.pow(1 - (u - 0.22) / 0.78, 2);
+        const [x, y, r, hx, hy, gain, p] = a.tile;
+        if (!a.tile.path) {
+          const P = new Path2D();
+          for (let j = 0; j < p.length; j += 2) (j ? P.lineTo : P.moveTo).call(P, p[j], p[j + 1]);
+          P.closePath();
+          a.tile.path = P;
+        }
+        const k = e * Math.min(1, 0.35 + gain);
+        ctx.setTransform(s, 0, 0, s, ox, oy);
+        ctx.save();
+        ctx.clip(a.tile.path);
+        ctx.fillStyle = `rgba(255,246,232,${(0.2 * k).toFixed(3)})`;
+        ctx.fillRect(x - r * 1.5, y - r * 1.5, r * 3, r * 3);
+        // a small bright glint on the side facing the light, with a soft halo
+        const sx = x + hx * r * 0.4, sy = y + hy * r * 0.4;
+        const g = ctx.createRadialGradient(sx, sy, 0, sx, sy, r * 0.7);
+        g.addColorStop(0, `rgba(255,255,255,${k.toFixed(3)})`);
+        g.addColorStop(0.18, `rgba(255,255,255,${(0.75 * k).toFixed(3)})`);
+        g.addColorStop(0.45, `rgba(255,252,245,${(0.22 * k).toFixed(3)})`);
+        g.addColorStop(1, 'rgba(255,252,245,0)');
+        ctx.fillStyle = g;
+        ctx.fillRect(x - r * 1.5, y - r * 1.5, r * 3, r * 3);
+        ctx.restore();
+      }
+      ctx.globalCompositeOperation = 'source-over';
+    };
+
+    fetch(cv.dataset.src!)
+      .then((r) => r.json())
+      .then((d: Data) => { data = d; raf = requestAnimationFrame(frame); })
+      .catch(() => {});
+    return () => cancelAnimationFrame(raf);
+  }
+
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const go = () => document.querySelectorAll<HTMLCanvasElement>('canvas.tile-shimmer').forEach(start);
+    if ('requestIdleCallback' in window) window.requestIdleCallback(go, { timeout: 2500 });
+    else window.setTimeout(go, 1200);
+  }
+</script>

@@ -1,19 +1,20 @@
 ---
 // Years from first symptoms to an endometriosis diagnosis (7–10 on average),
-// drawn on the dark ground. The line runs out to the diagnosis window once,
-// when the graphic scrolls into view.
+// drawn on the dark ground, or on white with `light`. The line runs out to the
+// diagnosis window once, when the graphic scrolls into view.
 
 interface Props {
   compact?: boolean;
+  light?: boolean;
   class?: string;
 }
 
-const { compact = false, class: className = '' } = Astro.props;
+const { compact = false, light = false, class: className = '' } = Astro.props;
 const years = Array.from({ length: 11 }, (_, i) => i);
 ---
 
 <figure
-  class:list={['dx-timeline m-0', compact && 'is-compact', className]}
+  class:list={['dx-timeline m-0', compact && 'is-compact', light && 'is-light', className]}
   aria-label="Average time from first symptoms to an endometriosis diagnosis: 7 to 10 years"
 >
   <div class="dx-labels" aria-hidden="true">
@@ -105,6 +106,14 @@ const years = Array.from({ length: 11 }, (_, i) => i);
   .dx-timeline.dx-anim .dx-window { opacity: 0; transform: scaleX(0.2); }
   .dx-timeline.dx-anim.is-in .dx-wait { transform: scaleX(1); }
   .dx-timeline.dx-anim.is-in .dx-window { opacity: 1; transform: scaleX(1); }
+
+  .is-light { color: rgb(15 23 42 / 0.6); }
+  .is-light .dx-labels { color: var(--color-navy-700); }
+  .is-light .dx-end { color: var(--color-rust-500); }
+  .is-light .dx-axis { background: rgb(15 23 42 / 0.14); }
+  .is-light .dx-wait { background: var(--color-navy-300); }
+  .is-light .dx-window { background: var(--color-rust-500); }
+  .is-light .dx-tick { background: rgb(15 23 42 / 0.22); }
 
   .is-compact { font-size: 12px; }
   .is-compact .dx-labels { font-size: 13px; }

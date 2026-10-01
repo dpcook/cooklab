@@ -1,17 +1,19 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
 
 // Lab members — active first, then incoming.
 const members = [
-  // Research Technician
-  { name: 'Hugh Deng', role: 'Research Technician', photo: true },
+  // Research Associate
+  { name: 'John Abou-Hamad, PhD', role: 'Research Associate', photo: true },
   // Postdoctoral Fellows
   { name: 'Sarah Nersesian, PhD', role: 'Postdoctoral Fellow', photo: true },
-  { name: 'John Abou-Hamad, PhD', role: 'Postdoctoral Fellow', photo: true },
-  { name: 'Elizabeth Hughes, PhD', role: 'Postdoctoral Fellow', incoming: true },
+  { name: 'Elizabeth Hughes, PhD', role: 'Postdoctoral Fellow', photo: true },
+  { name: 'Emma Gerber, PhD', role: 'Postdoctoral Fellow', photo: true },
   // PhD
   { name: 'Emma Durocher', role: 'PhD (Cellular and Molecular Medicine)', photo: true },
   { name: "Colin O'Dwyer", role: 'PhD (Microbiology and Immunology)', note: 'co-supervised w/ Dr. Michele Ardolino', photo: true },
+  { name: 'Hugh Deng', role: 'PhD (Cellular and Molecular Medicine)', photo: true },
   // MSc
   { name: 'Athena Southworth', role: 'MSc (Cellular and Molecular Medicine)', photo: true },
   // Undergraduate
@@ -48,22 +50,13 @@ const piLinks = [
 ---
 
 <BaseLayout title="People — Cook Lab">
-  <!-- Intro -->
-  <section>
-    <div class="wrap pt-14 pb-12 md:pt-20 md:pb-16">
-      <h1 class="page-title max-w-4xl">
-        We value
-        <em class="text-rust-500" style="font-style: italic; font-weight: 300;">curiosity</em>,
-        <em class="text-rust-500" style="font-style: italic; font-weight: 300;">care</em>, and
-        <em class="text-rust-500" style="font-style: italic; font-weight: 300;">drive</em>
-        to address the most impactful challenges in gynecologic disease.
-      </h1>
-      <p class="mt-7 mb-0 text-[17px] text-navy-700/70">
-        We're always looking for talented people.
-        <a href="/join" class="font-medium">Join the lab →</a>
-      </p>
-    </div>
-  </section>
+  <PageHeader title="People" cloud="/mosaic/header-people">
+    We value <em>curiosity</em>, <em>care</em>, and <em>drive</em> to address the most impactful
+    challenges in gynecologic disease.
+    <Fragment slot="sub">
+      We're always looking for talented people. <a href="/join">Join the lab →</a>
+    </Fragment>
+  </PageHeader>
 
   <!-- PI -->
   <section class="bg-surface-200 border-t border-navy-700/10">

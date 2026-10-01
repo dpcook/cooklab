@@ -2,9 +2,11 @@
 interface Props {
   currentPath?: string;
   dark?: boolean;
+  /** Float over the first section, transparent until the page scrolls (homepage hero). */
+  overlay?: boolean;
 }
 
-const { currentPath = '', dark = false } = Astro.props;
+const { currentPath = '', dark = false, overlay = false } = Astro.props;
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -20,7 +22,14 @@ function isActive(href: string): boolean {
 }
 ---
 
-<header class:list={['sticky top-0 z-50 border-b', dark ? 'bg-ground border-transparent' : 'bg-white border-navy-700/10']}>
+<header
+  class:list={[
+    'top-0 z-50 border-b',
+    overlay ? 'site-header-overlay fixed inset-x-0 border-transparent' : 'sticky',
+    !overlay && (dark ? 'bg-ground border-transparent' : 'bg-white border-navy-700/10'),
+  ]}
+  data-overlay={overlay ? '' : undefined}
+>
   <nav class="wrap h-16 flex items-center gap-8" aria-label="Main">
     <a href="/" class="shrink-0" aria-label="Cook Lab home">
       <img src={dark ? '/brand/cooklab-wordmark-white.svg' : '/brand/cooklab-wordmark.svg'} alt="Cook Lab" width="118" height="28" class="block h-7 w-auto" />
@@ -94,6 +103,13 @@ function isActive(href: string): boolean {
   :global(.dark-band) .nav-link { color: var(--color-on-dark-muted); }
   :global(.dark-band) .nav-link:hover, :global(.dark-band) .nav-link.is-active { color: var(--color-on-dark); }
   :global(.dark-band) .nav-link.is-active { border-color: var(--color-rust-400); }
+
+  /* Over the homepage hero: clear at the top of the page, solid once it scrolls */
+  .site-header-overlay { transition: background-color 250ms, border-color 250ms; }
+  .site-header-overlay.is-solid {
+    background-color: rgb(10 17 32 / 0.96);
+    border-color: rgb(255 255 255 / 0.08);
+  }
 </style>
 
 <script is:inline>
@@ -115,6 +131,14 @@ function isActive(href: string): boolean {
     btn.addEventListener('click', () => {
       setOpen(btn.getAttribute('aria-expanded') !== 'true');
     });
+
+    const header = document.querySelector('header[data-overlay]');
+    if (header) {
+      const update = () => header.classList.toggle('is-solid', window.scrollY > 8 || btn.getAttribute('aria-expanded') === 'true');
+      update();
+      window.addEventListener('scroll', update, { passive: true });
+      btn.addEventListener('click', update);
+    }
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') {

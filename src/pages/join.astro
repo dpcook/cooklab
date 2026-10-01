@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
 
 const tracks = [
   {
@@ -21,18 +22,18 @@ const tracks = [
 ---
 
 <BaseLayout title="Join — Cook Lab">
-  <!-- Header -->
+  <PageHeader title="Join us." cloud="/mosaic/header-join">
+    We're always excited to hear from talented trainees who share our commitment to understanding and
+    treating gynecologic disease.
+  </PageHeader>
+
+  <!-- The lab -->
   <section>
-    <div class="wrap pt-14 pb-14 md:pt-20 md:pb-20 grid gap-10 md:gap-14 items-center grid-cols-1 md:grid-cols-[1.3fr_1fr]">
-      <div>
-        <h1 style="font-size: clamp(56px, 10vw, 84px); line-height: 0.95; letter-spacing: -0.045em;">Join us.</h1>
-        <p class="mt-7 mb-0 text-[17px] text-navy-700/75 leading-[1.7] max-w-xl">
-          We're always excited to hear from talented trainees who share our commitment to
-          understanding and treating gynecologic disease. Our lab is home to people from
-          diverse fields and backgrounds, and we prioritize mentorship and autonomy. We're
-          an energetic team that values ambition, drive, and curiosity.
-        </p>
-      </div>
+    <div class="wrap pb-16 md:pb-20 grid gap-10 md:gap-14 items-center grid-cols-1 md:grid-cols-[1fr_1.3fr]">
+      <p class="m-0 text-[17px] text-navy-700/75 leading-[1.7] max-w-xl">
+        Our lab is home to people from diverse fields and backgrounds, and we prioritize mentorship
+        and autonomy. We're an energetic team that values ambition, drive, and curiosity.
+      </p>
       <img
         src="/lab/group-stairs.jpeg"
         alt="Cook Lab members"
@@ -63,13 +64,13 @@ const tracks = [
     </div>
   </section>
 
-  <!-- Contact: dark ground -->
-  <section class="dark-band">
+  <!-- Contact -->
+  <section class="bg-surface-200 border-t border-navy-700/10">
     <div class="wrap py-16 md:py-20 grid gap-10 md:gap-16 items-end grid-cols-1 md:grid-cols-[1.4fr_1fr]">
       <div>
-        <h2 class="section-title text-white">Dr. David P. Cook</h2>
+        <h2 class="section-title">Dr. David P. Cook</h2>
         <a href="mailto:dacook@ohri.ca" class="inline-block mt-3 text-[20px]">dacook@ohri.ca</a>
-        <p class="mt-6 mb-0 text-[16px] text-navy-200 max-w-lg leading-[1.65]">
+        <p class="mt-6 mb-0 text-[16px] text-navy-700/70 max-w-lg leading-[1.65]">
           When you reach out, please tell us which of our research questions most interests
           you, and why. This helps us understand fit before we connect further.
         </p>

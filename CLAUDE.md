@@ -8,7 +8,7 @@ This is the **lab website**, not David's personal site (that lives at `~/Project
 
 ## Current state
 
-Built: Home, Research hub, People, Publications, Join, plus the ovarian cancer, endometriosis and biobank pages (not yet linked from the hub; "More info soon"). Project pages under `/research/<disease>/<project>` don't exist yet. `public/ovcan_viewer/` is a separate static tool.
+Built: Home (dark, glass-mosaic tagline hero), Research hub, People, Publications, Join, plus the ovarian cancer, endometriosis and biobank pages (not yet linked from the hub; "More info soon"). Project pages under `/research/<disease>/<project>` don't exist yet. `public/ovcan_viewer/` is a separate static tool.
 
 ## Tech stack
 
@@ -51,10 +51,10 @@ Built: Home, Research hub, People, Publications, Join, plus the ovarian cancer, 
 - **Text:** say it once. No labels that repeat the heading, no asides explaining the design or the animation.
 - **Default palette:** Rust + Navy — rust `#C2410C` primary, navy `#0F172A` secondary, white `#FFFFFF` background.
 - **Rust vs navy:** rust marks what the reader should find first: the hero emphasis, SecB cells, the mark, and links inside running text. Navy carries navigation and actions (the hero button `.btn-navy`, `.arrow-link`, card links, the active nav underline); slate carries categories and metadata (news tags). Hover can turn a title rust.
-- **Dark ground:** `#0A1120`. The homepage is white; `<BaseLayout dark>` still exists to put a whole page (header and footer included) on the dark ground. Other pages use it for hero and feature bands (`.dark-band` in `global.css`). The homepage animation takes `ground="light"` (default) or `"dark"` to match. Accent on dark is rust-400 `#EB6235`, muted text `#94A3B8`. Cells on dark: SecA `#BCC9DC`, SecB `#EB6235`, ciliated `#2BC09A`, other `#33435E`.
-- **Type:** Manrope 300 display (tight tracking `-0.035em` — never bold) + Inter 15–16px body, also for labels and numbers. **No monospace.**
+- **Dark ground:** `#0A1120`. The homepage is dark throughout (`<BaseLayout dark overlayHeader>`: the header floats over the hero and turns solid once the page scrolls). Every other page is white, opening with `PageHeader.astro`. `.dark-band` in `global.css` remains for small dark panels such as the research-page tiles. Accent on dark is rust-400 `#EB6235`, muted text `#94A3B8`. Cells on dark: SecA `#BCC9DC`, SecB `#EB6235`, ciliated `#2BC09A`, other `#33435E`.
+- **Type:** Manrope 300 display (tight tracking `-0.035em`) + Inter 15–16px body, also for labels and numbers. **No monospace.** Short names use Manrope 700: the homepage tagline (always bold), the page names in `PageHeader` and the disease names on the Research page. The line under each is Manrope 300 in a lighter colour; accent phrases in it are rust Manrope 600. No italics anywhere: questions (`.question`) are upright Manrope 500.
 - **Panels:** only where grouping helps; never left-border accents.
-- **Motion:** shows the data changing. One ambient loop (the homepage UMAP ↔ tissue morph); everything else is viewer- or scroll-triggered. `prefers-reduced-motion` collapses to the end state.
+- **Motion:** one ambient loop, the homepage tile shimmer (`TileShimmer.astro`): a few tiles at a time catch the light. Everything else is viewer- or scroll-triggered: the question cards' tiles fade in over the stained section on hover, and the endometriosis timeline draws in. No moving lights or sweeping bands of light; David didn't like either. `prefers-reduced-motion` turns the shimmer off.
 - **Mark:** abstract — reads as cell w/ nucleus, scRNA-seq droplet w/ gel bead, or ovary w/ developing follicles. Don't redraw or swap for a generic icon.
 - **Iconography:** Lucide stroke-based outline, weight 1.5, `currentColor`. No filled glyphs, no emoji.
 
@@ -91,7 +91,16 @@ Top nav (5 items): **Home · Research · People · Publications · Join.**
 - Mirror `~/Projects/dpcook/` patterns where possible: `BaseLayout.astro`, `Header.astro`, `Footer.astro`, `ThemeToggle.astro`, `src/styles/global.css` `@theme` block, content collections in `src/content/`.
 - Translate `docs/colors_and_type.css` variables 1:1 into the Tailwind `@theme` block. Replace dpcook's orange/blue/neutral with rust/navy/warm.
 - Mocks in `docs/website-mocks.jsx` are pixel-level intent — match the visual output, not the React structure. Astro components, plain HTML+CSS where possible, React islands only when needed.
-- Real lab data drives the visuals. The homepage hero (`src/components/HeroMorph.astro`, WebGL2) is the title-slide animation from the 2026 Queen's seminar: 80,000 cells from one HGSC section, exported from the deck's `data/data.js` to `public/data/morph.bin` by `scripts/export-morph.py`. The research-page tile and the ovarian hero draw a static section from `src/data/embeddings.csv` (built into `/data/cells.json` by `src/pages/data/cells.json.ts`, drawn by `CellPlot.astro`). Use real data or an honest data graphic (e.g. `DiagnosisTimeline.astro`) rather than decorative stand-ins.
+- Real lab data drives the visuals. The glass-mosaic images in `public/mosaic/` are Xenium sections from the HGSC cohort, rendered one tile per cell, coloured by cell type. The renderer and region scripts live in `~/Desktop/Mosaic video/glass/`; its `SPEC.md` explains them.
+  - `home-hero.webp`: 1.2 × 0.7 mm of SP24_24824, mirrored so the tissue sits on the right. `home-shimmer.json` holds the same tiles' outlines for the shimmer.
+  - `header-*-{800,1600,2400}.jpg`: one set per inside page, rendered at 4 px/µm on a pale floor (`?ground=clear&pale=1`), thinned toward the left so the tiles fade into white, then flattened onto white. They are saved as JPEGs without chroma subsampling: lossy WebP's half-resolution colour frayed the tile edges against white. `PageHeader` serves them with `srcset`.
+  - `q-*-he.webp`, `q-*-tiles.webp`, `q-*.json`: the homepage question cards (`QuestionTiles.astro`). Each is a 300 × 167 µm window of a deck region with real cell outlines and 2 px/µm H&E. The toned H&E shows at rest. On hover (or once in view on touch screens) the tiles fade in over it, each in place: the question's cell types first, then the other cells, then the background. No drop or other movement; David didn't like it.
+  - `card-ovarian-he-*.jpg`: the ovarian card on the Research page, the H&E of OTB_2384_roi06 toned to slate on white. The coloured tiles are kept for the homepage and the page headers, so they don't appear everywhere.
+  - Research page layout: each disease card carries its own three questions; the two cards share one row grid (`grid-template-rows: subgrid`), so their questions line up. No statistic on the cards. The four approach pillars sit in one row.
+  - Endometriosis tissue is EAOC-2 (Xenium, graph clusters; sources in `~/My Drive/Lab/Branding/assets/README.md`). It appears on the homepage card (`q-endo-*`) and the Research card (`card-endometriosis-he-*`), and `header-endometriosis-*` is ready for that page's header. The page header itself still shows `DiagnosisTimeline` (with `light`).
+  - The research-page tile still draws `src/data/embeddings.csv` through `CellPlot.astro`.
+  - `HeroMorph.astro` and `public/data/morph.bin`, the earlier UMAP ↔ tissue homepage animation, are no longer used.
+  - Use real data or an honest data graphic rather than decorative stand-ins.
 - `docs/website-mocks.jsx`, `docs/web-ui-kit.html` and `docs/primitives.jsx` predate the September 2026 brand revision and still use mono uppercase labels; follow `docs/design-system.md` where they disagree.
 - Don't add features the brief doesn't ask for (no blog, no search, no comments). Build the spec, then iterate.
 
