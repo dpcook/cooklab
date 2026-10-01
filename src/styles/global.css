@@ -144,8 +144,10 @@
     font-variant-numeric: tabular-nums;
   }
 
+  /* Navigation links ("See all", "Read more") are navy; rust is kept for emphasis and
+     links inside running text. */
   .arrow-link {
-    @apply inline-flex items-center gap-1.5 font-medium text-rust-500 hover:text-rust-600;
+    @apply inline-flex items-center gap-1.5 font-medium text-navy-700 hover:text-navy-700;
     font-size: 15px;
   }
   .arrow-link:hover { text-decoration: underline; text-underline-offset: 3px; }
@@ -157,6 +159,7 @@
   }
   .btn:active { transform: scale(0.98); }
   .btn-primary { @apply bg-rust-500 text-white hover:bg-rust-600 hover:text-white; }
+  .btn-navy { @apply bg-navy-700 text-white hover:bg-navy-600 hover:text-white; }
   .btn-secondary { @apply border border-navy-700/20 text-navy-700 hover:border-navy-700/40 hover:text-navy-700; }
 
   /* Dark ground band: add to a section to switch its colours. */
@@ -166,7 +169,7 @@
   .dark-band a:not(.btn) { @apply text-navy-200 hover:text-rust-200; }
   .dark-band .meta { @apply text-on-dark-muted; }
   .dark-band .stat { @apply text-rust-400; }
-  .dark-band a.arrow-link { @apply text-rust-400 hover:text-rust-200; }
+  .dark-band a.arrow-link { @apply text-on-dark hover:text-on-dark; }
   .dark-band .btn-primary { @apply hover:bg-rust-400; }
   .dark-band .btn-secondary { @apply border-white/25 text-on-dark hover:border-white/50 hover:text-on-dark; }
   .dark-band :focus-visible { @apply outline-rust-400; }

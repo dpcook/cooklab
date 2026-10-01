@@ -68,18 +68,18 @@ const latest = [
 const isExternal = (href: string) => href.startsWith('http');
 ---
 
-<BaseLayout title="Cook Lab — Decoding Gynecologic Disease" dark>
+<BaseLayout title="Cook Lab — Decoding Gynecologic Disease">
   <!-- Hero: text left, cells filling the space to its right -->
   <section class="relative overflow-hidden">
     <div class="wrap relative z-10 pt-12 pb-6 md:pt-16 lg:py-16 lg:min-h-[680px] lg:flex lg:items-center">
       <div class="lg:max-w-[35rem]">
-        <h1 class="text-white" style="font-size: clamp(36px, 5.6vw, 58px); line-height: 1.06;">
+        <h1 style="font-size: clamp(36px, 5.6vw, 58px); line-height: 1.06;">
           Decoding gynecologic disease to design new approaches for
-          <em class="text-rust-400" style="font-style: italic; font-weight: 300;">prevention, detection, and treatment</em>.
+          <em class="text-rust-500" style="font-style: italic; font-weight: 300;">prevention, detection, and treatment</em>.
         </h1>
         <p class="meta mt-7 mb-0">Ottawa Hospital Research Institute · University of Ottawa</p>
         <div class="mt-9">
-          <a href="/research" class="btn btn-primary">Explore our research <span aria-hidden="true">→</span></a>
+          <a href="/research" class="btn btn-navy">Explore our research <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </div>
@@ -87,18 +87,18 @@ const isExternal = (href: string) => href.startsWith('http');
   </section>
 
   <!-- Questions -->
-  <section class="border-t border-white/8">
+  <section class="border-t border-navy-700/10">
     <div class="wrap py-16 md:py-24">
       <div class="flex flex-wrap items-baseline justify-between gap-4">
-        <h2 class="section-title text-white">Questions we're asking</h2>
+        <h2 class="section-title">Questions we're asking</h2>
         <a href="/research" class="arrow-link">See all our research <span aria-hidden="true">→</span></a>
       </div>
       <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-10">
         {questions.map((q) => (
-          <a href={q.href} class="group flex flex-col border-t border-white/15 pt-6">
-            <p class="question m-0 text-[24px] text-white group-hover:text-rust-200 transition-colors">{q.q}</p>
-            <p class="mt-4 mb-0 flex-1 text-[15px] text-navy-300">{q.body}</p>
-            <span class="mt-5 inline-flex items-center gap-1.5 text-[15px] font-medium text-rust-400 group-hover:text-rust-200 transition-colors">{q.cta} <span aria-hidden="true">→</span></span>
+          <a href={q.href} class="group flex flex-col border-t border-navy-700/15 pt-6">
+            <p class="question m-0 text-[24px] text-navy-700 group-hover:text-rust-600 transition-colors">{q.q}</p>
+            <p class="mt-4 mb-0 flex-1 text-[15px] text-navy-700/70">{q.body}</p>
+            <span class="mt-5 inline-flex items-center gap-1.5 text-[15px] font-medium text-navy-700 group-hover:underline underline-offset-3">{q.cta} <span aria-hidden="true">→</span></span>
           </a>
         ))}
       </div>
@@ -106,26 +106,26 @@ const isExternal = (href: string) => href.startsWith('http');
   </section>
 
   <!-- Latest -->
-  <section class="border-t border-white/8">
+  <section class="border-t border-navy-700/10">
     <div class="wrap py-16 md:py-20">
-      <h2 class="section-title text-white">Latest</h2>
-      <ul class="mt-8 m-0 p-0 list-none border-t border-white/15">
+      <h2 class="section-title">Latest</h2>
+      <ul class="mt-8 m-0 p-0 list-none border-t border-navy-700/15">
         {latest.map((item) => (
-          <li class="border-b border-white/10">
+          <li class="border-b border-navy-700/10">
             <a
               href={item.href}
               target={isExternal(item.href) ? '_blank' : undefined}
               rel={isExternal(item.href) ? 'noopener noreferrer' : undefined}
               class="group grid gap-x-8 gap-y-1 py-5 items-baseline grid-cols-[1fr_auto] md:grid-cols-[10rem_1fr_auto]"
             >
-              <span class="col-span-2 md:col-span-1 text-[14px] font-medium text-rust-400">{item.tag}</span>
+              <span class="col-span-2 md:col-span-1 text-[14px] font-medium text-navy-400">{item.tag}</span>
               <span>
-                <span class="block font-display text-[19px] text-on-dark group-hover:text-rust-200 transition-colors" style="font-weight: 500; letter-spacing: -0.015em; line-height: 1.3;">
+                <span class="block font-display text-[19px] text-navy-700 group-hover:text-rust-600 transition-colors" style="font-weight: 500; letter-spacing: -0.015em; line-height: 1.3;">
                   {item.title}
                 </span>
                 {item.meta && <span class="block meta mt-1">{item.meta}</span>}
               </span>
-              <span class="text-navy-400 group-hover:text-rust-400 transition-colors" aria-hidden="true">→</span>
+              <span class="text-navy-300 group-hover:text-navy-700 transition-colors" aria-hidden="true">→</span>
             </a>
           </li>
         ))}

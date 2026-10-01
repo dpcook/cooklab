@@ -7,12 +7,14 @@
 interface Props {
   /** 'left' puts the cells near the left edge of the canvas (1024px and wider) so they sit close to the text. */
   anchor?: 'center' | 'left';
+  /** Page background the canvas sits on; picks the matching cell colours. */
+  ground?: 'light' | 'dark';
   class?: string;
 }
-const { anchor = 'center', class: className = '' } = Astro.props;
+const { anchor = 'center', ground = 'light', class: className = '' } = Astro.props;
 ---
 
-<div class:list={['hero-morph relative', className]} data-anchor={anchor}>
+<div class:list={['hero-morph relative', className]} data-anchor={anchor} data-ground={ground}>
   <canvas
     class="absolute inset-0 w-full h-full block"
     role="img"
@@ -21,9 +23,20 @@ const { anchor = 'center', class: className = '' } = Astro.props;
 </div>
 
 <script>
-  // Deck colours, one per label (SecA, intermediate, SecB, ciliated, then immune and stromal cells)
-  const COLORS = ['#BCC9DC', '#607188', '#EB6235', '#0D9488', '#0D9488', '#7C3AED', '#A78BFA', '#8B5CF6', '#C4B5FD', '#0284C7', '#38BDF8', '#334155', '#475569', '#475569', '#5EEAD4', '#5EEAD4', '#99F6E4', '#E2E8F0', '#253247'];
-  const GROUND = [10 / 255, 17 / 255, 32 / 255]; // #0A1120
+  // One colour per deck label: SecA, intermediate, SecB, ciliated, macrophage, T, NK, B, plasma,
+  // endothelial, pericyte, fibroblast, mesothelial, smooth muscle, cDC, pDC, neutrophil, mast, unassigned.
+  // Dark uses the deck's colours; light keeps SecB rust and turns the rest to slate, with stroma recessive.
+  const PALETTES = {
+    dark: {
+      ground: '#0A1120',
+      colors: ['#BCC9DC', '#607188', '#EB6235', '#0D9488', '#0D9488', '#7C3AED', '#A78BFA', '#8B5CF6', '#C4B5FD', '#0284C7', '#38BDF8', '#334155', '#475569', '#475569', '#5EEAD4', '#5EEAD4', '#99F6E4', '#E2E8F0', '#253247'],
+    },
+    light: {
+      ground: '#FFFFFF',
+      colors: ['#34507A', '#A3B3C9', '#C2410C', '#0D9488', '#0D9488', '#7C3AED', '#8B5CF6', '#6D28D9', '#A78BFA', '#0369A1', '#7FB0D3', '#CBD5E1', '#B6C2D2', '#B6C2D2', '#14B8A6', '#14B8A6', '#2DD4BF', '#64748B', '#E2E8F0'],
+    },
+  };
+  type Palette = (typeof PALETTES)['light'];
   const DWELL = 3200;
   const MOVE = 2600;
   const POINT = 1.48; // CSS px (the deck's 1.85 at its 1.25× canvas scale)
@@ -49,7 +62,7 @@ const { anchor = 'center', class: className = '' } = Astro.props;
   }
   const wide = window.matchMedia('(min-width: 1024px)');
 
-  function webgl(canvas: HTMLCanvasElement, m: Morph, left: () => boolean) {
+  function webgl(canvas: HTMLCanvasElement, m: Morph, left: () => boolean, pal: Palette) {
     const gl = canvas.getContext('webgl2', { alpha: false, antialias: true });
     if (!gl) return null;
     const vs = `#version 300 es
@@ -89,7 +102,8 @@ const { anchor = 'center', class: className = '' } = Astro.props;
       for (let i = 0; i < m.n; i++) { out[i * 2] = a[i]; out[i * 2 + 1] = b[i]; }
       return out;
     };
-    const table = COLORS.map(hex);
+    const table = pal.colors.map(hex);
+    const ground = hex(pal.ground).map((v) => v / 255);
     const colors = new Uint8Array(m.n * 3);
     for (let i = 0; i < m.n; i++) colors.set(table[m.label[i]] ?? [203, 213, 225], i * 3);
 
@@ -114,7 +128,7 @@ const { anchor = 'center', class: className = '' } = Astro.props;
     return (t: number, dpr: number) => {
       const w = canvas.width, h = canvas.height;
       gl.viewport(0, 0, w, h);
-      gl.clearColor(GROUND[0], GROUND[1], GROUND[2], 1);
+      gl.clearColor(ground[0], ground[1], ground[2], 1);
       gl.clear(gl.COLOR_BUFFER_BIT);
       const [fx, fy, ox] = frame(w, h, left());
       gl.uniform2f(uScale, fx, fy);
@@ -127,17 +141,17 @@ const { anchor = 'center', class: className = '' } = Astro.props;
   }
 
   // Without WebGL2: draw the tissue once on a 2D canvas.
-  function fallback(canvas: HTMLCanvasElement, m: Morph, left: () => boolean) {
+  function fallback(canvas: HTMLCanvasElement, m: Morph, left: () => boolean, pal: Palette) {
     const ctx = canvas.getContext('2d');
     if (!ctx) return null;
     return (_t: number, dpr: number) => {
       const w = canvas.width, h = canvas.height, [fx, fy, ox] = frame(w, h, left());
-      ctx.fillStyle = '#0A1120';
+      ctx.fillStyle = pal.ground;
       ctx.fillRect(0, 0, w, h);
       ctx.globalAlpha = ALPHA;
       const p = POINT * dpr;
       for (let i = 0; i < m.n; i++) {
-        ctx.fillStyle = COLORS[m.label[i]];
+        ctx.fillStyle = pal.colors[m.label[i]];
         const x = (w / 2) * (1 + ox + (m.sx[i] / 65535 - 0.5) * fx);
         const y = h / 2 - (m.sy[i] / 65535 - 0.5) * fy * (h / 2);
         ctx.fillRect(x - p / 2, y - p / 2, p, p);
@@ -149,10 +163,11 @@ const { anchor = 'center', class: className = '' } = Astro.props;
   function start(root: HTMLElement, m: Morph) {
     const canvas = root.querySelector('canvas')!;
     const left = () => root.dataset.anchor === 'left' && wide.matches;
+    const pal = root.dataset.ground === 'dark' ? PALETTES.dark : PALETTES.light;
     let draw: ((t: number, dpr: number) => void) | null = null;
-    try { draw = webgl(canvas, m, left); } catch { draw = null; }
+    try { draw = webgl(canvas, m, left, pal); } catch { draw = null; }
     const animated = !!draw && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    draw ??= fallback(canvas, m, left);
+    draw ??= fallback(canvas, m, left, pal);
     if (!draw) return;
 
     let dpr = 1;
