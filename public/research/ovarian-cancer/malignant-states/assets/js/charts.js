@@ -1,6 +1,6 @@
 // Chart kit for the web article (D3 v7, loaded as a global). Each chart renders into a container,
 // redraws when the container is resized, and carries a hover layer.
-import { tip, row, fmt } from './core.js?v=8d8c43bce9';
+import { tip, row, fmt } from './core.js?v=b5261aa92c';
 
 const d3 = window.d3;
 const T = () => tip();

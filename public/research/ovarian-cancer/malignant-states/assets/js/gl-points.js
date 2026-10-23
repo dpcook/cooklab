@@ -1,6 +1,6 @@
 // WebGL2 point viewer for embeddings and tissue maps: pan, zoom, hover, colour transitions,
 // and real cell outlines drawn over the points at high zoom.
-import { ramp, MAPS, GREY, tip, reduced, asset } from './core.js?v=8d8c43bce9';
+import { ramp, MAPS, GREY, tip, reduced, asset } from './core.js?v=b5261aa92c';
 
 const VS = `#version 300 es
 in vec2 a_pos; in vec4 a_colA; in vec4 a_colB;

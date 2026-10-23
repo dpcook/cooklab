@@ -1,5 +1,5 @@
 // Page chrome shared by the overview and the article: links, nav, authors, citation, footer, lightbox.
-import { getJSON, el, navSolidOnScroll, asset } from './core.js?v=8d8c43bce9';
+import { getJSON, el, navSolidOnScroll, asset } from './core.js?v=b5261aa92c';
 
 export async function chrome({ solidAfter } = {}) {
   const [meta, art] = await Promise.all([getJSON('data/meta.json'), getJSON('data/article.json')]);

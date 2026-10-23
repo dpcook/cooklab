@@ -57,7 +57,7 @@ export const rgbCss = (a) => `rgb(${a[0]},${a[1]},${a[2]})`;
 export const ROOT = window.MS_ROOT || '';
 // Version of the site's files, written by build/stamp.py. It is added to every script, stylesheet and data URL, so a
 // browser never runs an updated page against files it cached before the update.
-export const V = '8d8c43bce9';
+export const V = 'b5261aa92c';
 // a site file's URL: under ROOT, with the version stamp
 export const asset = (url) => `${/^([a-z]+:)?\/\//.test(url) || url.startsWith('/') ? url : ROOT + url}${url.includes('?') ? '&' : '?'}v=${V}`;
 const cache = new Map();

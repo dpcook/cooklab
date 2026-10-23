@@ -1,7 +1,7 @@
 // Figure panels, redrawn for the web from the exported study data. Each builder takes a container
 // and renders one panel; a missing or mismatched data file shows a placeholder with the journal figure.
-import { getJSON, STATE, ARM, CELLTYPE, row, tip, fmt, el, seg, reduced, asset } from './core.js?v=8d8c43bce9';
-import * as C from './charts.js?v=8d8c43bce9';
+import { getJSON, STATE, ARM, CELLTYPE, row, tip, fmt, el, seg, reduced, asset } from './core.js?v=b5261aa92c';
+import * as C from './charts.js?v=b5261aa92c';
 
 const d3 = window.d3;
 let openFigure = () => {};

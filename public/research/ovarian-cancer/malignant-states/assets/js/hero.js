@@ -3,7 +3,7 @@
 // or focus is inside it (on touch screens, once the hero is in view): the SecA, intermediate and SecB cells first, then
 // the other cells. Only segmented cells are drawn; empty space keeps the stain. Leaving the hero fades them out.
 // The same sprite fade as the lab homepage's question cards (cooklab QuestionTiles.astro).
-import { getJSON, reduced, asset } from './core.js?v=8d8c43bce9';
+import { getJSON, reduced, asset } from './core.js?v=b5261aa92c';
 
 // when each group starts to appear, as a share of the fade; each tile takes WIN to fade in
 const STARTS = [[0, 0.45], [0.25, 0.68]];

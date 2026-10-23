@@ -1,9 +1,9 @@
 // Overview page: hero mosaic, atlas and tissue viewers, scrollytelling, and the redrawn panels.
-import { whenVisible, revealOnScroll } from './core.js?v=8d8c43bce9';
-import { chrome, authorLine, lightbox } from './chrome.js?v=8d8c43bce9';
-import { hero as heroImage } from './hero.js?v=8d8c43bce9';
-import { epiViewer, atlasViewer, tissueViewer } from './viewers.js?v=8d8c43bce9';
-import { REGISTRY, setFigureOpener } from './panels.js?v=8d8c43bce9';
+import { whenVisible, revealOnScroll } from './core.js?v=b5261aa92c';
+import { chrome, authorLine, lightbox } from './chrome.js?v=b5261aa92c';
+import { hero as heroImage } from './hero.js?v=b5261aa92c';
+import { epiViewer, atlasViewer, tissueViewer } from './viewers.js?v=b5261aa92c';
+import { REGISTRY, setFigureOpener } from './panels.js?v=b5261aa92c';
 
 const $ = (s) => document.querySelector(s);
 

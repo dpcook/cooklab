@@ -1,6 +1,6 @@
 // Point-cloud viewers used on both pages: atlas UMAP, epithelial UMAP, tissue maps, model UMAPs.
-import { loadPoints, getJSON, decode, CELLTYPE, SHORT, STATE, MUTED12, SITE, GREY, seg, chips, colorbar, row, ramp, MAPS } from './core.js?v=8d8c43bce9';
-import { PointViewer } from './gl-points.js?v=8d8c43bce9';
+import { loadPoints, getJSON, decode, CELLTYPE, SHORT, STATE, MUTED12, SITE, GREY, seg, chips, colorbar, row, ramp, MAPS } from './core.js?v=b5261aa92c';
+import { PointViewer } from './gl-points.js?v=b5261aa92c';
 
 const catColors = (cats, map, fallback = MUTED12) => Object.fromEntries(cats.map((c, i) => [c, map[c] || fallback[i % fallback.length]]));
 function failed(host, e) { host.innerHTML = `<div class="loading">Data not available yet (${e.message.split(':')[0]}).</div>`; console.warn(e); }

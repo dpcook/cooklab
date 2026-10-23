@@ -2,7 +2,7 @@
 // Ported from the lab's renderer (~/Desktop/Mosaic video/glass/index.html). Tiles fade in by
 // epithelial state (SecA, intermediate, SecB, then the rest); afterwards a few tiles at a time
 // catch the light. Static under prefers-reduced-motion; paused off screen.
-import { reduced } from './core.js?v=8d8c43bce9';
+import { reduced } from './core.js?v=b5261aa92c';
 
 const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
 function rng(seed) { let s = seed >>> 0; return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296); }

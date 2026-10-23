@@ -1,9 +1,9 @@
 // Panels used on the full-article page only.
-import { getJSON, el, STATE, CELLTYPE, seg, chips, colorbar, row, tip, fmt, whenVisible, loadPoints, decode, asset } from './core.js?v=8d8c43bce9';
-import { catViewer } from './viewers.js?v=8d8c43bce9';
-import { PointViewer } from './gl-points.js?v=8d8c43bce9';
-import * as C from './charts.js?v=8d8c43bce9';
-import { REGISTRY as P, pstr } from './panels.js?v=8d8c43bce9';
+import { getJSON, el, STATE, CELLTYPE, seg, chips, colorbar, row, tip, fmt, whenVisible, loadPoints, decode, asset } from './core.js?v=b5261aa92c';
+import { catViewer } from './viewers.js?v=b5261aa92c';
+import { PointViewer } from './gl-points.js?v=b5261aa92c';
+import * as C from './charts.js?v=b5261aa92c';
+import { REGISTRY as P, pstr } from './panels.js?v=b5261aa92c';
 
 const d3 = window.d3;
 const data = (n) => getJSON(`data/${n}.json`);

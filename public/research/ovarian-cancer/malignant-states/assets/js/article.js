@@ -1,11 +1,11 @@
 // Full article: text from article.json, figures redrawn as panel groups beside the paragraphs that
 // cite them, citation pop-ups, cross-reference links, supplementary figures, methods, references.
-import { el, whenVisible, seg, asset, pageRoot } from './core.js?v=8d8c43bce9';
-import { chrome, authorLine, lightbox } from './chrome.js?v=8d8c43bce9';
-import { hero as heroImage } from './hero.js?v=8d8c43bce9';
-import { epiViewer, atlasViewer, tissueViewer, TISSUE_STEPS } from './viewers.js?v=8d8c43bce9';
-import { REGISTRY as P, setFigureOpener } from './panels.js?v=8d8c43bce9';
-import * as X from './panels-extra.js?v=8d8c43bce9';
+import { el, whenVisible, seg, asset, pageRoot } from './core.js?v=b5261aa92c';
+import { chrome, authorLine, lightbox } from './chrome.js?v=b5261aa92c';
+import { hero as heroImage } from './hero.js?v=b5261aa92c';
+import { epiViewer, atlasViewer, tissueViewer, TISSUE_STEPS } from './viewers.js?v=b5261aa92c';
+import { REGISTRY as P, setFigureOpener } from './panels.js?v=b5261aa92c';
+import * as X from './panels-extra.js?v=b5261aa92c';
 
 const $ = (s) => document.querySelector(s);
 
