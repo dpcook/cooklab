@@ -1,0 +1,310 @@
+{
+ "name": "epi_umap",
+ "n": 200000,
+ "coords": "umap",
+ "bbox": [
+  -3.1142,
+  0.6963,
+  12.6751,
+  16.2628
+ ],
+ "fields": [
+  {
+   "name": "x",
+   "type": "u16"
+  },
+  {
+   "name": "y",
+   "type": "u16"
+  },
+  {
+   "name": "state",
+   "type": "u8",
+   "categories": [
+    "SecA",
+    "Intermediate",
+    "SecB",
+    "Ciliated"
+   ],
+   "label": "Epithelial state"
+  },
+  {
+   "name": "secA",
+   "type": "u8",
+   "range": [
+    0,
+    0.4062
+   ],
+   "label": "SecA (NMF Factor 3 usage)",
+   "note": "range = 0 to the 99th percentile over all 575,366 epithelial cells (the figure's colour-bar limits)"
+  },
+  {
+   "name": "secB",
+   "type": "u8",
+   "range": [
+    0,
+    0.4708
+   ],
+   "label": "SecB (NMF Factor 2 usage)",
+   "note": "range = 0 to the 99th percentile over all 575,366 epithelial cells (the figure's colour-bar limits)"
+  },
+  {
+   "name": "g2m",
+   "type": "u8",
+   "range": [
+    0,
+    0.4153
+   ],
+   "label": "G2M (NMF Factor 5 usage)",
+   "note": "range = 0 to the 99th percentile over all 575,366 epithelial cells (the figure's colour-bar limits)"
+  },
+  {
+   "name": "ap1",
+   "type": "u8",
+   "range": [
+    0,
+    0.4039
+   ],
+   "label": "AP-1 (NMF Factor 6 usage)",
+   "note": "range = 0 to the 99th percentile over all 575,366 epithelial cells (the figure's colour-bar limits)"
+  },
+  {
+   "name": "ifn",
+   "type": "u8",
+   "range": [
+    0,
+    0.2877
+   ],
+   "label": "IFN (NMF Factor 4 usage)",
+   "note": "range = 0 to the 99th percentile over all 575,366 epithelial cells (the figure's colour-bar limits)"
+  },
+  {
+   "name": "emt",
+   "type": "u8",
+   "range": [
+    0,
+    0.5728
+   ],
+   "label": "EMT (NMF Factor 9 usage)",
+   "note": "range = 0 to the 99th percentile over all 575,366 epithelial cells (the figure's colour-bar limits)"
+  },
+  {
+   "name": "polarization",
+   "type": "u8",
+   "range": [
+    -0.4111,
+    0.8361
+   ],
+   "label": "Polarization (SecB − SecA UCell)",
+   "note": "atlas UCell (7 + 7 genes); ciliated cells not scored (255 = missing); range = 1st/99th pct"
+  },
+  {
+   "name": "site",
+   "type": "u8",
+   "categories": [
+    "Primary",
+    "Metastasis",
+    "Ascites",
+    "Healthy"
+   ],
+   "label": "Site"
+  },
+  {
+   "name": "MECOM",
+   "type": "u8",
+   "range": [
+    0,
+    3.607
+   ],
+   "label": "MECOM (log-normalised expression)",
+   "note": "range = 0 to the 99.5th percentile over all epithelial cells"
+  },
+  {
+   "name": "SOX17",
+   "type": "u8",
+   "range": [
+    0,
+    4.218
+   ],
+   "label": "SOX17 (log-normalised expression)",
+   "note": "range = 0 to the 99.5th percentile over all epithelial cells"
+  },
+  {
+   "name": "FBXO21",
+   "type": "u8",
+   "range": [
+    0,
+    3.847
+   ],
+   "label": "FBXO21 (log-normalised expression)",
+   "note": "range = 0 to the 99.5th percentile over all epithelial cells"
+  },
+  {
+   "name": "PBX1",
+   "type": "u8",
+   "range": [
+    0,
+    3.917
+   ],
+   "label": "PBX1 (log-normalised expression)",
+   "note": "range = 0 to the 99.5th percentile over all epithelial cells"
+  },
+  {
+   "name": "LGR5",
+   "type": "u8",
+   "range": [
+    0,
+    3.718
+   ],
+   "label": "LGR5 (log-normalised expression)",
+   "note": "range = 0 to the 99.5th percentile over all epithelial cells"
+  },
+  {
+   "name": "LPAR3",
+   "type": "u8",
+   "range": [
+    0,
+    3.237
+   ],
+   "label": "LPAR3 (log-normalised expression)",
+   "note": "range = 0 to the 99.5th percentile over all epithelial cells"
+  },
+  {
+   "name": "RCN2",
+   "type": "u8",
+   "range": [
+    0,
+    4.269
+   ],
+   "label": "RCN2 (log-normalised expression)",
+   "note": "range = 0 to the 99.5th percentile over all epithelial cells"
+  },
+  {
+   "name": "KRT17",
+   "type": "u8",
+   "range": [
+    0,
+    6.717
+   ],
+   "label": "KRT17 (log-normalised expression)",
+   "note": "range = 0 to the 99.5th percentile over all epithelial cells"
+  },
+  {
+   "name": "LCN2",
+   "type": "u8",
+   "range": [
+    0,
+    7.953
+   ],
+   "label": "LCN2 (log-normalised expression)",
+   "note": "range = 0 to the 99.5th percentile over all epithelial cells"
+  },
+  {
+   "name": "TACSTD2",
+   "type": "u8",
+   "range": [
+    0,
+    5.536
+   ],
+   "label": "TACSTD2 (log-normalised expression)",
+   "note": "range = 0 to the 99.5th percentile over all epithelial cells"
+  },
+  {
+   "name": "KRT7",
+   "type": "u8",
+   "range": [
+    0,
+    6.582
+   ],
+   "label": "KRT7 (log-normalised expression)",
+   "note": "range = 0 to the 99.5th percentile over all epithelial cells"
+  },
+  {
+   "name": "KRT19",
+   "type": "u8",
+   "range": [
+    0,
+    6.867
+   ],
+   "label": "KRT19 (log-normalised expression)",
+   "note": "range = 0 to the 99.5th percentile over all epithelial cells"
+  },
+  {
+   "name": "SLPI",
+   "type": "u8",
+   "range": [
+    0,
+    8.763
+   ],
+   "label": "SLPI (log-normalised expression)",
+   "note": "range = 0 to the 99.5th percentile over all epithelial cells"
+  },
+  {
+   "name": "PRSS22",
+   "type": "u8",
+   "range": [
+    0,
+    3.072
+   ],
+   "label": "PRSS22 (log-normalised expression)",
+   "note": "range = 0 to the 99.5th percentile over all epithelial cells"
+  },
+  {
+   "name": "FOXJ1",
+   "type": "u8",
+   "range": [
+    0,
+    3.366
+   ],
+   "label": "FOXJ1 (log-normalised expression)",
+   "note": "range = 0 to the 99.5th percentile over all epithelial cells"
+  },
+  {
+   "name": "CAPS",
+   "type": "u8",
+   "range": [
+    0,
+    5.622
+   ],
+   "label": "CAPS (log-normalised expression)",
+   "note": "range = 0 to the 99.5th percentile over all epithelial cells"
+  },
+  {
+   "name": "PAX8",
+   "type": "u8",
+   "range": [
+    0,
+    4.125
+   ],
+   "label": "PAX8 (log-normalised expression)",
+   "note": "range = 0 to the 99.5th percentile over all epithelial cells"
+  },
+  {
+   "name": "WFDC2",
+   "type": "u8",
+   "range": [
+    0,
+    8.528
+   ],
+   "label": "WFDC2 (log-normalised expression)",
+   "note": "range = 0 to the 99.5th percentile over all epithelial cells"
+  },
+  {
+   "name": "MKI67",
+   "type": "u8",
+   "range": [
+    0,
+    4.062
+   ],
+   "label": "MKI67 (log-normalised expression)",
+   "note": "range = 0 to the 99.5th percentile over all epithelial cells"
+  }
+ ],
+ "bin": "epi_umap.bin",
+ "source": "Epithelial UMAP1/UMAP2 (output/fig_secretory_polarization/data/meta.parquet), NMF usage (output/11d_epithelial_nmf/11d_nmf_usage.csv) and state via the repository loader (atlas_final_tables.load_epithelial); polarization from output/18_ucell_atlas/atlas_ucell_scores.csv; genes from celltype_h5ad/hgsc_atlas_final_epithelial.h5ad X (log1p base 2, normalised). Uniform random 200,000 of 575,366 epithelial cells, shuffled (numpy seed 42). UMAP y increases upward.",
+ "n_total": 575366,
+ "thresholds": {
+  "factor2_p50": 0.04861413715493135,
+  "factor2_p75": 0.1183993784599831
+ }
+}

@@ -1,0 +1,66 @@
+{
+ "name": "kpca_epi_umap",
+ "n": 12429,
+ "coords": "umap",
+ "bbox": [
+  -0.1249152,
+  0.7373565,
+  14.27932,
+  14.8674
+ ],
+ "fields": [
+  {
+   "name": "x",
+   "type": "u16"
+  },
+  {
+   "name": "y",
+   "type": "u16"
+  },
+  {
+   "name": "polarization",
+   "type": "u8",
+   "range": [
+    -0.5129,
+    0.5129
+   ],
+   "label": "Polarization (SecB − SecA UCell)"
+  },
+  {
+   "name": "Krt7",
+   "type": "u8",
+   "range": [
+    0.0,
+    2.967
+   ],
+   "label": "Krt7 (log-norm)"
+  }
+ ],
+ "bin": "kpca_epi_umap.bin",
+ "source": "KPCA.B tumour (epithelial) cells, 12,429; epithelial UMAP epi_umap_1/2 of the handoff object (models/kpca_mouse 27b, 33). Polarization = SecB − SecA UCell on the mouse 1:1 orthologues of the 7 + 7 signature (maxRank 1500, log-normalised), recomputed as in figures/figure3/04_...; Krt7 from the log-normalised matrix. Ranges are the figure's colour limits (±99th percentile of |polarization|; 0 to 99th percentile of Krt7). y increases upward.",
+ "panel": "Fig 3j, 3k",
+ "axis_labels": [
+  "UMAP 1",
+  "UMAP 2"
+ ],
+ "genes": {
+  "SecA": [
+   "Mecom",
+   "Fbxo21",
+   "Lgr5",
+   "Lpar3",
+   "Pbx1",
+   "Sox17",
+   "Rcn2"
+  ],
+  "SecB": [
+   "Krt17",
+   "Krt19",
+   "Krt7",
+   "Lcn2",
+   "Prss22",
+   "Slpi",
+   "Tacstd2"
+  ]
+ }
+}

@@ -1,0 +1,357 @@
+<div class="ms overview">
+<div class="ms-bar"><div class="wrap"><a class="ms-name" href="/research/ovarian-cancer/malignant-states">Malignant states in HGSC</a><nav aria-label="This paper"><a href="/research/ovarian-cancer/malignant-states" aria-current="page">Overview</a><a href="/research/ovarian-cancer/malignant-states/article">Full article</a></nav><span class="ms-slot"></span><span class="ms-sp"></span><a class="ext" data-link="biorxiv" href="#">bioRxiv ↗</a><a class="ext" data-link="code" href="#">Code ↗</a></div></div>
+<!-- ================================================================== hero -->
+<section class="hero" id="top">
+  <div class="mosaic-wrap" aria-hidden="true">
+    <img src="/research/ovarian-cancer/malignant-states/assets/img/hero-he-1200.webp" srcset="/research/ovarian-cancer/malignant-states/assets/img/hero-he-900.webp 900w, /research/ovarian-cancer/malignant-states/assets/img/hero-he-1200.webp 1200w, /research/ovarian-cancer/malignant-states/assets/img/hero-he-1600.webp 1600w" sizes="(max-width: 900px) 100vw, 60vw" alt="" decoding="async" fetchpriority="high">
+    <canvas></canvas>
+  </div>
+  <div class="fade"></div>
+  <div class="inner">
+    <div class="kicker"><span>Preprint</span><span>bioRxiv</span><span>2026</span></div>
+    <h1>Tumor architecture shapes <span class="accent">polarized malignant states</span> that predict outcome and treatment response in high-grade serous ovarian cancer</h1>
+    <p class="authors" id="hero-authors"></p>
+    <div class="actions">
+      <a class="btn white" href="/research/ovarian-cancer/malignant-states/article">Read the full article →</a>
+      <a class="btn ghost" data-link="biorxiv" href="#">bioRxiv ↗</a>
+      <a class="btn ghost" data-link="code" href="#">Code ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================== in brief -->
+<section class="chapter" id="brief">
+  <div class="wrap">
+    <div class="chapter-head">
+      <h2 class="name">In brief</h2>
+      <p class="light-line">Across genetically diverse high-grade serous ovarian cancers (HGSC), malignant cells adopt recurring gene-expression states. These states are linked to a cell's location in the tumour, to patient survival and to response to bevacizumab, a therapy that blocks VEGF signalling.</p>
+    </div>
+    <div class="findings">
+      <a href="#axis"><span class="n">1</span><span class="t">A shared spectrum of cancer-cell states</span><span class="d">Secretory cancer cells span a continuum from proliferative, progenitor-like SecA to largely quiescent, injury-associated SecB. Both states coexist within the same genetic clones.</span><span class="go">The atlas →</span></a>
+      <a href="#architecture"><span class="n">2</span><span class="t">SecB cells occupy hypoxic niches</span><span class="d">SecB cells lie farther from blood vessels, where hypoxia scores are higher and gene-expression programs favour stress survival over growth.</span><span class="go">The tissue maps →</span></a>
+      <a href="#niche"><span class="n">3</span><span class="t">SecB cells share their niche with metabolically reprogrammed macrophages</span><span class="d">Macrophages beside SecB cells show similar programs for glycolysis and stress survival. B cells are less abundant in these regions.</span><span class="go">The niche →</span></a>
+      <a href="#outcome"><span class="n">4</span><span class="t">Poorer survival, greater bevacizumab benefit</span><span class="d">Greater SecB polarization was linked to shorter survival across three cohorts and greater progression-free survival benefit from bevacizumab in our analysis of the ICON7 trial.</span><span class="go">The outcomes →</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================== 1. atlas -->
+<section class="chapter" id="axis">
+  <div class="wrap">
+    <div class="chapter-head">
+      <span class="idx">1 · Single-cell atlas</span>
+      <h2 class="name">One axis</h2>
+      <p class="light-line">Malignant secretory cells vary along the same axis across tumours, from <span class="k-secA">SecA</span> to <span class="k-secB">SecB</span></p>
+    </div>
+    <div class="cols fig-side" data-match>
+      <div class="copy text">
+        <p>We combined nearly 2 million single-cell transcriptomes from 13 published studies, spanning 362 samples from 158 patients before and after chemotherapy. Samples covered 12 anatomical sites, including primary tumours, metastases and ascites, the fluid that accumulates in the abdominal cavity.</p>
+        <p>Within the epithelial compartment, we identified two opposing gene-expression programs in secretory cancer cells. Secretory A (<span class="k-secA">SecA</span>) expresses developmental and progenitor-associated genes, including <i>MECOM</i> and <i>SOX17</i>. Secretory B (<span class="k-secB">SecB</span>) expresses keratins and genes associated with mucosal injury, including <i>KRT7</i>, <i>KRT19</i> and <i>LCN2</i>.</p>
+        <p><span class="k-secA">SecA</span> and <span class="k-secB">SecB</span> mark the ends of a continuum, with intermediate cells between them. We call a cell's position along this continuum its polarization: higher scores indicate a stronger SecB program relative to SecA.</p>
+        <p>Polarization was the leading pattern of malignant-cell gene expression in 54% of tumour samples and one of the three leading patterns in 82%. It was distinct from programs associated with the cell cycle, stress, interferon and epithelial–mesenchymal transition (EMT).</p>
+        <div class="figs" style="margin-top:28px">
+          <div class="panel">
+            <div class="panel-head"><p class="h">Polarization is the leading axis in most samples</p><p class="s">Principal component of malignant-cell gene expression most aligned with polarization; one square per sample (n&nbsp;=&nbsp;250)</p></div>
+            <div data-panel="pcRank"></div>
+          </div>
+        </div>
+      </div>
+      <div class="figs">
+        <div class="panel">
+          <div class="controls" id="epi-controls"></div>
+          <div class="viewer" id="epi-viewer" data-fill="380,760" style="aspect-ratio: 1 / 0.92"><div class="loading">Loading 200,000 epithelial cells…</div></div>
+          <div class="legend-row" id="epi-key"></div>
+          <p class="panel-foot">Each point is a cell; nearby points have similar gene-expression profiles. A random 200,000 of 575,366 epithelial cells are shown. Scroll or pinch to zoom; hover to see a cell's state. <a href="/research/ovarian-cancer/malignant-states/article#fig1">Figure 1</a></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cols rev fig-side" data-match>
+      <div class="figs">
+        <div class="panel">
+          <div class="controls" id="atlas-controls"></div>
+          <div class="viewer" id="atlas-viewer" data-fill="380,720" style="aspect-ratio: 1 / 0.8"><div class="loading">Loading 400,000 atlas cells…</div></div>
+          <div class="legend-row" id="atlas-key"></div>
+          <p class="panel-foot">The full cell atlas, shown as a UMAP of gene-expression similarity. A random 400,000 of 1,980,703 cells are shown.</p>
+        </div>
+      </div>
+      <div class="copy text">
+        <h3>The same states in every study</h3>
+        <p>The atlas resolves 13 cell lineages and 51 cell types and states. Cells from different studies, sites and treatment histories mix within each lineage, so the epithelial states are not an artefact of one cohort.</p>
+        <p>Colour the atlas by study, site or treatment to see how cells from different samples overlap.</p>
+        <div class="figs" style="margin-top:28px">
+          <div class="panel">
+            <div class="panel-head"><p class="h">Both states coexist within clones</p><p class="s">Secretory state composition of copy-number clones in three tumours</p></div>
+            <div data-panel="clones"></div>
+            <p class="panel-foot">Clones were inferred from copy-number profiles using CopyKAT. SecA, intermediate and SecB cells coexist within individual clones, so these states do not map neatly onto genetic subclones. <a href="/research/ovarian-cancer/malignant-states/article#fig1">Figure 1l,m</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================== 2. programs -->
+<section class="chapter" id="programs">
+  <div class="wrap">
+    <div class="chapter-head">
+      <span class="idx">2 · Cell states</span>
+      <h2 class="name">Two programs</h2>
+      <p class="light-line"><span class="k-secA">SecA</span> cells proliferate; <span class="k-secB">SecB</span> cells are quiescent and stress-adapted</p>
+    </div>
+    <div class="cols even lead-in">
+      <div class="copy text">
+        <h3>Signalling and the cell cycle</h3>
+        <p><span class="k-secA">SecA</span> cells show stronger growth-associated programs, including MYC, E2F and MAPK; 37.8% are in S or G2/M phase. <span class="k-secB">SecB</span> cells show stronger hypoxia and stress-response programs and a greater inferred reliance on glycolysis; 80.6% are classified as G1.</p>
+      </div>
+      <div class="copy text">
+        <h3>SecB dominates ascites</h3>
+        <p>Before treatment, SecB made up 68% of epithelial cells in ascites, against 14% in primary tumours and 17% in solid metastases. In 14 patients sampled at several sites, the median was 60.7% in ascites and 10.2% in the primary tumour.</p>
+        <p>SecB accounted for 24% of epithelial cells in post-chemotherapy primary tumours, compared with 14% before treatment. In the separate analysis of 18 patients with matched pre- and post-treatment samples, its share increased in 12, although the paired difference was not statistically significant (p = 0.11).</p>
+      </div>
+    </div>
+    <div class="figs">
+      <div class="fsplit" data-match>
+        <div class="panel">
+          <div class="panel-head"><p class="h">Growth signalling in SecA, stress signalling in SecB</p><p class="s">The three largest differences in each type of inferred activity (scaled), mean per state</p></div>
+          <div data-panel="programs" data-top="3"></div>
+          <p class="panel-foot">PROGENy, Hallmark, DoRothEA and scFEA scores. <a href="/research/ovarian-cancer/malignant-states/article#fig2">Figure 2a</a></p>
+        </div>
+        <div class="fstack">
+          <div class="panel">
+            <div class="panel-head"><p class="h">Most SecB cells are classified as G1</p><p class="s">Cell-cycle phase, % of cells</p></div>
+            <div data-panel="cellcycle"></div>
+          </div>
+          <div class="frow">
+            <div class="panel" style="grid-column: span 6">
+              <div class="panel-head"><p class="h">Epithelial state by site</p><p class="s">Treatment-naive samples, % of epithelium</p></div>
+              <div data-panel="siteStack" data-fill="220,420"></div>
+            </div>
+            <div class="panel" style="grid-column: span 6">
+              <div class="panel-head"><p class="h">Matched patients</p><p class="s">SecB, % of epithelium (n&nbsp;=&nbsp;14)</p></div>
+              <div data-panel="siteMatched" data-fill="220,420"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================== 3. architecture (scrollytelling) -->
+<section class="chapter" id="architecture">
+  <div class="wrap">
+    <div class="chapter-head">
+      <span class="idx">3 · Spatial transcriptomics</span>
+      <h2 class="name">Architecture</h2>
+      <p class="light-line"><span class="k-secB">SecB</span> cells are concentrated in hypoxic regions farther from blood vessels</p>
+    </div>
+    <p class="lede">We mapped where these states occur within tissue using a 477-gene Xenium panel tailored to ovarian cancer. We profiled eight whole-tumour sections, 503 tumour tissue-microarray cores from 378 patients, and 15 healthy fallopian-tube tissue cores: about 3.4 million cells in all. Hypoxia and pathway activity are estimated from gene-expression signatures. Scroll to explore one tumour section.</p>
+  </div>
+  <div class="wrap" style="margin-top:24px">
+    <div class="scrolly" id="scrolly">
+      <div class="steps">
+        <div class="step" data-step="celltype"><div class="box"><h4>One tumour section, 181,413 cells</h4><p>Each mapped cell in this treatment-naive tumour section (WT01), coloured by cell type. Secretory cancer cells are split into SecA, intermediate and SecB by their polarization score.</p></div></div>
+        <div class="step" data-step="polar"><div class="box"><h4>SecA and SecB cells segregate</h4><p>Colour shows each secretory cell's polarization. SecA and SecB cells segregate in all eight tumour sections and in 299 of 334 evaluable tissue-microarray patients. Of the SecB cells assigned to a neighbourhood, 89% lie in SecB-enriched neighbourhoods.</p></div></div>
+        <div class="step" data-step="vessel"><div class="box"><h4>SecB cells lie far from vessels</h4><p>Distance from each cell to the nearest endothelial cell or pericyte. SecA cells lie nearer the blood vessels at the centre of papillary structures; SecB cells lie toward the open space, or lumen.</p></div></div>
+        <div class="step" data-step="hypoxia"><div class="box"><h4>…where hypoxia is highest</h4><p>Mean hypoxia score of the cells within 50 µm (<i>ENO1</i>, <i>HIF1A</i>, <i>VEGFA</i> and nine other genes). Hypoxia rises with distance from vessels, and with it the share of SecB cells.</p></div></div>
+        <div class="step" data-step="zoom"><div class="box"><h4>See polarization up close</h4></div></div>
+      </div>
+      <div class="sticky">
+        <div class="viewer" id="tissue-viewer"><div class="loading">Loading WT01…</div></div>
+        <div class="key" id="tissue-key"></div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:40px">
+    <div class="cols t4 fig-side" data-match>
+      <div class="copy text">
+        <h3>The gradient across tumour sections</h3>
+        <p>Across more than 1.2 million secretory cells in the eight tumour sections, higher SecB polarization was associated with greater distance from blood vessels, lower local cell density, and higher hypoxia and matrix-remodelling gene-expression scores.</p>
+        <p>The same holds in the tissue microarrays: across 361 patients, SecB cells were farther from the nearest vessel than SecA cells (p &lt; 0.0001).</p>
+      </div>
+      <div class="figs">
+        <div class="panel">
+          <div class="panel-head"><p class="h">Local environment along the polarization axis</p><p class="s">Secretory cells of 8 tumour sections; 50 µm neighbourhoods, z-scored · <a href="/research/ovarian-cancer/malignant-states/article#fig4">Figure 4f</a></p></div>
+          <div data-panel="gamEnv" data-fill="170,460"></div>
+        </div>
+      </div>
+    </div>
+    <div class="figs" style="margin-top:20px">
+      <div class="frow">
+        <div class="panel" style="grid-column: span 6"><div data-panel="papilla"></div></div>
+        <div class="panel" style="grid-column: span 3" data-ch="300">
+          <div class="panel-head"><p class="h">Distance to nearest vessel</p><p class="s">Median per tumour section, µm (n&nbsp;=&nbsp;8)</p></div>
+          <div data-panel="vascWT"></div>
+        </div>
+        <div class="panel" style="grid-column: span 3" data-ch="300">
+          <div class="panel-head"><p class="h">Distance to vessel by patient</p><p class="s">Median, µm (n&nbsp;=&nbsp;361)</p></div>
+          <div data-panel="vascTMA"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================== 4. niche -->
+<section class="chapter" id="niche">
+  <div class="wrap">
+    <div class="chapter-head">
+      <span class="idx">4 · The niche</span>
+      <h2 class="name">A shared niche</h2>
+      <p class="light-line"><span class="k-secB">SecB</span> cells and nearby macrophages share hypoxia-associated programs in regions with fewer B cells</p>
+    </div>
+    <div class="cols t4 fig-side" data-match>
+      <div class="copy text">
+        <p>Toward the SecB end of the continuum, secretory cells show lower expression of proliferation, growth and DNA-repair programs, alongside higher glycolysis and TNF/NF-κB signalling.</p>
+        <p>The cells around them differ too. Across the gradient from lower to higher local hypoxia, macrophages make up a larger share of non-epithelial cells (13.4% at the low end, 32.6% at the high end) and B cells a smaller one (3.8% and 0.7%), in all eight tumour sections. T cells and plasma cells trend lower.</p>
+      </div>
+      <div class="figs">
+        <div class="panel">
+          <div class="panel-head"><p class="h">Secretory programs along the axis</p><p class="s">Cell-intrinsic UCell scores (z-scored), 8 tumour sections · <a href="/research/ovarian-cancer/malignant-states/article#fig5">Figure 5a</a></p></div>
+          <div data-panel="gamEpi" data-fill="170,480"></div>
+        </div>
+      </div>
+    </div>
+    <div class="figs">
+      <div class="panel">
+        <div class="panel-head"><p class="h">Who shares the neighbourhood as hypoxia rises</p><p class="s">% of non-epithelial cells within 50 µm, against local epithelial hypoxia (z). Thick line: all sections; thin lines: each tumour section</p></div>
+        <div data-panel="immune" class="small-multiples"></div>
+        <p class="panel-foot"><a href="/research/ovarian-cancer/malignant-states/article#fig5">Figure 5f</a></p>
+      </div>
+    </div>
+    <div class="cols even lead-in">
+      <div class="copy text">
+        <h3>Macrophages show a similar program</h3>
+        <p>Macrophages in SecB regions show higher expression of glycolysis and NF-κB genes and lower expression of tissue-resident markers. Visium HD profiling of WT01, the tumour shown above, also identified a hypoxia-associated <i>SPP1</i><sup>+</sup> <i>MMP9</i><sup>+</sup> macrophage state beside SecB regions.</p>
+      </div>
+      <div class="copy text">
+        <h3>Potential signals within the niche</h3>
+        <p>Gene expression points to possible interactions within this niche. Macrophages express <i>VEGFA</i>, while nearby SecB cells show higher expression of the NF-κB target <i>BIRC3</i>. Other genes suggest potential roles in immune protection, lactate export, adhesion and matrix remodelling. Together, these patterns support a model in which SecB cells and macrophages form cohesive groups that could detach into ascites.</p>
+      </div>
+    </div>
+    <div class="figs">
+      <div class="frow" data-match>
+        <div class="panel" style="grid-column: span 5">
+          <div class="panel-head"><p class="h">Macrophage programs along the axis</p><p class="s">Macrophage scores against the polarization of the epithelium around them (z-scored), 8 tumour sections</p></div>
+          <div data-panel="gamMac" data-fill="240,460"></div>
+          <p class="panel-foot"><a href="/research/ovarian-cancer/malignant-states/article#fig5">Figure 5i</a></p>
+        </div>
+        <div class="panel" style="grid-column: span 7">
+          <div class="panel-head"><p class="h">Signals in the SecB niche</p><p class="s">Genes with higher expression in SecB cells and nearby macrophages, grouped by role. Hover a gene for the evidence across platforms.</p></div>
+          <div data-panel="nicheDiagram"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================== 5. models -->
+<section class="chapter" id="models">
+  <div class="wrap">
+    <div class="chapter-head">
+      <span class="idx">5 · Experimental models</span>
+      <h2 class="name">Missing in models</h2>
+      <p class="light-line">Patient-derived organoids favour <span class="k-secA">SecA</span>, and none of the conditions we tested fully restored <span class="k-secB">SecB</span></p>
+    </div>
+    <div class="cols fig-side" data-match>
+      <div class="copy text">
+        <p>We profiled eight patient-derived organoid lines by single-nucleus RNA-seq. Fewer than 1% of organoid cells reached the SecB threshold of the atlas. Lines grown from ascites kept higher SecB scores than lines from primary tumours (p = 0.029), and in one line SecB scores were lower after 6–12 days in culture than at day 2.</p>
+        <p>Of four microenvironmental signals tested, only IFN-γ increased SecB gene expression, and none of the culture media restored the full state. Published organoid and spheroid datasets captured only parts of SecB: hypoxic cultures reproduced the HIF response but retained high proliferation. The KPCA.B mouse model also captured some features, including a <i>Krt7</i><sup>+</sup> luminal population, without a gene-expression program matching human SecB.</p>
+      </div>
+      <div class="figs">
+        <div class="panel">
+          <div class="panel-head"><p class="h">SecB score in eight organoid lines</p><p class="s">SecB UCell score per cell; dashed lines: atlas medians for intermediate and SecB cells</p></div>
+          <div data-panel="pdo" data-fill="260,440"></div>
+          <p class="panel-foot"><a href="/research/ovarian-cancer/malignant-states/article#fig3">Figure 3b</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================== 6. outcome -->
+<section class="chapter" id="outcome">
+  <div class="wrap">
+    <div class="chapter-head">
+      <span class="idx">6 · Clinical outcome</span>
+      <h2 class="name">Outcome</h2>
+      <p class="light-line">Greater <span class="k-secB">SecB</span> polarization is associated with poorer survival and greater bevacizumab benefit</p>
+    </div>
+    <div class="cols t4 fig-side" data-match>
+      <div class="copy text">
+        <p>Among 104 treatment-naive patients represented by two tumour cores, those in the most SecB-enriched third had worse 5-year overall survival than those in the most SecA-dominant third (log-rank p = 0.011). Polarization remained prognostic after adjusting for stage, residual disease and age (HR 1.51 per standard deviation).</p>
+        <p>The survival association also held in 314 TCGA-OV tumours scored by bulk RNA-seq. Higher polarization was associated with worse overall survival and progression-free survival after adjustment for epithelial content, stage and age (adjusted HRs 1.84 and 1.65, respectively).</p>
+      </div>
+      <div class="figs">
+        <div class="panel">
+          <div class="controls" id="km-controls"></div>
+          <div data-panel="kmExplorer" data-fill="330,520"></div>
+          <p class="panel-foot">Lowest versus highest third of tumour polarization scores; the middle third is not shown. <a href="/research/ovarian-cancer/malignant-states/article#fig7">Figure 7a,b,g,h</a></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="band-dark icon7-band">
+      <div class="chapter-head" style="margin-bottom:28px">
+        <h3 class="name" style="font-size:clamp(26px,3vw,38px);margin:0">Bevacizumab in ICON7</h3>
+        <p class="light-line" style="font-size:clamp(19px,2vw,24px);margin:0">Bevacizumab benefit was greater in <span class="k-secB-dark">SecB</span>-polarized tumours</p>
+      </div>
+      <p class="band-text">SecB niches are distant from blood vessels and contain macrophages expressing VEGFA. We therefore asked whether polarization was associated with benefit from bevacizumab. We scored pretreatment tumours from 191 patients with stage III/IV disease in ICON7 and divided them at the median polarization score. Within each group, we compared carboplatin–paclitaxel alone with carboplatin–paclitaxel plus bevacizumab.</p>
+      <div class="cols even" style="margin-top:28px;gap:24px" id="icon7"></div>
+      <p class="band-text" style="margin-top:32px">In SecB-polarized tumours, median progression-free survival was 18.7 months with bevacizumab versus 11.1 months with chemotherapy alone (HR 0.36). The treatment effect differed between the polarization groups (interaction p = 0.025); no statistically significant benefit was detected in the SecA group. In the analysis split at 15 months, the estimated benefit in SecB tumours was strongest during the first 15 months (HR 0.23), with no clear benefit detected afterwards (HR 0.87).</p>
+      <div class="card" style="margin-top:20px">
+        <div class="panel-head"><p class="h">Treatment effect before and after 15 months</p><p class="s">Hazard ratio of bevacizumab for progression-free survival, with the follow-up split at 15 months</p></div>
+        <div id="icon7-split"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================== 7. implications -->
+<section class="chapter" id="implications">
+  <div class="wrap">
+    <div class="chapter-head">
+      <span class="idx">7 · What it means</span>
+      <h2 class="name">Implications</h2>
+      <p class="light-line">A recurring cell state offers a way to investigate relapse, test treatment selection and develop practical biomarkers</p>
+    </div>
+    <div class="implications">
+      <div>
+        <div class="name">Relapse</div>
+        <div class="light-line">Could SecB cells seed recurrence?</div>
+        <p>SecB cells show lower proliferation and occupy regions distant from blood vessels. Their share increased after chemotherapy in 12 of 18 patients with matched samples, although the paired difference was not statistically significant. These observations raise the possibility that SecB cells persist through treatment and contribute to recurrence, a hypothesis for longitudinal studies.</p>
+      </div>
+      <div>
+        <div class="name">Selection</div>
+        <div class="light-line">A candidate marker of bevacizumab benefit</div>
+        <p>Our retrospective ICON7 analysis links SecB polarization to greater progression-free survival benefit from bevacizumab. Prospective validation is needed to establish whether it can guide treatment selection. Whether polarization can also inform treatment duration remains a separate question.</p>
+      </div>
+      <div>
+        <div class="name">Measurement</div>
+        <div class="light-line">Pathology markers could make testing practical</div>
+        <p>KRT7 and KRT19 protein levels correlated with the polarization score measured by Xenium in the same tissue cores; E-cadherin, KRT18 and vimentin did not. These markers provide a starting point for a practical tissue-based test. Serum CYFRA 21-1, a KRT19 fragment, is another candidate to investigate as a blood-based readout.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================== cite -->
+<section class="chapter" id="cite">
+  <div class="wrap">
+    <div class="cols">
+      <div class="chapter-head" style="margin:0">
+        <h2 class="name">Read and cite</h2>
+        <div class="actions" style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
+          <a class="btn navy" href="/research/ovarian-cancer/malignant-states/article">Full article →</a>
+          <a class="btn line" data-link="biorxiv" href="#">bioRxiv ↗</a>
+          <a class="btn line" data-link="code" href="#">Code ↗</a>
+        </div>
+      </div>
+      <div class="cite-box" id="cite-box"></div>
+    </div>
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox"></div>
+</div>

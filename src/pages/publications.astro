@@ -10,6 +10,8 @@ type Pub = {
   authors: string;
   year: number;
   href?: string;
+  /** Our own page for the paper (the interactive version), linked under the entry. */
+  web?: string;
 };
 
 // Curated set — first- and senior-author publications only.
@@ -18,11 +20,12 @@ const publications: Pub[] = [
   {
     venue: 'bioRxiv', preprint: true,
     title:
-      'Tumour architecture shapes polarized epithelial states that predict survival in high-grade serous ovarian cancer',
+      'Tumor architecture shapes polarized malignant states that predict outcome and treatment response in high-grade serous ovarian cancer',
     authors:
-      '<strong>Nersesian S</strong>, <strong>Abou-Hamad J</strong>, <strong>Durocher E</strong>, Akiki G, Domecq C, <strong>Southworth A</strong>, <strong>Deng H</strong>, Meunier L, de Ladurantaye M, Mes-Masson A-M, Tessier-Cloutier B, <strong>Cook DP</strong>',
+      '<strong>Nersesian S*</strong>, <strong>Abou-Hamad J*</strong>, <strong>Durocher E</strong>, Akiki G, Domecq C, <strong>Southworth A</strong>, <strong>Verey K</strong>, <strong>Deng H</strong>, Ramos-Valdes Y, Meunier L, de Ladurantaye M, Shepherd TG, Provencher D, Mes-Masson A-M, Tessier-Cloutier B, <strong>Cook DP</strong>',
     year: 2026,
     href: 'https://www.biorxiv.org/content/10.64898/2026.05.27.727977v1',
+    web: '/research/ovarian-cancer/malignant-states',
   },
   {
     venue: 'Nature Reviews Cancer',
@@ -146,6 +149,7 @@ const years = Object.keys(byYear)
                       <span>{p.venue}</span>{p.preprint && ' preprint'}
                     </span>
                   </Tag>
+                  {p.web && <a href={p.web} class="arrow-link mt-2">Interactive overview →</a>}
                 </li>
               );
             })}

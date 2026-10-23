@@ -1,0 +1,88 @@
+{
+ "name": "atlas_umap",
+ "n": 400000,
+ "coords": "umap",
+ "bbox": [
+  -7.1398,
+  -9.7803,
+  16.93,
+  15.3777
+ ],
+ "fields": [
+  {
+   "name": "x",
+   "type": "u16"
+  },
+  {
+   "name": "y",
+   "type": "u16"
+  },
+  {
+   "name": "celltype",
+   "type": "u8",
+   "categories": [
+    "Epithelial",
+    "Mesothelial",
+    "Fibroblast",
+    "Smooth muscle",
+    "Pericyte",
+    "Endothelial",
+    "T/NK cell",
+    "B cell",
+    "Plasma cell",
+    "Macrophage",
+    "DC",
+    "Neutrophil",
+    "Mast cell"
+   ],
+   "label": "Cell type"
+  },
+  {
+   "name": "study",
+   "type": "u8",
+   "categories": [
+    "Vázquez-García 2022",
+    "Luo 2024",
+    "Loret 2022",
+    "Zheng 2023",
+    "Nath 2021",
+    "Zhang 2022",
+    "Hornburg 2021",
+    "Geistlinger 2020",
+    "Xu 2022",
+    "Olbrecht 2021",
+    "Denisenko 2024",
+    "Regner 2021",
+    "Olalekan 2021"
+   ],
+   "label": "Study"
+  },
+  {
+   "name": "site",
+   "type": "u8",
+   "categories": [
+    "Primary",
+    "Metastasis",
+    "Ascites",
+    "Healthy"
+   ],
+   "label": "Site"
+  },
+  {
+   "name": "treatment",
+   "type": "u8",
+   "categories": [
+    "Pre-treatment",
+    "Post-chemo",
+    "Other",
+    "Post-niraparib",
+    "Unknown"
+   ],
+   "label": "Treatment",
+   "note": "Other = post-chemotherapy with niraparib, olaparib, pembrolizumab or niraparib + pembrolizumab maintenance (the last, one Nath 2021 sample, is not drawn in Fig 1d)"
+  }
+ ],
+ "bin": "atlas_umap.bin",
+ "source": "hgsc_atlas_final.h5ad obsm/X_umap and obs via the repository loader (atlas_final_tables.load_obs, Nath 2021 fix applied); uniform random 400,000 of 1,980,703 cells, shuffled (numpy seed 42). UMAP y increases upward.",
+ "n_total": 1980703
+}

@@ -41,6 +41,7 @@ const questionGroups = [
   {
     title: 'Ovarian cancer',
     qs: [
+      { q: 'How does the tumour microenvironment shape cancer cell states and treatment response?', p: 'Tumour microenvironment', href: '/research/ovarian-cancer/malignant-states' },
       { q: 'Why do high-grade serous ovarian cancers become resistant to chemotherapy after a strong initial response?', p: 'Treatment resistance' },
       { q: 'How does the biology of rare ovarian cancer subtypes differ from high-grade serous disease?', p: 'Rare subtypes' },
       { q: 'Why have immunotherapies failed in ovarian cancer?', p: 'Novel immunotherapies' },
@@ -100,8 +101,17 @@ const questionGroups = [
             <ul class="d-pad mt-6 mb-0 p-0 list-none">
               {qs.map((item) => (
                 <li class="py-3.5 border-t border-navy-700/10">
-                  <p class="question m-0 text-[18px] text-navy-700">{item.q}</p>
-                  <p class="mt-1 mb-0 text-[14px] font-medium text-rust-500">{item.p}</p>
+                  {item.href ? (
+                    <a href={item.href} class="q-link group block">
+                      <p class="question m-0 text-[18px] text-navy-700 group-hover:text-rust-600 transition-colors">{item.q}</p>
+                      <p class="mt-1 mb-0 text-[14px] font-medium text-rust-500">{item.p} →</p>
+                    </a>
+                  ) : (
+                    <>
+                      <p class="question m-0 text-[18px] text-navy-700">{item.q}</p>
+                      <p class="mt-1 mb-0 text-[14px] font-medium text-rust-500">{item.p}</p>
+                    </>
+                  )}
                 </li>
               ))}
             </ul>

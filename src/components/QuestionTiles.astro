@@ -2,9 +2,12 @@
 // The image on a homepage question card: the stained section, toned to the dark ground, and the
 // same cells as glass tiles, which fade in over it, each in place, while the card is hovered or
 // focused (on touch screens, once the card scrolls into view). The cells the question is about
-// appear first, then the other cells, then the background tiles. Leaving the card fades them out.
+// appear first, then the other cells; only segmented cells get a tile, so empty space and lumen keep
+// the stain. Leaving the card fades them out.
 // `name` picks /mosaic/q-<name>-he.webp, q-<name>-tiles.webp and q-<name>.json (tile outlines
-// in the tiles image's pixels; group 0 the question's cells, 1 other cells, 2 background).
+// in the tiles image's pixels; group 0 the question's cells, 1 other cells). The tiles image is
+// flattened onto the stain, re-exported without background tiles by
+// ~/My Drive/Lab/Manuscripts/hgsc_epitypes/web/build/hero2/render_tiles.py card <name> public/mosaic.
 interface Props {
   name: string;
 }
@@ -41,7 +44,7 @@ const { name } = Astro.props;
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const touch = window.matchMedia('(hover: none)').matches;
   // when each group starts to appear, as a share of the fade; each tile takes WIN to fade in
-  const STARTS = [[0, 0.4], [0.22, 0.62], [0.42, 0.72]];
+  const STARTS = [[0, 0.4], [0.22, 0.62]];
   const WIN = 0.28;
 
   function setup(el: HTMLElement) {
@@ -82,7 +85,7 @@ const { name } = Astro.props;
         }
         const bx = Math.floor(x0) - 1, by = Math.floor(y0) - 1, bw = Math.ceil(x1) - bx + 2, bh = Math.ceil(y1) - by + 2;
         if (x + bw > AW) { x = 0; y += rowH + 1; rowH = 0; }
-        const [a, b] = STARTS[g];
+        const [a, b] = STARTS[Math.min(g, STARTS.length - 1)];
         const box = { ax: x, ay: y, bx, by, bw, bh, cx, cy, pts, s: a + Math.random() * (b - a) };
         x += bw + 1;
         rowH = Math.max(rowH, bh);

@@ -1,0 +1,2454 @@
+{
+ "title": "Tumor architecture shapes polarized malignant states that predict outcome and treatment response in high-grade serous ovarian cancer",
+ "authors": [
+  {
+   "name": "Sarah Nersesian",
+   "affs": [
+    1,
+    2
+   ],
+   "equal": true,
+   "corresponding": false
+  },
+  {
+   "name": "John Abou-Hamad",
+   "affs": [
+    1,
+    2
+   ],
+   "equal": true,
+   "corresponding": false
+  },
+  {
+   "name": "Emma M. Durocher",
+   "affs": [
+    1,
+    2
+   ],
+   "equal": false,
+   "corresponding": false
+  },
+  {
+   "name": "Gaëlle Akiki",
+   "affs": [
+    3,
+    4
+   ],
+   "equal": false,
+   "corresponding": false
+  },
+  {
+   "name": "Celine Domecq",
+   "affs": [
+    4
+   ],
+   "equal": false,
+   "corresponding": false
+  },
+  {
+   "name": "Athena Southworth",
+   "affs": [
+    1,
+    2
+   ],
+   "equal": false,
+   "corresponding": false
+  },
+  {
+   "name": "Katrina N. Verey",
+   "affs": [
+    1,
+    2
+   ],
+   "equal": false,
+   "corresponding": false
+  },
+  {
+   "name": "Houyu H. Deng",
+   "affs": [
+    1,
+    2
+   ],
+   "equal": false,
+   "corresponding": false
+  },
+  {
+   "name": "Yudith Ramos-Valdes",
+   "affs": [
+    8
+   ],
+   "equal": false,
+   "corresponding": false
+  },
+  {
+   "name": "Liliane Meunier",
+   "affs": [
+    5
+   ],
+   "equal": false,
+   "corresponding": false
+  },
+  {
+   "name": "Manon de Ladurantaye",
+   "affs": [
+    5
+   ],
+   "equal": false,
+   "corresponding": false
+  },
+  {
+   "name": "Trevor G. Shepherd",
+   "affs": [
+    7,
+    8,
+    9,
+    10
+   ],
+   "equal": false,
+   "corresponding": false
+  },
+  {
+   "name": "Diane Provencher",
+   "affs": [
+    5,
+    6
+   ],
+   "equal": false,
+   "corresponding": false
+  },
+  {
+   "name": "Anne-Marie Mes-Masson",
+   "affs": [
+    5,
+    6
+   ],
+   "equal": false,
+   "corresponding": false
+  },
+  {
+   "name": "Basile Tessier Cloutier",
+   "affs": [
+    3,
+    4
+   ],
+   "equal": false,
+   "corresponding": false
+  },
+  {
+   "name": "David P. Cook",
+   "affs": [
+    1,
+    2
+   ],
+   "equal": false,
+   "corresponding": true
+  }
+ ],
+ "affiliations": [
+  {
+   "n": 1,
+   "text": "Cancer Research Program, Ottawa Hospital Research Institute, Ottawa, ON, Canada"
+  },
+  {
+   "n": 2,
+   "text": "Department of Cellular and Molecular Medicine, University of Ottawa, Ottawa, ON, Canada"
+  },
+  {
+   "n": 3,
+   "text": "Department of Pathology, McGill University, Montreal, QC, Canada"
+  },
+  {
+   "n": 4,
+   "text": "Cancer Research Program, Research Institute of the McGill University Health Centre, Montreal, QC, Canada"
+  },
+  {
+   "n": 5,
+   "text": "Centre de recherche du Centre hospitalier de l’Université de Montréal and Institut du cancer de Montréal, Montreal, QC, Canada"
+  },
+  {
+   "n": 6,
+   "text": "Department of Medicine, Université de Montréal, Montreal, QC, Canada"
+  },
+  {
+   "n": 7,
+   "text": "Department of Anatomy and Cell Biology, Western University, London, ON, Canada"
+  },
+  {
+   "n": 8,
+   "text": "The Mary & John Knight Translational Ovarian Cancer Research Program, Verspeeten Family Cancer Centre, London, ON, Canada"
+  },
+  {
+   "n": 9,
+   "text": "Department of Oncology, Schulich School of Medicine & Dentistry, Western University, London, ON"
+  },
+  {
+   "n": 10,
+   "text": "Department of Obstetrics & Gynaecology, Schulich School of Medicine & Dentistry, Western University, London, ON, Canada"
+  }
+ ],
+ "notes": [
+  "*These authors contributed equally.",
+  "**Corresponding author. dacook@ohri.ca"
+ ],
+ "sections": [
+  {
+   "id": "introduction",
+   "title": "Introduction",
+   "blocks": [
+    {
+     "type": "p",
+     "html": "High-grade serous ovarian carcinoma (HGSC) is the most common subtype of ovarian cancer and remains the most lethal gynecological malignancy. Clinical management relies on surgical debulking and combination (platinum/taxane) chemotherapy, with maintenance PARP inhibitors for patients with homologous recombination deficiency (HRD) and frequent use of anti-VEGF antibody bevacizumab<sup class=\"cite\" data-refs=\"1\">1</sup>. Despite high initial response rates, recurrence of therapy-resistant disease is nearly universal<sup class=\"cite\" data-refs=\"2\">2</sup>. Bulk transcriptomic subtypes (C1/mesenchymal, C2/immunoreactive, C4/differentiated, C5/proliferative) were defined to stratify patients into biologically and therapeutically distinct groups<sup class=\"cite\" data-refs=\"3,4\">3,4</sup>. However, these subtypes have shown inconsistent survival associations across cohorts and often reflect sample composition rather than underlying biology<sup class=\"cite\" data-refs=\"5,6,7\">5–7</sup>. They have also not yet translated into tools for predicting treatment response. No molecular classifier reliably identifies patients who will relapse early after chemotherapy, and while bevacizumab prolongs progression-free survival (PFS) by only a few months in a subset of patients, it rarely improves overall survival (OS)<sup class=\"cite\" data-refs=\"8\">8</sup>. Beyond HRD, treatment decisions in HGSC remain largely unguided by tumor biology."
+    },
+    {
+     "type": "p",
+     "html": "Single-cell RNA sequencing (scRNA-seq) has resolved the HGSC tumor microenvironment (TME) in greater detail, characterizing immune phenotypes<sup class=\"cite\" data-refs=\"9\">9</sup>, stromal subtypes and their prognostic contributions<sup class=\"cite\" data-refs=\"10\">10</sup>, site-specific immune evasion driven by mutational processes<sup class=\"cite\" data-refs=\"11\">11</sup>, treatment-associated remodeling under chemotherapy and immunotherapy<sup class=\"cite\" data-refs=\"12,13,14\">12–14</sup>, and tumor–immune cell interactions across disease sites<sup class=\"cite\" data-refs=\"15,16,17,18\">15–18</sup>. These advances have come from focused characterization of the non-malignant components of the TME; however, the malignant epithelial subsets have been defined and annotated inconsistently, with no shared classification across cohorts<sup class=\"cite\" data-refs=\"19,20\">19,20</sup>. Given the extensive chromosomal rearrangements and paucity of recurrent somatic mutations in HGSC<sup class=\"cite\" data-refs=\"3,4\">3,4</sup>, HRD status remains the only molecular characteristic used to stratify the disease<sup class=\"cite\" data-refs=\"3,4\">3,4</sup>. No unified framework describes epithelial diversity in HGSC, explains how it arises within and across tumors, or reconciles the states defined in individual studies."
+    },
+    {
+     "type": "p",
+     "html": "In HGSC, epithelial state has been linked to the surrounding tissue, but which environmental features pattern that state, and how consistently they act across tumors, remain unresolved. Vázquez-García et al. demonstrated that epithelial signaling programs vary independently of clonal identity within individual patients and recur across patients with different genotypes<sup class=\"cite\" data-refs=\"11\">11</sup>, suggesting that recurrent epithelial heterogeneity reflects environmentally programmed plasticity. Similar findings exist in other cancers: pancreatic cancer organoids collapse to a common state in culture irrespective of genotype and adopt distinct states under defined microenvironmental conditions<sup class=\"cite\" data-refs=\"21\">21</sup>; in glioblastoma, malignant states are spatially organized around microenvironmental features such as hypoxic gradients<sup class=\"cite\" data-refs=\"22\">22</sup>. HGSC tumors are structurally heterogeneous, exhibiting both solid and papillary growth patterns, as well as detached spheroids within peritoneal ascites, each defining a distinct microenvironment capable of shaping epithelial states. Resolving these recurring malignant states alongside the environmental features that pattern them would establish a unified framework for HGSC heterogeneity."
+    },
+    {
+     "type": "p",
+     "html": "Here we examine how the local environment shapes epithelial state across HGSC. We integrated scRNA-seq data from 13 published studies into an atlas of approximately 2 million cells from 362 samples and generated targeted spatial transcriptomics of 8 whole tissues and tissue microarrays representing 378 patients. We identify a dominant axis of secretory epithelial polarization, from progenitor-like SecA to injury-associated SecB, that recurs across tumors and varies within genetic clones. In tumors, SecB polarization tracks with distance from vasculature, in hypoxic regions where HIF/NF-κB-driven survival and glycolysis replace mitogenic signaling. SecB cells are enriched in ascites. Lymphocytes are excluded from these regions, whereas macrophages adopt a hypoxic, glycolytic program that mirrors epithelial adaptation. These macrophages co-organize with SecB cells into an immune-protected niche poised for dissemination. The SecB state is largely lost in patient-derived organoids and only partially recovered by environmental inputs such as IFNγ, and it is incompletely recapitulated with <i>in vivo</i> models. Clinically, SecB polarization predicts worse survival after standard chemotherapy across independent cohorts, yet it identifies the patients who benefitted from bevacizumab in the ICON7 trial<sup class=\"cite\" data-refs=\"23\">23</sup>. Together, these findings link HGSC tumor architecture to epithelial state, the immune niche, and treatment response."
+    }
+   ]
+  },
+  {
+   "id": "results",
+   "title": "Results",
+   "blocks": [
+    {
+     "type": "h3",
+     "html": "Secretory epithelial cells adopt conserved polarized states in HGSC",
+     "id": "secretory-epithelial-cells-adopt-conserved-polarized-states-"
+    },
+    {
+     "type": "p",
+     "html": "To resolve the cellular landscape and transcriptional diversity of HGSC, we integrated scRNA-seq datasets from 13 independent studies (<a class=\"xref fig\" href=\"#\" data-fig=\"1:ab\">Figure 1a,b</a>, <a class=\"xref fig\" href=\"#\" data-fig=\"S1:;S2:\">Figure S1, S2</a>, <a class=\"xref tab\" href=\"#\" data-tab=\"S1\">Table S1</a>). This atlas comprises 1,980,703 cells from 158 patients across 362 tissue samples spanning 12 anatomic sites: primary tumors (adnexa), common metastatic sites (omentum, peritoneum, bowel), ascites, and rarer locations (lymph node, diaphragm, liver, upper quadrant, pelvic cavity, bladder, colon; <a class=\"xref fig\" href=\"#\" data-fig=\"1:c\">Figure 1c</a>, <a class=\"xref fig\" href=\"#\" data-fig=\"S3:\">Figure S3</a>). The atlas includes both treatment-naïve and post-treatment samples (<a class=\"xref fig\" href=\"#\" data-fig=\"1:d\">Figure 1d</a>, <a class=\"xref fig\" href=\"#\" data-fig=\"S3:\">Figure S3</a>). We adopted a hierarchical annotation scheme, identifying 13 broad cell type lineages that we further resolved into 51 discrete cell types and states (<a class=\"xref fig\" href=\"#\" data-fig=\"1:e\">Figure 1e</a>, <a class=\"xref fig\" href=\"#\" data-fig=\"S4:\">Figure S4</a>, <a class=\"xref tab\" href=\"#\" data-tab=\"S2;S3\">Table S2, S3</a>)."
+    },
+    {
+     "type": "p",
+     "html": "The integrated epithelial compartment (575,366 cells) included a small ciliated subset (6,678 cells, 1.2%) defined by canonical fallopian tube ciliated cell markers (<i>FOXJ1, CAPS, RSPH1, TPPP3</i>), with the remainder representing a dominant secretory population (<i>PAX8, WFDC2</i>; <a class=\"xref fig\" href=\"#\" data-fig=\"1:f\">Figure 1f</a>, <a class=\"xref tab\" href=\"#\" data-tab=\"S4\">Table S4</a>). Within the secretory cell subset, markers associated with lineage-related differentiation were not uniformly expressed. To resolve coordinated transcriptional programs within the secretory compartment, we applied non-negative matrix factorization, which identified two programs that represent an axis of variation among malignant secretory cells (<a class=\"xref fig\" href=\"#\" data-fig=\"S5:\">Figure S5</a>, <a class=\"xref tab\" href=\"#\" data-tab=\"S5\">Table S5</a>). Importantly, this axis represents the dominant coordinated transcriptional program across tumors (principal component (PC)1 in 54% of samples, PC1-3 in 82%; <a class=\"xref fig\" href=\"#\" data-fig=\"1:g\">Figure 1g</a>). One pole, we termed Secretory A (SecA), was enriched for developmental transcription factors and progenitor markers: <i>MECOM, SOX17, FBXO21, PBX1, LGR5, LPAR3, </i>and<i> RCN2</i> (<a class=\"xref fig\" href=\"#\" data-fig=\"1:h\">Figure 1h</a>, <a class=\"xref fig\" href=\"#\" data-fig=\"S6:\">Figure S6</a>). The other pole, which we termed Secretory B (SecB) was enriched for keratins and mucosal differentiation genes: <i>KRT17, LCN2, TACSTD2, KRT7, KRT19, SLPI, </i>and<i> PRSS22</i> (<a class=\"xref fig\" href=\"#\" data-fig=\"1:i\">Figure 1i</a>, <a class=\"xref fig\" href=\"#\" data-fig=\"S6:\">Figure S6</a>). This axis was independent of programs defining cell cycle, stress response, interferon, EMT, or metallothionein signatures (<a class=\"xref fig\" href=\"#\" data-fig=\"1:j\">Figure 1j</a>, <a class=\"xref fig\" href=\"#\" data-fig=\"S5:\">Figure S5</a>). To facilitate downstream comparisons, we partitioned cells along this axis into three groups: SecA, Intermediate, and SecB, based on their factor usage. These boundaries reflect divisions along a continuum rather than distinct cell identities (<a class=\"xref fig\" href=\"#\" data-fig=\"1:k\">Figure 1k</a>)."
+    },
+    {
+     "type": "p",
+     "html": "Having established the axis is independent of cell cycle and stress programs, we next asked whether it arises from genetic heterogeneity, leveraging inferred copy number variation (CNV) profiles. Within individual clones, we observed cells at both the SecA and SecB poles of the secretory axis (<a class=\"xref fig\" href=\"#\" data-fig=\"1:lm\">Figure 1l,m</a>, <a class=\"xref fig\" href=\"#\" data-fig=\"S7:\">Figure S7</a>). This suggests that these states are not strictly driven by clonal divergence, though individual clones may differ in their propensity to activate specific programs."
+    },
+    {
+     "type": "h3",
+     "html": "SecB polarized cells represent a quiescent state, enriched in ascites",
+     "id": "secb-polarized-cells-represent-a-quiescent-state-enriched-in"
+    },
+    {
+     "type": "p",
+     "html": "SecA and SecB cells exhibit distinct regulatory and metabolic features (<a class=\"xref fig\" href=\"#\" data-fig=\"2:a\">Figure 2a</a>). We characterized the transcriptional programs of SecA and SecB cells through gene set enrichment (Hallmark), and inferred pathway (PROGENy), transcription factor (DoRothEA) and metabolic activity (scFEA). SecA cells were enriched for proliferation and growth programs, including MAPK signaling (PROGENy); MYC and E2F targets (Hallmark, DoRothEA); and metabolic flux estimation consistent with biosynthetic growth (<a class=\"xref fig\" href=\"#\" data-fig=\"2:a\">Figure 2a</a>, <a class=\"xref fig\" href=\"#\" data-fig=\"S8:\">Figure S8</a>). In contrast, SecB cells were enriched for signals related to environmental adaptation, including hypoxia, p53, VEGF, and TGFβ, and were metabolically more glycolytic (<a class=\"xref fig\" href=\"#\" data-fig=\"2:a\">Figure 2a</a>). Cell cycle analysis confirmed this distinction: SecA cells had the highest proliferating fraction (37.8% S/G2M), whereas SecB cells were predominantly in G1 (80.6% G1, <a class=\"xref fig\" href=\"#\" data-fig=\"2:b\">Figure 2b</a>)."
+    },
+    {
+     "type": "p",
+     "html": "We quantified the proportion of each epithelial state across anatomic sites and after chemotherapy (<a class=\"xref fig\" href=\"#\" data-fig=\"S9:\">Figure S9</a>). Among pre-treatment samples, ascites was strongly enriched for SecB cells (68%), whereas primary and metastatic tumors showed similar SecB proportions (14% and 17%, respectively); this held in a subset of patient-matched multi-site samples (n = 14, median 60.7% in ascites vs 10.2% in primary; <a class=\"xref fig\" href=\"#\" data-fig=\"2:cd\">Figure 2c,d</a>). In post-chemotherapy primary tumors, SecA proportions declined (from 60% to 53%) and SecB proportions increased (from 14% to 24%, <a class=\"xref fig\" href=\"#\" data-fig=\"2:c\">Figure 2c</a>). In a subset of patient-matched pre- and post-chemotherapy samples (n = 18), SecB increased after chemotherapy in 12 of the 18 patients (58% to 69%, p = 0.11, <a class=\"xref fig\" href=\"#\" data-fig=\"2:e\">Figure 2e</a>)."
+    },
+    {
+     "type": "p",
+     "html": "These findings suggest SecB cells may be dependent on the tumor microenvironment they exist within. We therefore asked if SecB cells are differentially enriched within the previously established molecular subtypes of HGSC tumors<sup class=\"cite\" data-refs=\"3,4\">3,4</sup>. We categorized primary samples from the atlas into their TCGA-defined subtype using consensusOV, then explored the proportion of epithelial states within each (<a class=\"xref fig\" href=\"#\" data-fig=\"2:f\">Figure 2f</a>). We observed that SecA cells predominate in proliferative and immunoreactive tumors (median 76% and 75%) but were lower in differentiated and mesenchymal tumors (median 38% and 37%), while SecB was most abundant in mesenchymal tumors (<a class=\"xref fig\" href=\"#\" data-fig=\"2:f\">Figure 2f</a>). Together, these data suggest SecB polarization reflects a quiescent, metabolically adapted state that may confer an advantage under environmental stress, such as hypoxia and after exposure to chemotherapy. To explore secretory polarization across independent models and platforms, we derived a SecA/SecB gene signature from each NMF factor loading and used it to score polarization in downstream analyses, providing consistent, atlas-aligned thresholds (<a class=\"xref fig\" href=\"#\" data-fig=\"2:g\">Figure 2g</a>, <a class=\"xref tab\" href=\"#\" data-tab=\"S6\">Table S6</a>)."
+    },
+    {
+     "type": "h3",
+     "html": "In vitro and in vivo models of HGSC incompletely recapitulate secretory polarization",
+     "id": "in-vitro-and-in-vivo-models-of-hgsc-incompletely-recapitulat"
+    },
+    {
+     "type": "p",
+     "html": "To assess whether we could model and perturb this secretory polarization <i>in vitro</i>, we performed snRNA-seq on eight patient-derived organoid (PDO) models derived from ascites (n = 4) or primary tumors (n = 4) (<a class=\"xref fig\" href=\"#\" data-fig=\"3:a\">Figure 3a</a>). Compared to the atlas, PDO models were strongly skewed toward SecA, with fewer than 1% of cells reaching the SecB signature threshold (<a class=\"xref fig\" href=\"#\" data-fig=\"3:b\">Figure 3b</a>). PDOs established from ascites samples, however, consistently exhibited higher SecB scores than those from primary tumors (p = 0.029), suggesting partial retention of this state from the ascites (<a class=\"xref fig\" href=\"#\" data-fig=\"3:b\">Figure 3b</a>)."
+    },
+    {
+     "type": "p",
+     "html": "Consistent with environmental maintenance of SecB, polarization scores in the OPTO98 PDO declined progressively over time in standard Matrigel-embedded, glucose-rich culture (<a class=\"xref fig\" href=\"#\" data-fig=\"3:c\">Figure 3c</a>). To attempt to identify the signals responsible, we treated organoids with candidate microenvironmental factors (IFNγ, TNFα, TGFβ, and WNT7A). Of all these perturbations, only IFNγ induced SecB gene expression across the population (<a class=\"xref fig\" href=\"#\" data-fig=\"3:d\">Figure 3d</a>), suggesting a role for the immune microenvironment in initiating or maintaining secretory polarization. We additionally tested if we could induce SecB polarization by differing culturing medias, but unfortunately no medium was able to recapitulate the SecB polarization observed in the atlas (<a class=\"xref fig\" href=\"#\" data-fig=\"3:e\">Figure 3e</a>)."
+    },
+    {
+     "type": "p",
+     "html": "We next asked whether the SecB state was represented across publicly available RNA-seq datasets of organoids and spheroids derived from HGSC (<a class=\"xref fig\" href=\"#\" data-fig=\"3:f\">Figure 3f</a>). We scored these models on their ability to recapitulate the SecB markers and function (HIF induction and quiescence) against the atlas reference (<a class=\"xref fig\" href=\"#\" data-fig=\"3:fgh\">Figure 3f–h</a>). While models cultured in hypoxic conditions recapitulate HIF induction (<a class=\"xref fig\" href=\"#\" data-fig=\"3:g\">Figure 3g</a>), proliferation rates remain elevated across models (<a class=\"xref fig\" href=\"#\" data-fig=\"3:h\">Figure 3h</a>). These data suggest that our current organoid and spheroid models lack the diverse cellular interactions and tissue-level features required to recapitulate the SecB state."
+    },
+    {
+     "type": "p",
+     "html": "To explore the possibility of modeling SecB <i>in vivo</i>, we profiled the cellular composition of one primary endpoint tumor from the KPCA.B orthotopic syngeneic model of HGSC by scRNA-seq (<a class=\"xref fig\" href=\"#\" data-fig=\"3:i\">Figure 3i</a>). We identified several programs driving secretory cell heterogeneity within the KPCA.B model (<a class=\"xref fig\" href=\"#\" data-fig=\"3:j\">Figure 3j</a>, <a class=\"xref fig\" href=\"#\" data-fig=\"S10:\">Figure S10</a>), with expression of the top conserved SecB marker, <i>KRT7</i>, establishing a clear axis (<a class=\"xref fig\" href=\"#\" data-fig=\"3:k\">Figure 3k</a>). Immunohistochemistry on KPCA.B tumors, localized KRT7+ cells to luminal regions, where they appeared distant from the stroma and were frequently adjacent to immune cells (<a class=\"xref fig\" href=\"#\" data-fig=\"3:l\">Figure 3l</a>). Although the syngeneic model may be able to partially model a SecB-like state, no resulting NMF program reflected the human SecB polarization (<a class=\"xref fig\" href=\"#\" data-fig=\"S10:\">Figure S10</a>). The species-driven differences in epithelial and immune cell regulation and divergence from the disease’s natural progression by orthotopic cell injection may limit its ability to reflect the human SecB state."
+    },
+    {
+     "type": "h3",
+     "html": "Tumor architecture establishes a metabolic gradient aligned with secretory polarization",
+     "id": "tumor-architecture-establishes-a-metabolic-gradient-aligned-"
+    },
+    {
+     "type": "p",
+     "html": "To identify the environmental features that drive the SecB state, we designed a custom targeted spatial transcriptomics panel (10x Genomics Xenium) to resolve cell types, epithelial programs, signaling pathways, immune function, therapeutic targets, and clinical classifiers relevant to HGSC (<a class=\"xref tab\" href=\"#\" data-tab=\"S7\">Table S7</a>). We applied this panel to 8 whole HGSC tumors (n = 4 treatment-naïve, n = 4 post-chemotherapy, approximately 1.9 million cells, <a class=\"xref tab\" href=\"#\" data-tab=\"S8\">Table S8</a>), to two tissue microarrays (TMAs) of primary HGSC representing a combined 378 patients (503 cores, 1.5 million cells: TMA A, 95 patients, 82 profiled in duplicate cores; TMA B, 283 patients), and to 15 healthy fallopian tube epithelial (FTE) tissue cores (34,281 cells, <a class=\"xref fig\" href=\"#\" data-fig=\"4:a\">Figure 4a</a>, <a class=\"xref fig\" href=\"#\" data-fig=\"S11:;S13:\">Figure S11–13</a>). Eighteen cell types, including ciliated and secretory epithelial cell states, were annotated by SingleR using the scRNA-seq atlas as a qualitative reference (<a class=\"xref fig\" href=\"#\" data-fig=\"S14:\">Figure S14</a>). Hierarchical clustering revealed broad diversity in HGSC tissue composition, with whole tissues spanning the range observed across the TMA patients (<a class=\"xref fig\" href=\"#\" data-fig=\"4:a\">Figure 4a</a>). Secretory cells were scored for polarization (SecB – SecA) and annotated according to atlas-aligned thresholds, with polarization scoring significantly higher in the HGSC secretory cells compared to those within the healthy FTE tissue (per-unit medians, p = 0.003, <a class=\"xref fig\" href=\"#\" data-fig=\"S15:\">Figure S15</a>)."
+    },
+    {
+     "type": "p",
+     "html": "Across all eight whole tissues, SecA and SecB scores were spatially segregated (<a class=\"xref fig\" href=\"#\" data-fig=\"4:bc\">Figure 4b,c</a>): a cell's SecA score was negatively associated with its neighbors' SecB scores within each whole tissue (bivariate Moran's I −0.01 to −0.17; sign test p = 0.008) and in 299 of 334 TMA patients (Wilcoxon p &lt; 0.001), forming continuous spatial polarization gradient toward the lumen of papillary growths (<a class=\"xref fig\" href=\"#\" data-fig=\"4:d\">Figure 4d</a>). Whereas SecA cells were broadly distributed throughout HGSC tissue, SecB cells were spatially concentrated: 89% of SecB cells assigned to a neighborhood resided in neighborhoods enriched for other SecB cells, suggesting that this adaptation occurs in discrete, spatially coherent niches (<a class=\"xref fig\" href=\"#\" data-fig=\"4:e\">Figure 4e</a>). To understand what shapes these niches, we characterized the local microenvironment (50 µm radius) of each secretory cell (1,235,350 cells) and quantified regional cell type composition, bulk environmental signaling, and cell-specific gene expression. We used generalized additive modeling to map local environmental changes along the polarization axis (pathway UCell scores using custom gene sets, <a class=\"xref tab\" href=\"#\" data-tab=\"S9\">Table S9</a>). In the tissue maps, SecB cells lay toward the lumen of papillary structures (<a class=\"xref fig\" href=\"#\" data-fig=\"4:bc\">Figure 4b,c</a>), and they were enriched with increasing distance from the vasculature (<a class=\"xref fig\" href=\"#\" data-fig=\"4:fgh\">Figure 4f–h</a>, <a class=\"xref fig\" href=\"#\" data-fig=\"S16:\">Figure S16</a>). These shifts coincide with reduced local cell density (<a class=\"xref fig\" href=\"#\" data-fig=\"4:fi\">Figure 4f,i</a>) and increased expression of matrix remodeling genes (e.g. <i>ADAM17, MMP7, SERPINE1,</i> <a class=\"xref fig\" href=\"#\" data-fig=\"4:f\">Figure 4f</a>). These architectural and compositional changes are associated with shaping the local metabolic environment; as secretory cells move away from blood vessels, expression of hypoxia-associated genes (e.g. <i>ENO1</i>,<i> HIF1A</i>,<i> VEGFA</i>) increased (<a class=\"xref fig\" href=\"#\" data-fig=\"4:fj\">Figure 4f,j</a>)."
+    },
+    {
+     "type": "h3",
+     "html": "SecB cells and macrophages adapt to hypoxic niches through a shared glycolytic survival program",
+     "id": "secb-cells-and-macrophages-adapt-to-hypoxic-niches-through-a"
+    },
+    {
+     "type": "p",
+     "html": "We next examined how transcriptional programs within the secretory cells adapt along the secretory polarization axis (<a class=\"xref fig\" href=\"#\" data-fig=\"5:abcd\">Figure 5a–d</a>). Within secretory epithelial cells, we observed a consistent decline across markers of proliferation and growth as cells adapt toward SecB, including: proliferation signals (<i>MKI67</i>,<i> PCNA</i>,<i> TOP2A</i>), oncogenic growth signaling pathways (Myc [<i>MYC, MAX, MYCL</i>], PI3K [<i>PIK3CA, AKT1</i>,<i> MTOR</i>], Wnt [<i>FZD3</i>,<i> CTNNB1</i>,<i> TCF7L2</i>], and Notch [<i>JAG1</i>,<i> NOTCH1</i>,<i> NOTCH2</i>]), DNA damage repair genes (<i>BRCA1/2</i>,<i> ATM</i>,<i> CHEK2</i>), and epigenetic remodeling signals (<i>DNMT3A, HDAC1, KDM5A</i>) (<a class=\"xref fig\" href=\"#\" data-fig=\"5:acd\">Figure 5a,c,d</a>; <a class=\"xref fig\" href=\"#\" data-fig=\"S17:\">Figure S17</a>). Instead, SecB cells maintain survival through increased <i>TNFA </i>expression, NF-κB signaling (<i>BIRC3</i>, <i>ICAM1</i>,<i> NFKBIA</i>), and HIF-driven glycolysis (<i>SLC2A1</i>,<i> LDHA</i>,<i> SLC16A3</i>; <a class=\"xref fig\" href=\"#\" data-fig=\"5:acd\">Figure 5a,c,d</a>). Consistent with reduced proliferation and growth signaling, SecB cells had significantly smaller nuclei than SecA cells across our Xenium tissues (median 39.5 vs 47.7 µm², p = 0.008) and across the TMA cohort (n = 361 patients, p &lt; 0.001; <a class=\"xref fig\" href=\"#\" data-fig=\"5:b\">Figure 5b</a>). These signals suggest that SecB cells adapt to their hypoxic environment by trading proliferation for stress-tolerant survival."
+    },
+    {
+     "type": "p",
+     "html": "The hypoxic niches that enriched for SecB cells also showed coordinated shifts in immune composition. By modeling the composition of each cell's neighborhood as a function of local epithelial hypoxia across the eight whole tissues, we found that macrophages and B cells followed opposite trajectories: macrophages rose from 13.4% to 32.6% of non-epithelial cells in the most hypoxic niches, whereas B cells fell from 3.8% to 0.7% (both p = 0.008, 8 of 8 tissues; <a class=\"xref fig\" href=\"#\" data-fig=\"5:efgh\">Figure 5e–h</a>). Within hypoxic regions, T cells and plasma cells trended lower, and NK cells were unchanged (<a class=\"xref fig\" href=\"#\" data-fig=\"5:efgh\">Figure 5e-h</a>). Macrophages not only persisted in the most metabolically stressed niches but activated a transcriptional program mirroring the SecB survival program (<a class=\"xref fig\" href=\"#\" data-fig=\"5:ij\">Figure 5i,j</a>; <a class=\"xref fig\" href=\"#\" data-fig=\"S18:\">Figure S18</a>). Macrophages in SecB regions adopted glycolytic (<i>LDHA</i>,<i> ENO1</i>,<i> PGK1</i>,<i> ALDOA</i>) and NF-κB (<i>ICAM1, NFKBIA, BIRC3</i>) programs with reduced tissue-resident identity (<i>A2M</i>,<i> C1QC</i>, <a class=\"xref fig\" href=\"#\" data-fig=\"5:i\">Figure 5i</a>). They concurrently maintained chemokine production (<i>CXCL10</i>,<i> CXCL11</i>), signaling for lymphocyte recruitment into the metabolically hostile niche (<a class=\"xref fig\" href=\"#\" data-fig=\"5:i\">Figure 5i</a>). This transcriptional program also aligned with a coordinated morphological shift, with SecB-adjacent macrophages being larger than SecA-adjacent macrophages (<a class=\"xref fig\" href=\"#\" data-fig=\"5:j\">Figure 5j</a>)."
+    },
+    {
+     "type": "h3",
+     "html": "SecB epithelium co-opts a hypoxic macrophage state into a self-sustaining pro-dissemination niche",
+     "id": "secb-epithelium-co-opts-a-hypoxic-macrophage-state-into-a-se"
+    },
+    {
+     "type": "p",
+     "html": "To better describe the relationship between macrophages and SecB cells sequestered within the niche, we performed Visium HD on one of our Xenium tissues (WT01, <a class=\"xref fig\" href=\"#\" data-fig=\"4:\">Figure 4</a>). This sample was selected as it held the highest proportion of SecB (<a class=\"xref fig\" href=\"#\" data-fig=\"4:a\">Figure 4a</a>, <a class=\"xref fig\" href=\"#\" data-fig=\"6:a\">Figure 6a</a> <a class=\"xref tab\" href=\"#\" data-tab=\"S8\">Table S8</a>). By Visium HD, we were able to further confirm that the spatially driven SecB polarization aligns with transcriptional expression of the hypoxia-associated <i>CA9</i> (<a class=\"xref fig\" href=\"#\" data-fig=\"6:bcd\">Figure 6b–d</a>). We compared the macrophage bins adjacent to SecB-high epithelium to distal macrophage bins and found that SecB macrophages upregulate expression of osteopontin (<i>SPP1</i>) (<a class=\"xref fig\" href=\"#\" data-fig=\"6:e\">Figure 6e</a>) and <i>MMP9</i>, among other known hypoxia response genes (<a class=\"xref tab\" href=\"#\" data-tab=\"S10\">Table S10</a>). This transcriptional program aligned to the hypoxic macrophages within the atlas (<a class=\"xref fig\" href=\"#\" data-fig=\"6:f\">Figure 6f</a>) and reflected the glycolytic program we described (<a class=\"xref fig\" href=\"#\" data-fig=\"5:i\">Figure 5i</a>). Across our Xenium tissues, macrophages defined by this hypoxic program had twice the proportion of SecB neighbors among their epithelial neighbors compared to resident-like macrophages (<a class=\"xref fig\" href=\"#\" data-fig=\"6:g\">Figure 6g</a>)."
+    },
+    {
+     "type": "p",
+     "html": "Within this niche, SecB cells and hypoxic macrophages exchange survival and immune-protective signals. We explored differentially expressed genes from SecB-niche versus control macrophages across our datasets, and within our Xenium we also looked at SecB cells directly in contact with (within 30µm of) adjacent a SecB-niche macrophages. Macrophages express <i>VEGFA</i>, while SecB cells in contact with them further upregulate their downstream <i>NF-κB</i> target <i>BIRC3</i> potentially amplifying their survival program (<a class=\"xref fig\" href=\"#\" data-fig=\"6:hi\">Figure 6h,i</a>). SecB cells in turn protect themselves from macrophage phagocytosis and complement by upregulating <i>CD47</i> and <i>CD55</i>, respectively (<a class=\"xref fig\" href=\"#\" data-fig=\"6:hi\">Figure 6h,i</a>). Additionally, we observed that SecB cells could be engaging in direct immunosuppression through the upregulation of <i>IL-32</i> and galectin-9 (<i>LGALS9</i>), with galectin-9 further increasing upon macrophage contact (<a class=\"xref fig\" href=\"#\" data-fig=\"6:hi\">Figure 6h,i</a>). Notably, SecB cells upregulate <i>SLC16A3 </i>(MCT-4), which likely contributes to the lymphocyte-hostile environment by acidifying the niche (<a class=\"xref fig\" href=\"#\" data-fig=\"6:hi\">Figure 6h,i</a>)."
+    },
+    {
+     "type": "p",
+     "html": "This niche also contains a coordinated adhesion and matrix-remodeling program that could favor dissemination. <i>SPP1</i> receptor, <i>CD44, </i>was also found enriched on macrophages within the niche (<a class=\"xref fig\" href=\"#\" data-fig=\"6:hi\">Figure 6h,i</a>). Additionally, SecB cells upregulated <i>ICAM1</i>, especially upon macrophage contact, which could provide SecB cells with a tether to immune or mesothelial cells (<a class=\"xref fig\" href=\"#\" data-fig=\"6:hi\">Figure 6h,i</a>). These SecB cells and macrophages within this niche also likely collaborate to constantly remodel this environment. For example, SecB cells express <i>MMP7 </i>and<i> TIMP1</i>, alongside macrophages that produce enzymes, including cathepsins such as <i>CTSL</i>, which can accelerate remodeling (<a class=\"xref fig\" href=\"#\" data-fig=\"6:hi\">Figure 6h,i</a>). Both cells contribute to <i>TGM2 </i>expression supporting local remodeling (<a class=\"xref fig\" href=\"#\" data-fig=\"6:h\">Figure 6h</a>). Together, these signals likely support homotypic and heterotypic adhesions within a niche marked by extracellular matrix remodeling (<a class=\"xref fig\" href=\"#\" data-fig=\"6:hi\">Figure 6h,i</a>)."
+    },
+    {
+     "type": "h3",
+     "html": "Secretory polarization independently predicts survival and bevacizumab response",
+     "id": "secretory-polarization-independently-predicts-survival-and-b"
+    },
+    {
+     "type": "p",
+     "html": "To assess the impact of secretory polarization on clinical outcomes, we performed survival analyses in patients represented by two primary, treatment-naive HGSC cores (OS n = 104, PFS n = 103). Patients in the highest polarization tertile (SecB-enriched) had worse 5-year OS than those in the lowest tertile (SecA-dominant; p = 0.011), and a trend towards worse 5-year PFS (p = 0.11; <a class=\"xref fig\" href=\"#\" data-fig=\"7:ab\">Figure 7a,b</a>). In multivariable Cox regression adjusted for stage, residual disease and age, SecA proportion was protective for OS (HR = 0.68 per SD, 95% CI 0.51–0.90, q = 0.029) and PFS (HR = 0.79, 95% CI 0.63–0.98, q = 0.048), whereas SecB proportion was associated with worse OS (HR = 1.38, 95% CI 1.06–1.78, q = 0.030), with a similar trend for PFS (HR = 1.23, 95% CI 1.00–1.50, q = 0.051; <a class=\"xref fig\" href=\"#\" data-fig=\"7:cd\">Figure 7c,d</a>). Consistent with this, the continuous per-patient polarization score (mean cell-level polarization across all secretory cells) was independently prognostic for OS (HR = 1.51, 95% CI 1.11–2.07, q = 0.029), with a similar trend for PFS (HR = 1.27, 95% CI 0.999–1.62, q = 0.051), indicating that the secretory polarization state, not just the abundance of either pole, carries clinical relevance (<a class=\"xref fig\" href=\"#\" data-fig=\"7:cd\">Figure 7c,d</a>; <a class=\"xref tab\" href=\"#\" data-tab=\"S11\">Table S11</a>)."
+    },
+    {
+     "type": "p",
+     "html": "We next correlated our Xenium transcript counts and polarization scores with the abundance of prognostic proteins previously measured on a subset of the same cores. We found that transcript counts and protein abundance were strongly correlated for SecB markers KRT7 and KRT19 (KRT7: Pearson r = 0.64; KRT19: Pearson r = 0.63; <a class=\"xref fig\" href=\"#\" data-fig=\"7:e\">Figure 7e</a>). Furthermore, mean polarization scores also correlated with protein abundance for these two SecB markers, while E-cadherin, VIM, and KRT18 showed no association with polarization score (<a class=\"xref fig\" href=\"#\" data-fig=\"7:f\">Figure 7f</a>). These results validate and contextualise earlier findings on this cohort demonstrating that KRT7 and KRT19 were independently associated with worse OS and PFS after correction for stage and residual disease<sup class=\"cite\" data-refs=\"24\">24</sup>."
+    },
+    {
+     "type": "p",
+     "html": "To validate these survival effects in an external cohort, we applied SecA-specific and SecB-specific gene signatures to bulk RNA-seq data from 314 TCGA-OV tumors, quantifying polarization as the difference between the z-scored SecB and SecA signatures<sup class=\"cite\" data-refs=\"4\">4</sup>. Patients in the highest polarization tertile, SecB tumours, had significantly worse 5-year OS (p = 0.010) and PFS (p = 0.010) than those in the lowest tertile (<a class=\"xref fig\" href=\"#\" data-fig=\"7:gh\">Figure 7g,h</a>). Cox proportional hazards regression confirmed that increased polarization was associated with worse OS (HR = 2.00, 95% CI 1.25–3.20, p = 0.004) and PFS (HR = 1.79, 95% CI 1.15–2.78, p = 0.009; <a class=\"xref fig\" href=\"#\" data-fig=\"7:ij\">Figure 7i,j</a>). This association remained significant after adjustment for epithelial cell fraction, stage and age (OS HR = 1.84, 95% CI 1.10–3.07, p = 0.021; PFS HR = 1.65, 95% CI 1.03–2.64, p = 0.038; <a class=\"xref fig\" href=\"#\" data-fig=\"7:ij\">Figure 7i,j</a>)."
+    },
+    {
+     "type": "p",
+     "html": "Given that SecB niches are relatively avascular (<a class=\"xref fig\" href=\"#\" data-fig=\"4:gh\">Figure 4g,h</a>), we next asked whether the degree of SecB polarization could influence response to the anti-VEGF antibody bevacizumab, which is routinely used to treat HGSC. To test this, we scored secretory polarization in pre-treatment samples from stage III/IV patients enrolled in the ICON7 trial (n = 191), and we classified them as SecA-polarized (n = 96) or SecB-polarized (n = 95)<sup class=\"cite\" data-refs=\"23\">23</sup>. Within each group, we compared outcomes between patients treated with carboplatin and paclitaxel alone or in combination with bevacizumab. Consistent with our previous analyses, each 1 SD increase in polarization predicted worse OS under standard chemotherapy (n = 95; HR 1.38, 95% CI 1.02–1.86, p = 0.038; <a class=\"xref tab\" href=\"#\" data-tab=\"S12\">Table S12</a>). Importantly, prolonged PFS with bevacizumab was observed only in SecB-polarized tumors (HR 0.36, 95% CI 0.22–0.59, p &lt; 0.001; median PFS 11.1 vs 18.7 months), with no benefit provided to SecA-polarized tumors (HR 0.80, 95% CI 0.48–1.35, p = 0.41; median PFS 17.9 vs 21.6 months, <a class=\"xref fig\" href=\"#\" data-fig=\"7:kl\">Figure 7k,l</a>). The treatment and polarization interaction was significant for PFS (median split HR 0.44, 95% CI 0.22–0.90, likelihood-ratio p = 0.025). In a time-varying analysis, the benefit in SecB tumors was specific to the first 15 months, during which bevacizumab was administered (HR 0.23, 95% CI 0.12–0.44, p &lt; 0.001) but lost thereafter (HR 0.87, p = 0.77; period interaction p = 0.022; <a class=\"xref fig\" href=\"#\" data-fig=\"7:m\">Figure 7m</a>), whereas SecA tumors showed no period-specific effect (interaction p = 0.19; <a class=\"xref fig\" href=\"#\" data-fig=\"7:n\">Figure 7n</a>). Together these data suggest that the avascular niches of SecB tumors may make them more reliant on angiogenic signaling, and identify secretory polarization as a candidate biomarker associated with greater bevacizumab benefit, to be tested in prospective cohorts."
+    }
+   ]
+  },
+  {
+   "id": "discussion",
+   "title": "Discussion",
+   "blocks": [
+    {
+     "type": "p",
+     "html": "Here we show that tumor architecture is a dominant driver of epithelial heterogeneity in HGSC. Secretory epithelial cells span a polarization axis from proliferating, progenitor-like SecA to quiescent, environmentally adapted SecB. This polarization is driven by distance from vasculature and hypoxia rather than by clonal genotype. SecB cells co-organize with reprogrammed macrophages into immune-protected niches primed for dissemination. SecB-enriched tumors have worse outcomes after standard chemotherapy, yet preferentially benefit from bevacizumab, positioning secretory polarization as both a prognostic and a candidate predictive biomarker."
+    },
+    {
+     "type": "p",
+     "html": "HGSC is characterized by extensive copy number alterations that could produce idiosyncratic, patient-specific phenotypes<sup class=\"cite\" data-refs=\"25\">25</sup>. Instead, we find secretory polarization broadly reproducible across patient samples: 93.5% of patients with ≥ 100 epithelial cells contain SecA, Intermediate, and SecB cells, all existing within individual clones. The proportion of each state varies by environment, with higher SecB representation in the ascites and in hypoxic microenvironments within solid tissue. Previous findings in glioblastoma have similarly demonstrated that recurrent malignant programs are shaped by hypoxic gradients rather than genotype<sup class=\"cite\" data-refs=\"22,26\">22,26</sup>."
+    },
+    {
+     "type": "p",
+     "html": "However, SecA and SecB do not represent a generic pan-cancer program<sup class=\"cite\" data-refs=\"27,28,29\">27–29</sup>, the previously described therapy-associated stress signature (AP-1/IEG), nor EMT features (SNAI1/2, VIM)<sup class=\"cite\" data-refs=\"15\">15</sup>. Instead, they recapitulate the secretory lineage of the normal and injured fallopian tube epithelium. SecA cells express the canonical regulatory program of secretory progenitors, including MECOM, SOX17, FBXO21, PBX1, and LGR5<sup class=\"cite\" data-refs=\"30,31\">30,31</sup>. SecB cells reflect the keratin and alarmin program of injured mucosal epithelium, marked by KRT7/17/19<sup class=\"cite\" data-refs=\"32\">32</sup>, LCN2<sup class=\"cite\" data-refs=\"33\">33</sup>, SLPI<sup class=\"cite\" data-refs=\"34\">34</sup>, and TACSTD2/TROP2<sup class=\"cite\" data-refs=\"35\">35</sup>. Consistent with the developmental constraint model of cancer, these findings suggest that the microenvironment selects from states bound to its tissue of origin<sup class=\"cite\" data-refs=\"36\">36</sup>."
+    },
+    {
+     "type": "p",
+     "html": "While the secretory polarization axis had not yet been identified, multiple SecB markers have been implicated in HGSC previously. KRT7<sup class=\"cite\" data-refs=\"24,37,38\">24,37,38</sup>, KRT17<sup class=\"cite\" data-refs=\"39,40\">39,40</sup>, KRT19<sup class=\"cite\" data-refs=\"24,41,42\">24,41,42</sup> and its cleaved fragment CYFRA21-1<sup class=\"cite\" data-refs=\"43,44\">43,44</sup>, and TROP2<sup class=\"cite\" data-refs=\"37,45,46\">37,45,46</sup> have been linked to poorer outcomes across HGSC cohorts. Additionally, within HGSC tumors, a spatial program termed differentiated-invasive, marked by elevated LCN2 and TACSTD2, was recently characterized and associated with poorer prognosis<sup class=\"cite\" data-refs=\"47\">47</sup>. Conversely, SecA-polarized regions likely reflect the spatial domains with high MHC-II expression, elevated antigen presentation (HLA-I and CIITA expression) and increased immune infiltration that have been previously identified as protective in HGSC patients<sup class=\"cite\" data-refs=\"48,49,50\">48–50</sup>. Additionally, secretory polarization may provide a cellular explanation for the link previously made between HGSC molecular subtypes and morphology-based architectural patterns<sup class=\"cite\" data-refs=\"51\">51</sup>. SecA cells were highly represented in the proliferative and immunoreactive tumors, while SecB cells were abundant in mesenchymal and differentiated subtypes."
+    },
+    {
+     "type": "p",
+     "html": "SecB-polarized epithelial cells and macrophages assemble into a coherent niche at the luminal interface of papillary growth. Within this hypoxic niche, SecB cells trade proliferation for HIF/NF-κB-driven survival and glycolysis, upregulating MCT-4 (<i>SLC16A3</i>), which could acidify the niche and further contribute to lymphocyte exclusion<sup class=\"cite\" data-refs=\"52,53\">52,53</sup>. Exclusion was most pronounced for B cells, which are generally associated with tertiary lymphoid structures and with favorable outcomes in HGSC<sup class=\"cite\" data-refs=\"54\">54</sup>. B cell loss may therefore contribute to the poor prognosis of SecB-enriched tumors. Macrophages were instead retained while adopting a hypoxic, SPP1⁺ MMP9⁺ glycolytic state matching that of the tumor-associated macrophages previously linked to poor outcome across cancers, including HGSC<sup class=\"cite\" data-refs=\"55\">55</sup>."
+    },
+    {
+     "type": "p",
+     "html": "SecB cells and hypoxic macrophages appear to engage in reciprocal signaling that sustains the niche. Macrophages supply <i>VEGFA</i>, and SecB cells in contact with macrophages further activate NF-κB targets <i>BIRC3 </i>and <i>ICAM1</i>. SecB cells may in turn evade phagocytosis and complement recognition through CD47 and CD55, and may suppress immunity through galectin-9 and IL-32. These cells likely also coordinate adhesion and proteolysis programs within the niche. SecB-adjacent macrophages express cathepsins which can activate local matrix metalloproteinases (MMPs). Notably, CTSL, a marker of SecB adjacent macrophages, can promote matrix remodeling by inhibiting SecB expressed SLPI, which normally functions to protect against injury<sup class=\"cite\" data-refs=\"56\">56</sup>. SPP1 expressing macrophages can engage CD44 on macrophages and SecB cells and these adhesion molecules in conjunction with elevated ICAM1 likely support multi-cellular anchorage within the niche<sup class=\"cite\" data-refs=\"57,58\">57,58</sup>. Together, these programs likely support the establishment of cohesive, multicellular units that detach into ascites<sup class=\"cite\" data-refs=\"59,60\">59,60</sup>. As ascites is a hypoxic fluid<sup class=\"cite\" data-refs=\"61\">61</sup> and is itself strongly enriched for SecB cells (68% vs 14% in primary tumors), these data support a model in which SecB niches provide a pre-adapted source of disseminating spheroids."
+    },
+    {
+     "type": "p",
+     "html": "This SecB niche is quiescent and self-sustaining, and therefore may be expected to resist chemotherapy. Indeed, secretory polarization may provide a cellular explanation for why HGSC is often highly sensitive to initial chemotherapy, but recurs almost universally. The high proliferative fraction of SecA cells may render them particularly sensitive to platinum and taxane chemotherapy, contributing to this initial response. Conversely, SecB cells are predominantly in G1 and reside in poorly perfused regions that may limit drug delivery, which could favor persistence. Consistent with this, SecB proportions increased in post-chemotherapy primary tumors and rose after treatment in 12 of 18 patient-matched samples across various tumor sites. SecB-enriched tumors also had shorter survival across three independent cohorts. SecB cells may therefore represent a reservoir of drug-tolerant persisters that seed recurrence, a hypothesis testable by longitudinal sampling."
+    },
+    {
+     "type": "p",
+     "html": "Secretory polarization may also explain the longstanding asymmetry in HGSC response to bevacizumab, which improves PFS in unselected patients but rarely OS. In ICON7<sup class=\"cite\" data-refs=\"23\">23</sup>, the PFS benefit of bevacizumab was confined to SecB-polarized tumors (HR 0.36; median 11.1 vs 18.7 months), with no significant benefit in SecA-polarized tumors, and was confined to the first 15 months, spanning treatment. SecB niches are poorly perfused and hypoxic yet enriched with macrophage-derived VEGFA, suggesting that they depend on ongoing angiogenic signaling. Anti-VEGF therapy may therefore suppress SecB niches only while administered, allowing them to re-emerge after withdrawal and accounting for PFS gains that do not translate into OS. Unlike prior candidate biomarkers for bevacizumab response, secretory polarization proposes a multi-cellular mechanism linked to clinical response, and therefore the degree of polarization could guide patient selection, maintenance duration, and inform combination therapies."
+    },
+    {
+     "type": "p",
+     "html": "The fact that this state was not characterized previously can likely be attributed to the experimental models currently used to study HGSC. SecB was largely lost in our PDOs, which collapsed toward SecA, mirroring the previously reported collapse of basal and classical pancreatic cancer organoids into a default classical-like state<sup class=\"cite\" data-refs=\"21\">21</sup>. Likewise, neither published HGSC organoid or spheroid models, including those cultured under hypoxic conditions, nor the KPCA.B syngeneic model could recapitulate both the hypoxic and quiescent features of SecB. Furthermore, no environmental signal or culturing media composition tested was able to polarize cells to SecB within our PDOs, and only IFN-γ induced any meaningful SecB gene expression. This partial success with IFN-γ suggests that immune-derived signals may play a role in initiating polarization early in niche formation, prior to the establishment of the lymphocyte-excluding acidic and hypoxic cores. Altogether, these results suggest current preclinical platforms may be systematically biased toward the proliferative, chemo-sensitive SecA state, and screening these would underrepresent the population most likely to persist after chemotherapy. New models incorporating hypoxic gradients, immune signals and multicellular organization will be required to effectively study and target the SecB niche."
+    },
+    {
+     "type": "p",
+     "html": "While we currently lack the complex systems required to model SecB, secretory polarization is already measurable with tools used in pathology. For example, KRT7 and KRT19 protein abundance tracked Xenium-defined polarization in the same TMA cores, whereas non-SecB epithelial markers (E-cadherin, KRT18, VIM) did not. This is consistent with prior reports that KRT7 and KRT19 independently predict worse survival<sup class=\"cite\" data-refs=\"24\">24</sup>. Beyond tissue, serum CYFRA 21-1, a cleaved KRT19 fragment, may offer a minimally invasive readout of SecB burden<sup class=\"cite\" data-refs=\"43\">43</sup>. There are therefore multiple potential strategies for testing polarization-based stratification prospectively without single-cell or spatial profiling. Prospective validation of these strategies against chemotherapy and bevacizumab outcomes will be required to translate these hypotheses to clinical application."
+    },
+    {
+     "type": "p",
+     "html": "This study has several limitations that warrant future validation. The spatial analyses are observational and cannot establish whether tissue architecture induces, selects, or maintains secretory states. Hypoxia, metabolic activity, and signaling were inferred primarily from transcriptional expression rather than measured directly. Finally, clinical associations were examined retrospectively and the utility for treatment selection requires formal prospective validation."
+    },
+    {
+     "type": "p",
+     "html": "Together, our findings position tissue organization as a dominant driver of epithelial heterogeneity in HGSC, shaping malignant cell states constrained by the developmental history of the cancer. These malignant states reciprocally interact with the TME, forming heterogeneous niches that emerge as recurrent units throughout the tumor and may drive distinct aspects of disease biology. Current cytotoxic therapy preferentially targets the proliferative SecA compartment, whereas the transient benefit of bevacizumab in SecB-polarized tumors suggests that the SecB niche is targetable by anti-VEGF therapy. Durable improvement of HGSC outcomes will likely require biomarker-guided use of existing agents combined with approaches that directly engage the SecB niche. Finally, disrupting the signaling that sustains the niche, as bevacizumab likely does, may prevent its persistence altogether."
+    }
+   ]
+  },
+  {
+   "id": "acknowledgements",
+   "title": "Acknowledgements",
+   "blocks": [
+    {
+     "type": "p",
+     "html": "We thank the molecular pathology core facility of the CRCHUM."
+    },
+    {
+     "type": "p",
+     "html": "The authors would like to acknowledge the assistance of StemCore Laboratories Genomics Core Facility (OHRI, uOttawa), RRID:SCR_012601."
+    }
+   ]
+  },
+  {
+   "id": "funding-statement",
+   "title": "Funding Statement",
+   "blocks": [
+    {
+     "type": "p",
+     "html": "This work was supported by a Project Grant from the Canadian Institutes of Health Research (PJT-203857) and a Breakthrough Team Grant from the Canadian Cancer Society (BTG25-708640)."
+    },
+    {
+     "type": "p",
+     "html": "SN is supported by a Canada Postdoctoral Research Award (FRN 208279)."
+    },
+    {
+     "type": "p",
+     "html": "A.-M.M.-M. and D.P. are researchers of CRCHUM/ICM, which receive support from the Fond de recherche Québec - Santé (FRQS) and the Réseau de recherche sur le cancer (RRCancer; www.rrcancer.ca). Tumor banking at the CRCHUM for was supported by the Banque de tissus et de données of the RRCancer of the FRQS affiliated with the Canadian Tissue Repository Network (www.ctrnet.ca)."
+    }
+   ]
+  }
+ ],
+ "figures": {
+  "1": {
+   "title": "An integrated single-cell atlas identifies a conserved axis of secretory epithelial cell polarization in high-grade serous ovarian carcinoma",
+   "panels": [
+    {
+     "panels": [
+      "a"
+     ],
+     "label": "a",
+     "html": "UMAP of 1,980,703 cells from 13 integrated scRNA-seq studies colored by cell type annotation (13 cell types)."
+    },
+    {
+     "panels": [
+      "b"
+     ],
+     "label": "b",
+     "html": "Bar graph representing cell counts per dataset with bars annotated with patient counts (n) per study (log scale)."
+    },
+    {
+     "panels": [
+      "c",
+      "d",
+      "e"
+     ],
+     "label": "c–e",
+     "html": "Proportional stacked bar graphs demonstrating the per-study"
+    },
+    {
+     "panels": [
+      "c"
+     ],
+     "label": "c",
+     "html": "anatomic site composition grouped by primary (adnexa), metastatic (non-primary site), ascites or healthy samples;"
+    },
+    {
+     "panels": [
+      "d"
+     ],
+     "label": "d",
+     "html": "treatment status composition; and"
+    },
+    {
+     "panels": [
+      "e"
+     ],
+     "label": "e",
+     "html": "cell type composition."
+    },
+    {
+     "panels": [
+      "f"
+     ],
+     "label": "f",
+     "html": "UMAP of the integrated epithelial compartment (575,366 cells) with a large dominant secretory population (golden) and small ciliated population (orange)."
+    },
+    {
+     "panels": [
+      "g"
+     ],
+     "label": "g",
+     "html": "Bar graph showing the number of tumors within each principal component rank, most correlated with polarization score."
+    },
+    {
+     "panels": [
+      "h",
+      "i"
+     ],
+     "label": "h,i",
+     "html": "Epithelial compartment UMAP with NMF factor usage visualized by color gradient for"
+    },
+    {
+     "panels": [
+      "h"
+     ],
+     "label": "h",
+     "html": "SecA or"
+    },
+    {
+     "panels": [
+      "i"
+     ],
+     "label": "i",
+     "html": "SecB."
+    },
+    {
+     "panels": [
+      "j"
+     ],
+     "label": "j",
+     "html": "Epithelial compartment UMAP visualizing additional NMF factors, including G2M / cell cycle, early-stress/ AP-1, IFN signaling, and EMT."
+    },
+    {
+     "panels": [
+      "k"
+     ],
+     "label": "k",
+     "html": "Proportion of SecA, Intermediate, SecB or ciliated epithelial cells per study."
+    },
+    {
+     "panels": [
+      "l"
+     ],
+     "label": "l",
+     "html": "Stacked bar graph showing the secretory epithelial state composition of three representative tumors (one monoclonal, two polyclonal) inferred using CopyKAT across HGSC atlas samples."
+    },
+    {
+     "panels": [
+      "m"
+     ],
+     "label": "m",
+     "html": "Violin plot visualizing the distribution of SecB polarization scores across the CopyKAT clones represented in (l), with dashed lines representing the atlas thresholds for Intermediate (lower dashed lined) or SecB (upper dashed line) polarization score."
+    }
+   ]
+  },
+  "2": {
+   "title": "Transcriptional programs, cell cycle states, and distribution of secretory epithelium across anatomic sites and treatment conditions",
+   "panels": [
+    {
+     "panels": [
+      "a"
+     ],
+     "label": "a",
+     "html": "Radar plots of inferred pathway activity (PROGENy), gene set enrichment (Hallmark), transcription factor activity (DoRothEA) and metabolic flux estimation (scFEA) for SecA and SecB epithelium."
+    },
+    {
+     "panels": [
+      "b"
+     ],
+     "label": "b",
+     "html": "Cell cycle phase distribution for SecA and SecB."
+    },
+    {
+     "panels": [
+      "c"
+     ],
+     "label": "c",
+     "html": "Composition of epithelial compartment by anatomic site (treatment naïve, primary n = 99 samples from 81 patients; ascites n = 40 samples from 40 patients; metastases n = 131 samples from 89 patients) and composition of primary tumors by treatment status (pre-treatment n = 99 samples from 81 patients; post-chemotherapy n = 12 samples from 12 patients)."
+    },
+    {
+     "panels": [
+      "d"
+     ],
+     "label": "d",
+     "html": "Patient-matched SecB proportion across anatomic sites (n = 14) and"
+    },
+    {
+     "panels": [
+      "e"
+     ],
+     "label": "e",
+     "html": "across treatment conditions (n = 18, not site-matched). Matched patient samples were statistically compared by two-sided Wilcoxon signed-rank test (**p &lt;0.01)."
+    },
+    {
+     "panels": [
+      "f"
+     ],
+     "label": "f",
+     "html": "Box plot representing the proportion of SecA or SecB epithelium within pre-treatment primary tumors that were scored by consensusOV molecular subtype (n = 96 samples from 77 patients)."
+    },
+    {
+     "panels": [
+      "g"
+     ],
+     "label": "g",
+     "html": "Volcano plot of genes differentially expressed between SecA and SecB epithelium, computed on pseudobulk profiles paired within tumors (n = 522 profiles from 261 tumors; DESeq2, ~tumor + state; Benjamini–Hochberg FDR). Markers for SecA (<i>SOX17, LPAR3, LGR5, FBXO21, MECOM, RCN2, PBX1</i>) and SecB (<i>KRT7, KRT17, KRT19, SLPI, LCN2, TACSTD2, PRSS22</i>) used to score polarization of epithelium downstream are highlighted."
+    }
+   ]
+  },
+  "3": {
+   "title": "Secretory polarization in patient-derived organoids (PDOs) and a syngeneic fallopian-tube-derived model of HGSC",
+   "panels": [
+    {
+     "panels": [
+      "a"
+     ],
+     "label": "a",
+     "html": "UMAP of snRNA-seq from eight PDO models of HGSC derived from primary tumor (light blue) or ascites (dark blue)."
+    },
+    {
+     "panels": [
+      "b"
+     ],
+     "label": "b",
+     "html": "SecB UCell score distributions per PDO model with dashed lines indicating atlas median SecB UCell scores for Intermediate and SecB epithelium. Ascites and primary-derived models were compared by two-sided Mann–Whitney test, n = 4 vs 4, p = 0.029."
+    },
+    {
+     "panels": [
+      "c",
+      "d",
+      "e"
+     ],
+     "label": "c–e",
+     "html": "SecB UCell score distributions of OPTO98"
+    },
+    {
+     "panels": [
+      "c"
+     ],
+     "label": "c",
+     "html": "over time in standard Matrigel culture conditions (day 2–12),"
+    },
+    {
+     "panels": [
+      "d"
+     ],
+     "label": "d",
+     "html": "following treatment with microenvironmental factors including PBS control, WNT7A, TGFβ, TNFα, and IFNγ for 6 days, or"
+    },
+    {
+     "panels": [
+      "e"
+     ],
+     "label": "e",
+     "html": "in a variety of media conditions including basal media (BM), complete growth media (CGM), and human plasma-like medium (HPLM) for 6 days."
+    },
+    {
+     "panels": [
+      "f"
+     ],
+     "label": "f",
+     "html": "Scatter plot quantifying the expression of SecB markers (<i>KRT17</i>,<i> LCN2</i>,<i> TACSTD2</i>,<i> KRT7</i>,<i> KRT19</i>,<i> SLPI</i>,<i> PRSS22</i>) against functional score, which was defined as a z-score of HIF induction minus proliferation in various HGSC <i>in vitro</i> model systems, including our PDOs, DepMap PDOs, cold-co-culture physioxia PDOs, and cold-co-culture hypoxia PDOs, in addition to matched organoid versus spheroid models."
+    },
+    {
+     "panels": [
+      "g",
+      "h"
+     ],
+     "label": "g, h",
+     "html": "The two functional scores to model the SecB state, which quantify"
+    },
+    {
+     "panels": [
+      "g"
+     ],
+     "label": "g",
+     "html": "HIF induction and"
+    },
+    {
+     "panels": [
+      "h"
+     ],
+     "label": "h",
+     "html": "quiescence (defined as negative proliferation) for each model, grouped by dataset."
+    },
+    {
+     "panels": [
+      "i"
+     ],
+     "label": "i",
+     "html": "UMAP of scRNA-seq from the KPCA.B orthotopic syngeneic mouse model of HGSC, colored by cell type annotation."
+    },
+    {
+     "panels": [
+      "j",
+      "k"
+     ],
+     "label": "j,k",
+     "html": "UMAP of the epithelial compartment (n = 12,429 cells), colored by"
+    },
+    {
+     "panels": [
+      "j"
+     ],
+     "label": "j",
+     "html": "secretory polarization score and"
+    },
+    {
+     "panels": [
+      "k"
+     ],
+     "label": "k",
+     "html": "expression of <i>Krt7</i>, a SecB marker well conserved from human to mouse."
+    },
+    {
+     "panels": [
+      "l"
+     ],
+     "label": "l",
+     "html": "Representative KRT7 immunohistochemistry, showing KRT7 secretory cells lining luminal regions away from the stroma; day-26 tumor, scale bar represents 100 µm."
+    }
+   ]
+  },
+  "4": {
+   "title": "SecB-polarized secretory cells co-localize within avascular and hypoxic niches",
+   "panels": [
+    {
+     "panels": [
+      "a"
+     ],
+     "label": "a",
+     "html": "Per-sample cell-type composition across the Xenium cohorts: fallopian tube epithelium (15 cores), whole HGSC tissues (8 sections), and HGSC TMAs (378 patients with ≥500 cells; TMA A and TMA B). Samples are ordered by hierarchical clustering, and the bottom row indicates tissue type."
+    },
+    {
+     "panels": [
+      "b"
+     ],
+     "label": "b",
+     "html": "Whole-tissue cell-type map of sample WT01."
+    },
+    {
+     "panels": [
+      "c"
+     ],
+     "label": "c",
+     "html": "ROI from sample WT01 indicated by the ROI box on the whole-tissue map in (b), colored by cell type."
+    },
+    {
+     "panels": [
+      "d"
+     ],
+     "label": "d",
+     "html": "Global bivariate Moran's I between each secretory cell's SecA UCell score and its neighbors' SecB UCell scores (50 µm neighborhoods) per whole tissue (n = 8) and per TMA patient (mean over cores with ≥500 secretory cells; n = 334). Negative values indicate segregation; lines show medians. Whole tissue: exact sign test; TMA: one-sample Wilcoxon signed-rank test."
+    },
+    {
+     "panels": [
+      "e"
+     ],
+     "label": "e",
+     "html": "Stacked bar graph showing the percentage of each secretory cell when assigned to locally defined (50 µm) spatial neighborhoods (SecA neighborhoods, SecB neighborhoods, both or neither) by bivariate local indicators of spatial association (BiLISA)."
+    },
+    {
+     "panels": [
+      "f"
+     ],
+     "label": "f",
+     "html": "Generalized additive models of distance to vasculature, cell density (number of neighbors per neighborhood, cells/mm<sup>2</sup>), and UCell pathway scores (z-scored) for matrix remodeling (<i>ADAM10, ADAM17, MMP7, F3, SERPINE1, MMP11</i>) and hypoxia (<i>CAT, ENO1, EPAS1, HIF1A, LDHA, NFE2L2, PDK1, PGK1, PRDX1, SLC2A1, TXN, VEGFA)</i> as a function of focal cell polarization score across all secretory cells in the whole tissue samples."
+    },
+    {
+     "panels": [
+      "g"
+     ],
+     "label": "g",
+     "html": "Distance to nearest vascular cell (pericyte or endothelial cell) measured by Euclidean distance for SecA, Intermediate or SecB cells within each whole-tissue (left; paired Wilcoxon, p = 0.016) and SecA and SecB cells per TMA sample (right; n = 361, p &lt; 0.0001)."
+    },
+    {
+     "panels": [
+      "h"
+     ],
+     "label": "h",
+     "html": "Spatial plot of ROI from sample WT01 in (b) visualizing the distance-to-vasculature gradient."
+    },
+    {
+     "panels": [
+      "i"
+     ],
+     "label": "i",
+     "html": "Local cell density (all cells within 50 µm, cells/mm<sup>2</sup>; median per sample) around SecA, Intermediate and SecB cells in each whole tissue (left; n = 8; paired Wilcoxon, p = 0.031) and SecA and SecB cells per TMA patient (right; n = 361; p &lt; 0.0001)."
+    },
+    {
+     "panels": [
+      "j"
+     ],
+     "label": "j",
+     "html": "Spatial plot of ROI from sample WT01 visualizing the UCell-scored hypoxic gradient."
+    }
+   ]
+  },
+  "5": {
+   "title": "SecB cells and macrophages adapt to hypoxic niches through a shared glycolytic survival program",
+   "panels": [
+    {
+     "panels": [
+      "a"
+     ],
+     "label": "a",
+     "html": "Generalized additive models of epithelial-specific UCell pathway scores (z-scored) plotted as a function of focal cell polarization score across eight whole-tissue samples."
+    },
+    {
+     "panels": [
+      "b"
+     ],
+     "label": "b",
+     "html": "Nuclear area (µm²) of SecA, Intermediate and SecB cells across whole tissue (left, n = 8) and SecA and SecB cells per TMA patients (right, n = 361)."
+    },
+    {
+     "panels": [
+      "c"
+     ],
+     "label": "c",
+     "html": "Spatial map of a SecB-enriched ROI from whole-tissue sample WT01, colored by cell type annotation, and"
+    },
+    {
+     "panels": [
+      "d"
+     ],
+     "label": "d",
+     "html": "the same ROI visualizing (left to right) UCell pathway scores for glycolysis, proliferation, LDHA expression, and NF-κB pathway expression in secretory epithelial cells (other cells grey)."
+    },
+    {
+     "panels": [
+      "e"
+     ],
+     "label": "e",
+     "html": "Representative TMA core (TMA A, TMA-P003) colored by cell type annotation."
+    },
+    {
+     "panels": [
+      "f"
+     ],
+     "label": "f",
+     "html": "Immune cell proportion of the local niche (percentage of non-epithelial cells within 50 µm) as a function of local epithelial hypoxia (z-scored) for (left to right) macrophages, T cells, NK cells, B cells, and plasma cells across whole-tissue samples (n = 8). Dotted lines represent the individual tissue fits behind the pooled curve (B cell and plasma cell curves average 5 and 7 tissues, respectively)."
+    },
+    {
+     "panels": [
+      "g"
+     ],
+     "label": "g",
+     "html": "Hypoxia UCell score across the representative TMA core; the box highlights the SecB-enriched hypoxic region."
+    },
+    {
+     "panels": [
+      "h"
+     ],
+     "label": "h",
+     "html": "The representative TMA core, highlighting (left to right) SecB cells, macrophages, T cells, NK cells, B cells, and plasma cells."
+    },
+    {
+     "panels": [
+      "i"
+     ],
+     "label": "i",
+     "html": "Generalized additive models of macrophage-intrinsic UCell program scores (z-scored) as a function of local epithelial polarization, including for glycolysis (<i>LDHA</i>,<i> ENO1</i>,<i> PGK1</i>,<i> ALDOA</i>), chemokine production (<i>CXCL10</i>,<i> CXCL11</i>), NF-κB activation (<i>ICAM1</i>,<i> NFKBIA</i>,<i> BIRC3</i>), and tissue-resident identity (<i>A2M, C1QC</i>)."
+    },
+    {
+     "panels": [
+      "j"
+     ],
+     "label": "j",
+     "html": "Median macrophage cell area in SecA compared to SecB niches (lowest versus highest tertile of local epithelial polarization within each unit) across whole tissue (left, n = 8) and TMA patients (right, n = 297). Statistical comparisons between samples were performed by two-sided paired Wilcoxon signed-rank test."
+    }
+   ]
+  },
+  "6": {
+   "title": "SecB epithelium co-opts a hypoxic macrophage state into a self-sustaining pro-dissemination niche",
+   "panels": [
+    {
+     "panels": [
+      "a"
+     ],
+     "label": "a",
+     "html": "Visium HD whole-transcriptome spatial map (16 µm bins) of whole-tissue sample WT01, colored by SecA-high and SecB-high epithelial bins (bottom and top tertiles of the SecB–SecA polarization score among epithelial bins); boxed region is magnified in (b–d)."
+    },
+    {
+     "panels": [
+      "b"
+     ],
+     "label": "b",
+     "html": "SecA-high and SecB-high epithelial bins within the region of interest, with SecB and SecA territories outlined."
+    },
+    {
+     "panels": [
+      "c"
+     ],
+     "label": "c",
+     "html": "CA9 expression (log1p CP10k, 3 × 3-bin mean) within the region of interest, overlaid with SecB and SecA territories."
+    },
+    {
+     "panels": [
+      "d"
+     ],
+     "label": "d",
+     "html": "Macrophage bins within the region of interest classified as SecB-niche (≥2 SecB-high bins within 48 µm, dark green) or non-SecB (light green), overlaid with SecB and SecA territories."
+    },
+    {
+     "panels": [
+      "e"
+     ],
+     "label": "e",
+     "html": "Volcano plot of genes differentially expressed between SecB-niche and distal macrophage bins in sample WT01 (log2 fold change adjusted for macrophage content; bin-level Mann–Whitney test, Benjamini–Hochberg FDR). Macrophage-derived genes (dark green, up; light green, down) are highlighted; transcripts attributable to adjacent SecB epithelium (open circles) or stroma (triangles) are shown but excluded."
+    },
+    {
+     "panels": [
+      "f"
+     ],
+     "label": "f",
+     "html": "Dot plot of macrophage subtypes in the HGSC atlas (n = 295,296 cells) showing scaled mean expression (color) and percentage of expressing cells (size) of hypoxic-macrophage and tissue-resident genes, with the corresponding log2 fold change in Xenium SecB-niche versus control macrophages (bottom row, n = 8 whole tissues; outlined dots p &lt; 0.05)."
+    },
+    {
+     "panels": [
+      "g"
+     ],
+     "label": "g",
+     "html": "Percentage of SecB cells among epithelium within 50 µm of resident-high compared to hypoxic-high macrophages (glycolytic-minus-resident tertiles) across whole tissue (left, n = 8) or per patient in the TMA (right, n = 311)."
+    },
+    {
+     "panels": [
+      "h"
+     ],
+     "label": "h",
+     "html": "Cross-platform concordance of genes grouped by function (survival, self-protection and immunoregulation, glycolysis and lactate export, adhesion and matrix remodeling) in macrophages (top: Xenium SecB-niche versus control macrophages, n = 8; Visium HD SecB-niche versus distal macrophage bins, WT01; atlas hypoxic versus other macrophages, n = 181 paired samples) and SecB epithelium (bottom: Xenium SecB versus SecA cells, n = 8; Visium HD SecB-high versus SecA-high bins, WT01; atlas pseudobulk SecB versus SecA, n = 261 tumors). Color represents effect size standardized within each comparison, size represents percentage of expressing cells, and outline indicates statistical significance; × denotes transcripts attributable to adjacent SecB epithelium, and shading marks the cell type in which each gene is enriched."
+    },
+    {
+     "panels": [
+      "i"
+     ],
+     "label": "i",
+     "html": "Representative spatial plots of an ROI from sample WT02 (700 µm) visualizing (left) cell type annotation; (top row) macrophage expression of VEGFA, CTSL, <i>CD44</i> and <i>ICAM1;</i> and (bottom row) epithelial expression of <i>CD55</i>, <i>IL32</i>, <i>MMP7</i> and MCT-4 (<i>SLC16A3</i>). Non-focal cells are shown in grey, and color scales represent log1p CP10k (2nd–98th percentile). Statistical comparisons between samples were performed by two-sided Wilcoxon signed-rank test (**p &lt; 0.01, ****p &lt; 0.0001)."
+    }
+   ]
+  },
+  "7": {
+   "title": "Secretory polarization independently predicts survival, is mirrored by KRT7 and KRT19 protein expression, and identifies bevacizumab-treatable tumors",
+   "panels": [
+    {
+     "panels": [
+      "a",
+      "b"
+     ],
+     "label": "a, b",
+     "html": "Kaplan–Meier curves for 5-year"
+    },
+    {
+     "panels": [
+      "a"
+     ],
+     "label": "a",
+     "html": "overall survival (OS, n = 104; SecA-dominant = 35, SecB-enriched = 35) and"
+    },
+    {
+     "panels": [
+      "b"
+     ],
+     "label": "b",
+     "html": "progression-free survival (PFS, n = 103; SecA-dominant = 35, SecB-enriched = 34) in patients with primary, treatment-naive HGSC represented by two tumor cores across our TMAs, comparing the lowest (SecA-dominant) and highest (SecB-enriched) tertiles of per-patient polarization score (middle tertile not shown); log-rank p shown."
+    },
+    {
+     "panels": [
+      "c",
+      "d"
+     ],
+     "label": "c, d",
+     "html": "Forest plots of multivariable Cox proportional hazards regression for 5-year"
+    },
+    {
+     "panels": [
+      "c"
+     ],
+     "label": "c",
+     "html": "OS and"
+    },
+    {
+     "panels": [
+      "d"
+     ],
+     "label": "d",
+     "html": "PFS of the SecA and SecB proportion of secretory cells and the mean cell-level polarization score (UCell), each model adjusted for stage, residual disease and age. Points show hazard ratios (HR) per 1 SD increase and whiskers 95% confidence intervals; p, Wald test; q, Benjamini–Hochberg FDR across the six tests shown."
+    },
+    {
+     "panels": [
+      "e"
+     ],
+     "label": "e",
+     "html": "Per-core correlation between Xenium mean transcript expression (mean log counts) and immunofluorescence (IF) protein mean fluorescence intensity (MFI) for KRT7 and KRT19 (n = 157 TMA cores). Pearson r shown."
+    },
+    {
+     "panels": [
+      "f"
+     ],
+     "label": "f",
+     "html": "Per-core correlation between mean polarization score (Xenium) and IF protein MFI for KRT7, KRT19, KRT18, VIM and E-cadherin. Pearson r and Spearman ρ shown."
+    },
+    {
+     "panels": [
+      "g",
+      "h"
+     ],
+     "label": "g, h",
+     "html": "Kaplan–Meier curves for 5-year"
+    },
+    {
+     "panels": [
+      "g"
+     ],
+     "label": "g",
+     "html": "OS (SecA n = 104, SecB n = 106) and"
+    },
+    {
+     "panels": [
+      "h"
+     ],
+     "label": "h",
+     "html": "PFS (SecA n = 104, SecB n = 105) in TCGA-OV, comparing the highest and lowest tertiles of polarization score."
+    },
+    {
+     "panels": [
+      "i",
+      "j"
+     ],
+     "label": "i, j",
+     "html": "Forest plots of Cox proportional hazards regression for the polarization score in the full TCGA-OV cohort for"
+    },
+    {
+     "panels": [
+      "i"
+     ],
+     "label": "i",
+     "html": "OS and"
+    },
+    {
+     "panels": [
+      "j"
+     ],
+     "label": "j",
+     "html": "PFS, shown unadjusted, adjusted for epithelial cell fraction, and additionally adjusted for stage and age ((OS n = 314, 311 with stage and age; PFS n = 312, 309)."
+    },
+    {
+     "panels": [
+      "k",
+      "l"
+     ],
+     "label": "k, l",
+     "html": "Kaplan–Meier curves for PFS in FIGO stage III/IV patients from the ICON7 trial (GSE140082, n = 191), comparing carboplatin–paclitaxel alone (standard) with carboplatin–paclitaxel plus bevacizumab in"
+    },
+    {
+     "panels": [
+      "k"
+     ],
+     "label": "k",
+     "html": "SecA-polarized tumors (n = 96; standard 45, bevacizumab 51) and"
+    },
+    {
+     "panels": [
+      "l"
+     ],
+     "label": "l",
+     "html": "SecB-polarized tumors (n = 95; standard 50, bevacizumab 45), log-rank p shown; adjusted hazard ratios in <a class=\"xref tab\" href=\"#\" data-tab=\"S12\">Table S12</a>."
+    },
+    {
+     "panels": [
+      "m",
+      "n"
+     ],
+     "label": "m, n",
+     "html": "Time-varying Cox proportional hazards regression of bevacizumab benefit (HR vs standard therapy for PFS) within"
+    },
+    {
+     "panels": [
+      "m"
+     ],
+     "label": "m",
+     "html": "SecB-polarized and"
+    },
+    {
+     "panels": [
+      "n"
+     ],
+     "label": "n",
+     "html": "SecA-polarized tumors, split at 15 months: 0–15 months (circles) or beyond 15 months (triangles), adjusted for FIGO stage, debulking status and age; q, Benjamini–Hochberg FDR across the four estimates shown."
+    }
+   ]
+  }
+ },
+ "supp_figures": {
+  "1": {
+   "title": "Quality control metrics by study across our integrated HGSC scRNA-seq atlas",
+   "panels": [
+    {
+     "panels": [
+      "a"
+     ],
+     "label": "a",
+     "html": "Violin plots of total UMI counts (log scale) per cell by study; red dashed line demonstrates the threshold applied across studies (&lt;500 UMIs)."
+    },
+    {
+     "panels": [
+      "b"
+     ],
+     "label": "b",
+     "html": "Violin plots of genes detected per cell by study; red dashed demonstrates the threshold applied (&lt;300 genes)."
+    },
+    {
+     "panels": [
+      "c"
+     ],
+     "label": "c",
+     "html": "Violin plots of Scrublet doublet scores per cell by study; red dashed line demonstrates the threshold applied across studies (&gt; 0.25). Horizontal bars represent the study medians."
+    }
+   ]
+  },
+  "2": {
+   "title": "Contribution of each study to our integrated HGSC scRNA-seq atlas",
+   "panels": [
+    {
+     "panels": [
+      "a"
+     ],
+     "label": "a",
+     "html": "UMAP of our integrated scRNA-seq HGSC atlas (n = 1,980,703 cells), colored by study."
+    },
+    {
+     "panels": [
+      "b"
+     ],
+     "label": "b",
+     "html": "Proportional stacked bar graph demonstrating the contribution of each study to each of the level 1 cell types (n = 13)."
+    },
+    {
+     "panels": [
+      "c"
+     ],
+     "label": "c",
+     "html": "UMAP visualizations highlighting the cells contributed, colored by study, within the integrated HGSC scRNA-seq atlas."
+    }
+   ]
+  },
+  "3": {
+   "title": "Clinical and genomic metadata across the integrated HGSC scRNA-seq atlas. UMAP of the integrated HGSC scRNA-seq atlas colored by",
+   "panels": [
+    {
+     "panels": [
+      "a"
+     ],
+     "label": "a",
+     "html": "treatment status,"
+    },
+    {
+     "panels": [
+      "b"
+     ],
+     "label": "b",
+     "html": "anatomic site,"
+    },
+    {
+     "panels": [
+      "c"
+     ],
+     "label": "c",
+     "html": "broad metastatic site,"
+    },
+    {
+     "panels": [
+      "d"
+     ],
+     "label": "d",
+     "html": "TP53 status,"
+    },
+    {
+     "panels": [
+      "e"
+     ],
+     "label": "e",
+     "html": "HRD status,"
+    },
+    {
+     "panels": [
+      "f"
+     ],
+     "label": "f",
+     "html": "BRCA status."
+    }
+   ]
+  },
+  "4": {
+   "title": "Cell type annotation validation within the HGSC scRNA-seq atlas",
+   "panels": [
+    {
+     "panels": [
+      "a"
+     ],
+     "label": "a",
+     "html": "Violin plots of scANVI prediction probability for each scANVI-predicted cell class (14 cell types, T and NK cell shown separately) with the number of cells per cell type."
+    },
+    {
+     "panels": [
+      "b"
+     ],
+     "label": "b",
+     "html": "Dot plot of canonical cell type markers across the 13 annotated cell types, with color representing the scaled mean expression and size representing the percentage of expressing cells."
+    },
+    {
+     "panels": [
+      "c"
+     ],
+     "label": "c",
+     "html": "Box plot demonstrating the percentage of CopyKAT-inferred aneuploid cells per sample across the epithelial, fibroblast, endothelial and T/NK cell compartments. Points represent all samples with a minimum of 20 cells in each group and boxes represent the median and interquartile range; pooled percentages are quantified and shown in the right."
+    }
+   ]
+  },
+  "5": {
+   "title": "NMF factor usage across the integrated epithelial compartment",
+   "panels": [
+    {
+     "panels": [],
+     "label": "",
+     "html": "UMAP of the integrated epithelial compartment (n = 575,366) with per-cell usage of each of the 10 NMF factors visualized by factor usage. Factors are labelled by inferred program and top marker genes."
+    }
+   ]
+  },
+  "6": {
+   "title": "SecA and SecB signature gene expression across the integrated epithelial compartment. UMAP of the integrated epithelial compartment (n = 575,366) visualizing",
+   "panels": [
+    {
+     "panels": [
+      "a"
+     ],
+     "label": "a",
+     "html": "SecA NMF factor loading and SecA marker genes (MECOM, SOX17, FBXO21, PBX1, LGR5, LPAR3, RCN2)."
+    },
+    {
+     "panels": [
+      "b"
+     ],
+     "label": "b",
+     "html": "SecB NMF factor loading and SecB marker genes (KRT17, LCN2, TACSTD2, KRT7, KRT19, SLPI, PRSS22)."
+    }
+   ]
+  },
+  "7": {
+   "title": "SecA, Intermediate and SecB epithelium coexist within CopyKAT-inferred clones",
+   "panels": [
+    {
+     "panels": [],
+     "label": "",
+     "html": "Stacked bar graph demonstrating the proportion of SecA, Intermediate and SecB within each CopyKAT-inferred subclone with a minimum of 20 cells (n = 378 subclones across 251 samples; 143 monoclonal, 54 clonally driven and 54 mixed), grouped by sample and ordered by sample-level SecB proportion. The banner above represents the clonality for the sample (gray = monoclonal, brown = polyclonal, beige = mixed)."
+    }
+   ]
+  },
+  "8": {
+   "title": "Pathway, metabolic, and transcription factor activity across epithelial states",
+   "panels": [
+    {
+     "panels": [],
+     "label": "",
+     "html": "Heatmaps of row-normalized z-scores for SecA, Intermediate, SecB and ciliated epithelium of inferred pathway activity (PROGENy, 14 pathways), gene set enrichment (Hallmark, 50 gene sets), metabolic flux estimation (scFEA, 165 modules), and transcription factor activity (DoRothEA, 294 regulons)."
+    }
+   ]
+  },
+  "9": {
+   "title": "Composition of the epithelial compartment states across clinical, genomic, and previously annotated epithelial clusters. Stacked bar graphs demonstrating the proportion of SecA, Intermediate, SecB and ciliated epithelium by",
+   "panels": [
+    {
+     "panels": [
+      "a"
+     ],
+     "label": "a",
+     "html": "treatment status"
+    },
+    {
+     "panels": [
+      "b"
+     ],
+     "label": "b",
+     "html": "anatomic site,"
+    },
+    {
+     "panels": [
+      "c"
+     ],
+     "label": "c",
+     "html": "TP53 status,"
+    },
+    {
+     "panels": [
+      "d"
+     ],
+     "label": "d",
+     "html": "HRD status,"
+    },
+    {
+     "panels": [
+      "e"
+     ],
+     "label": "e",
+     "html": "BRCA status,"
+    },
+    {
+     "panels": [
+      "f"
+     ],
+     "label": "f",
+     "html": "Vázquez-García et al. epithelial cluster annotation (SPECTRUM cohort) and"
+    },
+    {
+     "panels": [
+      "g"
+     ],
+     "label": "g",
+     "html": "Geistlinger et al. consensusOV molecular subtype. The number of epithelial cells is annotated, and percentages are shown for those greater than 8%."
+    }
+   ]
+  },
+  "10": {
+   "title": "Programs of KPCA.B mouse tumor epithelium compared with human SecA and SecB programs",
+   "panels": [
+    {
+     "panels": [
+      "a"
+     ],
+     "label": "a",
+     "html": "Dot plot demonstrating the SecA and SecB markers and how each translates from the HGSC human scRNA-seq atlas to the mouse orthologs within the KPCA.B tumor epithelium (n = 12,429 cells)."
+    },
+    {
+     "panels": [
+      "b"
+     ],
+     "label": "b",
+     "html": "UMAP of KPCA.B tumor epithelium visualizing expression of SecA and SecB markers expressed in more than 20% of cells."
+    },
+    {
+     "panels": [
+      "c"
+     ],
+     "label": "c",
+     "html": "Heatmap demonstrating Spearman correlation values between the gene loadings of the four NMF programs of KPCA.B tumor epithelium compared to the human NMF factors and the human SecB and SecA polarizations score, ns represents FDR &gt; 0.05 (gene-based permutation)."
+    },
+    {
+     "panels": [
+      "d"
+     ],
+     "label": "d",
+     "html": "UMAP of KPCA.B tumor visualizing the per-cell usage of each NMF factors."
+    }
+   ]
+  },
+  "11": {
+   "title": "Cell type annotation across our Xenium whole-tissue cohort",
+   "panels": [
+    {
+     "panels": [],
+     "label": "",
+     "html": "Whole-tissue spatial maps of the eight HGSC tissue sections (WT01 – WT04 treatment naïve, WT05 – WT-08, post-chemotherapy, n = 1,898,772 cells) colored by SingleR cell type annotation (18 cell types). Scale bar represents 1 mm."
+    }
+   ]
+  },
+  "12": {
+   "title": "Cell type annotation across our Xenium TMA A and fallopian tube epithelium cores. Spatial maps of",
+   "panels": [
+    {
+     "panels": [
+      "a"
+     ],
+     "label": "a",
+     "html": "TMA A (95 patients, 177 cores) and"
+    },
+    {
+     "panels": [
+      "b"
+     ],
+     "label": "b",
+     "html": "fallopian tube epithelium cores (n = 15 cores, n = 34,281 cells), colored by SingleR cell type annotation (18 cell types). Scale bars represent (a) 500 µm and"
+    },
+    {
+     "panels": [
+      "b"
+     ],
+     "label": "b",
+     "html": "200 µm."
+    }
+   ]
+  },
+  "13": {
+   "title": "Cell type annotation across our Xenium TMA B",
+   "panels": [
+    {
+     "panels": [],
+     "label": "",
+     "html": "Spatial maps of TMA B (283 patients, 326 cores with 43 two-core pairs) colored by SingleR cell type annotation (18 cell types). Scale bar represents 500 µm."
+    }
+   ]
+  },
+  "14": {
+   "title": "Cell type annotation validation across our Xenium cohort",
+   "panels": [
+    {
+     "panels": [],
+     "label": "",
+     "html": "Dot plot of canonical cell type markers across the 18 annotated cell types, with color representing the scaled mean log-normalized expression and size representing the percentage of expressing cells, † denotes genes excluded from SingleR by probe QC and ‡ denotes a Xenium-only gene absent from the atlas reference."
+    }
+   ]
+  },
+  "15": {
+   "title": "Distribution of secretory polarization across the Xenium cohort",
+   "panels": [
+    {
+     "panels": [
+      "a"
+     ],
+     "label": "a",
+     "html": "Violin plots of the secretory polarization score (SecB – SecA UCell score) for fallopian tube epithelium cores (n = 15, orange), HGSC whole tissue (n = 8, purple) or across our TMAs (n = 378 patients, 503 cores)."
+    },
+    {
+     "panels": [
+      "b"
+     ],
+     "label": "b",
+     "html": "Pooled distributions of all secretory cells per cohort. Dashed lines represent the polarization thresholds separating SecA, Intermediate and SecB cells. HGSC units versus FTE cores: two-sided Mann–Whitney test on per-unit median polarization"
+    }
+   ]
+  },
+  "16": {
+   "title": "Per-tissue validation of environmental features along the secretory polarization axis. Generalized additive models of",
+   "panels": [
+    {
+     "panels": [
+      "a"
+     ],
+     "label": "a",
+     "html": "cell density,"
+    },
+    {
+     "panels": [
+      "b"
+     ],
+     "label": "b",
+     "html": "distance to nearest vascular cell (µm),"
+    },
+    {
+     "panels": [
+      "c"
+     ],
+     "label": "c",
+     "html": "Matrix remodeling score (UCell) and"
+    },
+    {
+     "panels": [
+      "d"
+     ],
+     "label": "d",
+     "html": "neighborhood hypoxia score (UCell). Colored lines represent individual whole-tissue fits on all cells of each tissue (n = 8; WT01–WT04 treatment-naïve, solid; WT05–WT08 post-chemotherapy, dashed). The black dashed line represents the pooled model across all 1,235,350 secretory cells with each tissue weighted equally (95% CI), which reflects both within- and between-tissue variation. Each panel reports the number of tissues changing in the pooled direction and the p value of a two-sided paired Wilcoxon signed-rank test comparing the top and bottom 20% of polarization within each tissue. Curves are shown over the 1st–99th percentile of polarization."
+    }
+   ]
+  },
+  "17": {
+   "title": "Per-tissue validation of epithelial-intrinsic expression along the secretory polarization axis. Generalized additive models of epithelial UCell scores (z-scored) for",
+   "panels": [
+    {
+     "panels": [
+      "a"
+     ],
+     "label": "a",
+     "html": "proliferation,"
+    },
+    {
+     "panels": [
+      "b"
+     ],
+     "label": "b",
+     "html": "Myc,"
+    },
+    {
+     "panels": [
+      "c"
+     ],
+     "label": "c",
+     "html": "PI3K,"
+    },
+    {
+     "panels": [
+      "d"
+     ],
+     "label": "d",
+     "html": "Wnt,"
+    },
+    {
+     "panels": [
+      "e"
+     ],
+     "label": "e",
+     "html": "DNA damage repair (BRCA1, BRCA2, ATM, CHEK2),"
+    },
+    {
+     "panels": [
+      "f"
+     ],
+     "label": "f",
+     "html": "NF-κB and"
+    },
+    {
+     "panels": [
+      "g"
+     ],
+     "label": "g",
+     "html": "glycolysis, and expression (log1p CP10k, z-scored) of"
+    },
+    {
+     "panels": [
+      "h"
+     ],
+     "label": "h",
+     "html": "<i>IL32</i>,"
+    },
+    {
+     "panels": [
+      "i"
+     ],
+     "label": "i",
+     "html": "<i>CD55</i>,"
+    },
+    {
+     "panels": [
+      "j"
+     ],
+     "label": "j",
+     "html": "<i>LDHA</i>,"
+    },
+    {
+     "panels": [
+      "k"
+     ],
+     "label": "k",
+     "html": "<i>CTNNB1</i>,"
+    },
+    {
+     "panels": [
+      "l"
+     ],
+     "label": "l",
+     "html": "<i>ICAM1</i>,"
+    },
+    {
+     "panels": [
+      "m"
+     ],
+     "label": "m",
+     "html": "<i>MMP7</i> and"
+    },
+    {
+     "panels": [
+      "n"
+     ],
+     "label": "n",
+     "html": "<i>TGM2</i> in secretory epithelial cells as a function of focal cell polarization score. Colored lines represent individual whole-tissue fits on all cells of each tissue (n = 8; WT01–WT04 treatment-naïve, solid; WT05–WT08 post-chemotherapy, dashed). The black dashed line represents the pooled model across all 1,235,350 secretory cells with each tissue weighted equally (95% CI), which reflects both within- and between-tissue variation. Each panel reports the number of tissues changing in the pooled direction and the p value of a two-sided paired Wilcoxon signed-rank test comparing the top and bottom 20% of polarization within each tissue. Curves are shown over the 1st–99th percentile of polarization."
+    }
+   ]
+  },
+  "18": {
+   "title": "Per-tissue validation of macrophage-intrinsic expression along the secretory polarization axis. Generalized additive models of macrophage UCell program scores (z-scored) for",
+   "panels": [
+    {
+     "panels": [
+      "a"
+     ],
+     "label": "a",
+     "html": "glycolysis and"
+    },
+    {
+     "panels": [
+      "b"
+     ],
+     "label": "b",
+     "html": "NF-κB activation, and expression (log1p CP10k, z-scored) of"
+    },
+    {
+     "panels": [
+      "c"
+     ],
+     "label": "c",
+     "html": "<i>A2M</i>,"
+    },
+    {
+     "panels": [
+      "d"
+     ],
+     "label": "d",
+     "html": "<i>C1QC</i>,"
+    },
+    {
+     "panels": [
+      "e"
+     ],
+     "label": "e",
+     "html": "<i>CXCL10</i>,"
+    },
+    {
+     "panels": [
+      "f"
+     ],
+     "label": "f",
+     "html": "<i>CXCL11</i>,"
+    },
+    {
+     "panels": [
+      "g"
+     ],
+     "label": "g",
+     "html": "<i>CTSL</i> and"
+    },
+    {
+     "panels": [
+      "h"
+     ],
+     "label": "h",
+     "html": "<i>ICAM1</i> in macrophages as a function of local epithelial polarization within 50 µm. Colored lines represent individual whole-tissue fits on all cells of each tissue (n = 8; WT01–WT04 treatment-naïve, solid; WT05–WT08 post-chemotherapy, dashed). The black dashed line represents the pooled model across all macrophages. Each panel reports the number of tissues changing in the pooled direction and the p value of a two-sided paired Wilcoxon signed-rank test comparing the top and bottom 20% of polarization within each tissue. Curves are shown over the 1st–99th percentile of polarization."
+    }
+   ]
+  }
+ },
+ "tables": [
+  {
+   "n": 1,
+   "title": "Characteristics of the 13 scRNA-seq studies integrated in the HGSC atlas",
+   "html": "Per study publication, data accession, sequencing platform and chemistry, tissue processing, and the number of patients, samples, sequencing libraries, and cells retained in the final atlas (1,980,703 cells, 158 patients, 362 samples), with anatomic site and treatment status composition. Additional sheets list the metadata for each sample including clinical annotations where available (treatment status, stage, anatomic site, metastatic site, age, treatment response, BRCA status, HRD status, TP53 status) and cell counts and the number of cells per study for each level-1 lineage."
+  },
+  {
+   "n": 2,
+   "title": "Differentially expressed markers for cell type level 1 annotation",
+   "html": "Wilcoxon rank-sum test results for upregulated genes in each of the 13 level 1 cell type compartments versus all other cells (p adj &lt; 0.05, log2FC &gt; 0). Columns indicate cell type, rank, gene, Wilcoxon score, log2 fold change, p-value and adjusted p-value (Benjamini-Hochberg). 51,592 significant gene-cell type pairs across annotated cells; the top 50 markers per cell type are listed in a separate sheet."
+  },
+  {
+   "n": 3,
+   "title": "Differentially expressed markers for cell type level 2 annotation",
+   "html": "Wilcoxon rank-sum test results for upregulated genes in each level 2 cell type versus the other level 2 clusters of the same level 1 compartment (p adj &lt; 0.05, log2FC &gt; 0). Columns indicate level 1 compartment, level 2 cell type, rank, gene, Wilcoxon score, log2 fold change, p-value and adjusted p-value (Benjamini-Hochberg). 197,160 significant gene-cell type pairs across 49 level 2 cell types; pericytes and neutrophils comprise a single level 2 type and are represented in Supplementary Table 2. The top 50 markers per level 2 cell type are listed in a separate sheet."
+  },
+  {
+   "n": 4,
+   "title": "Differentially expressed markers for ciliated and secretory clusters",
+   "html": "Ciliated and secretory epithelial cell clusters were compared by Wilcoxon rank-sum test. Columns indicate gene, log2 fold change, Wilcoxon score, p-value, adjusted p-value (Benjamini-Hochberg), direction of enrichment and percent expression within each group. 10,029 significant DEGs (p adj &lt; 0.05)."
+  },
+  {
+   "n": 5,
+   "title": "Non-negative matrix factorization (NMF) programs of the atlas epithelial compartment",
+   "html": "NMF (k = 10) was performed on 3,007 genes (3,000 highly variable genes plus signature genes). Sheets give the annotation of each factor and its top genes; the loading of every gene in every factor, with its within-factor rank and specificity; the top 50 genes per factor; the classification of genes as SecA-specific (177), SecB-specific (177) or shared (124), by the 90th percentile of the Factor 3 and Factor 2 loadings; and consensus metaprograms from per-patient consensus NMF (k = 5–10, 30 runs per k). Factor 3 corresponds to the SecA program and Factor 2 to the SecB program."
+  },
+  {
+   "n": 6,
+   "title": "SecA and SecB gene signatures used for polarization scoring",
+   "html": "The seven SecA genes (MECOM, FBXO21, LGR5, LPAR3, PBX1, SOX17, RCN2) and seven SecB genes (KRT17, KRT19, KRT7, LCN2, PRSS22, SLPI, TACSTD2) are listed with their NMF loadings and ranks, SecB versus SecA pseudobulk DESeq2 log2 fold change and adjusted p (Figure 2g), the percentage of atlas SecA, Intermediate and SecB cells expressing each gene, Xenium panel membership and probe quality, and the analyses in which each signature was used. Additional sheets list the scoring method for each dataset and the 177 SecA-specific and 177 SecB-specific genes used to score TCGA-OV."
+  },
+  {
+   "n": 7,
+   "title": "Xenium gene panel composition and cross-platform probe quality control",
+   "html": "The custom Xenium panel of 477 genes is listed with its design rationale, cell type marker assignment, SecA/SecB signature and pathway module membership, and probe QC metrics against the scRNA-seq atlas: correlation of gene–gene co-expression profiles, top-20-partner Jaccard overlap, mean and variance ratios, detection-rate and non-zero-mean differences, and overdispersion. Genes with ≥3 QC flags failed (31 genes). Of these, 28 were excluded from SingleR annotation (429 genes used for annotation), and three essential markers were retained with flags. All genes were retained for expression and pathway analyses; 20 genes absent from the atlas are marked Xenium-only."
+  },
+  {
+   "n": 8,
+   "title": "Clinical and sample characteristics of the Xenium spatial transcriptomics cohort",
+   "html": "De-identified characteristics are given for the 8 whole HGSC tissue sections (treatment status: 4 treatment-naïve, 4 post-chemotherapy; FIGO stage; histology; cells profiled; epithelial composition), for the patients on the two HGSC tissue microarrays (378 patients with ≥500 cells across 503 cores), and for the 15 fallopian tube epithelium cores. TMA patient data include age band, FIGO stage, residual disease, neoadjuvant treatment, histology, grade, cores and cells profiled, OS and PFS (months) with event status, and inclusion in the Figure 7 survival analyses (OS n = 104, PFS n = 103). Study codes do not correspond to any clinical or biobank identifier."
+  },
+  {
+   "n": 9,
+   "title": "Gene sets used for pathway scoring of the Xenium spatial data",
+   "html": "The 37 custom UCell pathway modules (325 gene entries) are listed with their category, genes and probe QC status. Also listed are the custom epithelial (DNA damage repair, epigenetic silencing; Figure 5a) and macrophage (glycolytic, NF-κB activated, tissue-resident identity, chemokine; Figure 5i) gene sets, and the two gene sets of the Figure 6g macrophage program score (glycolytic and tissue-resident; scored as z-scored expression, not UCell), together with the scoring method for each set and the figures in which it is reported."
+  },
+  {
+   "n": 10,
+   "title": "Differential expression of macrophages in SecB niches",
+   "html": "Visium HD macrophage bins (WT01, 16 µm and 8 µm) adjacent to SecB-high epithelium (≥2 SecB-high bins within 48 µm) were compared with distal macrophage bins (Figure 6e). The log2 fold change of mean CP10k is given before and after adjustment for macrophage content (median log2 fold change of pan-macrophage genes subtracted). Each gene is classified as macrophage-attributable, SecB epithelial carry-over or stromal, and bin-level Mann–Whitney p values with Benjamini–Hochberg FDR are reported descriptively. Xenium SecB-niche macrophages (≥5 SecB epithelial cells within 50 µm) were compared with control macrophages (no SecB and ≥5 SecA cells within 50 µm) by pseudobulk limma-voom paired by section, across 7 whole tissues with ≥50 macrophages per group (WT07 had 39 SecB-macrophages and was excluded). Per-section log2 fold changes and consistency are included."
+  },
+  {
+   "n": 11,
+   "title": "Multivariable Cox regression of secretory polarization in the Xenium TMA cohort",
+   "html": "For patients of the final TMA cohort represented by two final tumor cores (OS n = 104, 40 events; PFS n = 103, 71 events), each of the three secretory measures (SecA and SecB proportion of secretory cells; mean polarization score) was modeled separately, adjusted for FIGO stage (III/IV vs I/II), residual disease (suboptimal vs optimal) and age, for 5-year OS and PFS (Figure 7c,d). Hazard ratios are per 1 SD increase, with 95% confidence intervals, Wald p, Benjamini–Hochberg FDR across the six tests of Figure 7c,d, all covariate estimates and Schoenfeld-residual proportional-hazards tests. The Kaplan–Meier comparison of the lowest and highest polarization tertiles in Figure 7a,b (tertile cut-offs, group sizes, events, 5-year survival and log-rank p) is included."
+  },
+  {
+   "n": 12,
+   "title": "Cox regression of secretory polarization and bevacizumab benefit in the ICON7 trial",
+   "html": "Pre-treatment tumors from FIGO stage III/IV patients (GSE140082; n = 191) were classified as SecA-polarized (n = 96) or SecB-polarized (n = 95) at the cohort median polarization score. Every model is adjusted for FIGO stage, debulking status and age. The table reports the association of continuous polarization (per 1 SD) with OS and PFS within each treatment arm; the effect of bevacizumab on PFS within each polarization group (Figure 7k,l); the time-varying bevacizumab effect before and after 15 months, with the period interaction (Figure 7m,n); and the treatment x polarization-group interaction for PFS, with its likelihood-ratio test. Kaplan–Meier median survival, group sizes and all model coefficients are included. Benjamini–Hochberg q values for Figure 7m,n and for the period interaction are included."
+  }
+ ],
+ "methods": [
+  {
+   "id": "methods",
+   "title": "Methods",
+   "blocks": []
+  },
+  {
+   "id": "resource-availability",
+   "title": "Resource Availability",
+   "blocks": [
+    {
+     "type": "p",
+     "html": "Lead contact. David Cook (dacook@ohri.ca)"
+    },
+    {
+     "type": "p",
+     "html": "Materials availability. No unique reagents were generated."
+    },
+    {
+     "type": "p",
+     "html": "Data and code availability. All scRNA-seq datasets used in atlas construction are publicly available. Processed atlas objects, Xenium, Visium HD, PDO snRNA-seq and KPCA.B scRNA-seq have been deposited at [TBD]. The code to reproduce analyses and data visualization is available through https://www.github.com/cook-lab/hgsc-malignant-states."
+    }
+   ]
+  },
+  {
+   "id": "experimental-model-and-study-participant-details",
+   "title": "Experimental Model and Study Participant Details",
+   "blocks": [
+    {
+     "type": "p",
+     "html": "Human Tissues. De-identified archival tissues were used under REBs #20240175-01H and #20240096-01H, with informed consent. We profiled three sources of tissues: eight FFPE HGSC whole tissues (WT01 – WT08), TMA A (101 patients, CHUM cohort) and TMA B (317 patients profiled, COEUR cohort) (<a class=\"xref tab\" href=\"#\" data-tab=\"S8\">Table S8</a>)."
+    },
+    {
+     "type": "p",
+     "html": "Patient-derived organoids (PDOs). Eight HGSC organoids were used: OPTO98, OPTO112, OPTO129, and PDO66 from primary tumors and OCAD93, OCAD96, OCAD97 and OCAD106 from ascites. These were obtained from Princess Margaret Cancer Centre and Western University. Organoids were embedded in Matrigel (20,000–50,000 cells per 50 µL dome). The culture medium was Advanced DMEM/F-12 containing GlutaMAX (2 mM), HEPES (10 mM), antibiotic-antimycotic (100 U/mL), B27 (1×), N-acetyl-L-cysteine (1.25 mM), EGF (20 ng/mL), bFGF (100 ng/mL), FGF-10 (100 ng/mL), Noggin (100 ng/mL), nicotinamide (1 mM), Y-27632 (10 µM), forskolin (10 µM) and β-estradiol (200 nM). The PDO66 medium was further supplemented with N2 (1×), SB431542 (0.5 µM) and BMP2 (10 ng/mL). Organoids were passaged every 1–4 weeks after TrypLE dissociation."
+    },
+    {
+     "type": "p",
+     "html": "Mice. KPCA.B cells were kindly provided by Dr. Robert Weinberg<sup class=\"cite\" data-refs=\"62\">62</sup> and 150,000 cells were implanted orthotopically into the ovarian bursa of C57BL/6 mice under protocol OHRIe-3632. Tumors were collected for scRNA-seq at day 34."
+    }
+   ]
+  },
+  {
+   "id": "methods-details",
+   "title": "Methods Details",
+   "blocks": [
+    {
+     "type": "p",
+     "html": "<i>Single-cell atlas construction.</i> We integrated raw counts from 13 published HGSC scRNA-seq studies (<a class=\"xref tab\" href=\"#\" data-tab=\"S1\">Table S1</a>) on 14,470 shared genes. Cells with &lt; 500 UMIs, or &lt;300 genes were removed, as were Scrublet-called doublets<sup class=\"cite\" data-refs=\"63\">63</sup>, and artifact clusters. Samples with fewer than 500 remaining cells were removed. The atlas retained 1,980,703 cells from 362 samples of 158 patients. Data were integrated using scVI and scANVI<sup class=\"cite\" data-refs=\"64\">64</sup> (batch set per sample), seeded with CellAssign<sup class=\"cite\" data-refs=\"65\">65</sup> labels as scANVI annotations. Leiden clusters were annotated (<a class=\"xref fig\" href=\"#\" data-fig=\"S1:;S4:\">Figure S1-4</a>, <a class=\"xref tab\" href=\"#\" data-tab=\"S2;S4\">Table S2 – 4</a>)."
+    },
+    {
+     "type": "p",
+     "html": "<i>Copy number.</i> CopyKAT<sup class=\"cite\" data-refs=\"66\">66</sup> was run per sample, with a minimum of 200 epithelial cells and 50 reference cells. Fibroblast, T/NK, and endothelial cells were used as the diploid reference. Subclones (with 20 or more cells) were defined by hierarchical clustering and silhouette width."
+    },
+    {
+     "type": "p",
+     "html": "<i>Epithelial NMF and states. </i>NMF (sckit-learn, k = 10) was fitted on a stratified set of 50,000 secretory cells and then applied to all 575,366 epithelial cells. The factor 2 (SecB) usage was used to classify secretory cells as SecA (&lt;50<sup>th</sup> percentile), Intermediate, or SecB (≥ 75<sup>th </sup>percentile). In 250 samples with a minimum of 150 aneuploid epithelial cells, we recorded the principal component of malignant expression most correlated with SecB-SecA score as the dominant secretory axis of polarization."
+    },
+    {
+     "type": "p",
+     "html": "<i>Functional inference of epithelial states.</i> PROGENy<sup class=\"cite\" data-refs=\"67\">67</sup> and DoRothEA<sup class=\"cite\" data-refs=\"68\">68</sup> activities (decoupler, multivariate linear model), Hallmark scores and scFEA<sup class=\"cite\" data-refs=\"69\">69</sup> flux (human M168 model) were averaged per epithelial state. Cell-cycle phase was assigned with scanpy. ConsensusOV<sup class=\"cite\" data-refs=\"70\">70</sup> subtypes were assigned to whole-sample pseudobulks of pre-treatment, primary samples (n = 96 samples, 77 patients). SecB vs SecA differential expression was tested with PyDESeq2 (design ~sample + state, Wald test, BH) on sample-by-state pseudobulks (n = 261 samples, 135 patients)."
+    },
+    {
+     "type": "p",
+     "html": "<i>Polarization scoring.</i> Unless stated otherwise, polarization was the SecB – SecA UCell<sup class=\"cite\" data-refs=\"71\">71</sup> score on raw counts. SecA genes were MECOM, FBXO21, LGR5, LPAR3, PBX1, SOX17, and RCN2; SecB genes were KRT17, KRT19, KRT7, LCN2, PRSS22, SLPI and TACSTD2. They were selected for factor specificity, differential expression and cross-platform detectability. Each platform was scored in the gene space it shares with the atlas by UCell (Xenium, 457 genes; organoids, 14,271).TCGA-OV tumors were scored as the mean z-score of the 177 SecB -177 SecA NMF-specific genes. All gene sets are listed in <a class=\"xref tab\" href=\"#\" data-tab=\"S6\">Table S6</a> and <a class=\"xref tab\" href=\"#\" data-tab=\"S9\">Table S9</a>. Visium HD bins were scored as the mean z-score of the SecB minus the SecA genes, and ICON7 arrays with UCell, each score z-scored across the 380 arrays. Organoid panels show the SecB UCell score."
+    },
+    {
+     "type": "p",
+     "html": "<i>Organoid snRNA-seq panel.</i> PDOs were fixed and profiled with Parse Evercode WT v3. After doublet removal (scDblFinder) and QC (&gt;500 UMIs, &gt;300 genes, &lt;20% mitochondrial reads), 10,455 cells remained."
+    },
+    {
+     "type": "p",
+     "html": "<i>Organoid experimental perturbations</i>. OPTO98 organoids were cultured for 2,6,10 or 12 days of standard culture, with various environmental cytokines (IFNγ (20 ng/mL), TNFα (10 ng/mL), TGFβ (5 ng/mL), or WNT7A (500 ng/mL)), or eight varying medias (Basal media (BM, Advanced DMEM/F12, HEPES 10mM, antibiotic antimycotic 1X, B-27 supplement 1X, GlutaMax 1X, N-Acetyl-Cysteine 1mM), BM01 (BM + SB202190 0.5µM, A83-01 0.5µM, FGF-10 10ng/mL), BM02 (BM + FGF-4 10ng/mL), BM03 (BM + β-estradiol​ 100nM), BM1 (BM + Nicotinamide 5mM), BM2 (BM + EGF 5ng/mL, Heregulin-β-1 37.5ng/mL, hydrocortisone 0.5µg/mL, Forskolin 5µM), CGM (Advanced DMEM/F12, HEPES 10mM, antibiotic antimycotic 1X, B-27 supplement 1X, GlutaMax 1X, N-Acetyl-Cysteine 1.25mM, EGF 20ng/mL, β-FGF 100ng/mL, FGF-10 100ng/mL, Noggin 100ng/mL, Nicotinamide 1mM, Forskolin 10µM, β-estradiol​ 100nM, Y-27632 10µM), CGM Asc (CGM + cell free ascites fluid, 1:1) or HPLM (HPLM, HEPES 10mM, antibiotic antimycotic 1X, B-27 supplement 1X, GlutaMax 1X, N-Acetyl-Cysteine 1.25mM, EGF 20ng/mL, β-FGF 100ng/mL, FGF-10 100ng/mL, Noggin 100ng/mL, Nicotinamide 1mM, Forskolin 10µM, β-estradiol​ 100nM, Y-27632 10µM) for 6 days, with media replenished (in condition) every 3 days. At time of collection, organoids were subsequently dissociated using TrypLE for 45 min at 37°C and quenched with AdDMEM/F12. MULTI-seq barcoding, lipid-modified oligonucleotide anchor and barcode strands were prepared at a 1:1 molar ratio in serum-free PBS to generate sample-specific barcodes (2 µM, 10X anchor:barcode solution), alongside a 10X co-anchor solution (2 µM). Briefly, 50,000 cells per condition were washed twice and resuspended in 180 µL with PBS. Cells were incubated with 20 µL sample-specific 10X anchor: barcode solution on ice for 10 min with intermittent mixing every 3 min. This was followed by the addition of 22 µL of the 10X co-anchor solution and a further 10 min incubation with mixing occurring every 3 min on ice. Labeling was quenched with ice-cold 1% BSA-PBS, followed by two washes, filtration through a 40 µm strainer, and cell counting prior to downstream library preparation. These conditions were sample multiplexed in one 10X genomics library; after removing 4,017 doublets and 43 unassigned cells, 11,543 cells remained."
+    },
+    {
+     "type": "p",
+     "html": "<i>Organoid polarization quantification</i>. We combined PDOs, atlas pseudobulk and three external datasets: DepMap organoids<sup class=\"cite\" data-refs=\"72\">72</sup>, GSE299200<sup class=\"cite\" data-refs=\"73\">73</sup> and GSE284507<sup class=\"cite\" data-refs=\"74\">74</sup>. All profiles were scored in one shared UCell space, with function defined as z(HIF) – z(proliferation). HIF: <i>NDRG1, SLC16A3, VEGFA, CA9, BNIP3, P4HA1, PDK1, SLC2A1;</i> Proliferation: <i>MKI67, TOP2A, PCNA, CCNB1, CDK1.</i>"
+    },
+    {
+     "type": "p",
+     "html": "<i>KPCA.B tumor and Immunohistochemistry.</i> One KPCA.B day 34 tumor was profiled by 10X Genomics Flex. After ambient-RNA removal and doublet filtering 20,598 cells remained, including 12,429 inferCNV-confirmed tumor cells. Tumor cells were scored with mouse orthologues of the polarization signature. De novo NMF programs were compared with human NMF factors by loading correlation with permutation null. KRT7 (clone: EPR17078) immunohistochemistry was performed on day 26 tumors. Briefly, FFPE sections were deparaffinized in xylene followed by tissue rehydration in decreasing levels of ethanol. Sections were rinsed twice in PBS and were subject to citrate-based heat induced antigen retrieval for 10 minutes followed by 10 minutes of tris-based retrieval. Slides were cooled, washed with PBS and treated with 3% hydrogen peroxide for 15 minutes. Slides were subsequently blocked with 2.5% horse serum for 30 minutes prior to overnight incubation with KRT7 (1:200). Slides were washed three times with PBS, incubated with rabbit secondary for 30 minutes. Slides were washed, incubated with 3,3-diaminobenzidine (DAB) for 90 seconds and counterstained with hematoxylin. Slides were dehydrated with increasing levels of ethanol, mounted with coverslips and scanned (Zeiss Z1; 20x, 0.22µm per pixel); images were exported using QuPath."
+    },
+    {
+     "type": "p",
+     "html": "<i>Xenium.</i> We designed a custom 477-gene Xenium panel (v1 chemistry, <a class=\"xref tab\" href=\"#\" data-tab=\"S7\">Table S7</a>). Probes were benchmarked against the atlas and 28 discordant genes were excluded from use in annotation. Cells were retained with 10 or more transcripts, 5 or more genes and an area of 10 - 500µm<sup>2</sup> and &lt;5% control-probe counts. TMA cores were de-arrayed, QC filtered and pooled per patient, and patients with 500 or more cells were retained for spatial and survival analyses. The final data comprise 1.9 million cells from 8 whole-tissue sections, 1.5 million TMA core cells from 503 cores, representing 378 patients and 34,281 fallopian tube epithelium cells from 15 patients. Cells were annotated automatically using SingleR using the atlas as the reference dataset. Secretory cells were split into SecA, Intermediate and SecB, resulting in 18 final cell types. Pathway modules were scored throughout using UCell."
+    },
+    {
+     "type": "p",
+     "html": "<i>Spatial statistics.</i> SecA-SecB spatial association was quantified by global bivariate Moran’s I, between each secretory cell’s SecA score and the SecB scores of secretory cells within 50 µm. Weights were binary with 999 permutations per tissue and 199 per TMA core (minimum of 500 secretory cells). Per cell, it was quantified by bivariate LISA (499 permutations, BH within tissue). From cells of interest, we derived local measures of density, neighborhood pathway scores, local epithelial hypoxia or polarization scores and distance to the nearest pericyte or endothelial cell. Gradients were fitted with tissue-weighted GAMs (mgcv, s(x, k = 10) over all cells of the eight whole tissues, and immune composition with per-tissue binomial GAMs. Curves span the 1st–99th percentiles. Each panel was tested per tissue by comparing the top and bottom 20% (paired Wilcoxon, n = 8). Nuclear and cell areas are derived from Xenium segmentation. Macrophage morphology was determined in tissues or TMA patients with a minimum of 10 macrophages per tertile of the lowest and highest niche polarization. Local cell density was the number of cells within 50 µm of each secretory cell per mm² of the 50-µm circle (median per sample and state)."
+    },
+    {
+     "type": "p",
+     "html": "<i>Visium HD. </i>WT01 was profiled by Visium HD and analyzed in 16 and 8 µm bins. Bins were classified as epithelial or macrophage by marker UMI counts, and bin polarization was the mean z-score of the SecB minus the SecA genes. Macrophage bins with 2 or more SecB high epithelial bins within 48 µm were compared to distal macrophage bins. Fold changes were adjusted for macrophage content and genes attributed to adjacent epithelium were excluded."
+    },
+    {
+     "type": "p",
+     "html": "<i>Macrophage niches.</i> In Xenium, SecB-niche macrophages had 5 or more SecB cells within 50 µm, controls had no SecB cells and a minimum of 5 SecA cells. They were compared per tissue. SecB cells within 30µm of niche macrophages were compared to SecB cells with no surrounding macrophages. For each macrophage with ≥3 secretory neighbors within 50 µm, the SecB share of those neighbors was compared between the top (hypoxic–glycolytic) and bottom (tissue-resident) tertiles of a program score. The score was nine hypoxia–glycolysis genes minus four resident genes (<a class=\"xref tab\" href=\"#\" data-tab=\"S9\">Table S9</a>). The comparison was made per whole tissue and per TMA patient (n = 311)."
+    },
+    {
+     "type": "p",
+     "html": "<i>Protein correlation.</i> Previously published immunofluorescence intensities from TMA A were correlated per core (Pearson and Spearman; 177 final TMA A cores from 95 patients, 157–163 with IF for each marker) with Xenium transcript expression and mean polarization."
+    },
+    {
+     "type": "p",
+     "html": "<i>Survival.</i> TMA survival analyses included patients with primary, pre-treatment HGSC and represented by two tumor cores. Patients given neoadjuvant chemotherapy (n = 5) or with non-HGSC histology on central review (n = 4) were excluded. Follow-up was censored at 5 years, and stage, residual disease and age had to be complete (OS n = 104, 40 events; PFS n = 103, 71 events). Kaplan–Meier curves compared patients in the lowest and highest tertiles of per-patient polarization, the middle tertile left out (log-rank test). SecA proportion, SecB proportion and mean polarization were z-scored and each tested in a Cox model adjusted for stage, residual disease and age, with Benjamini–Hochberg FDR across these six tests (<a class=\"xref tab\" href=\"#\" data-tab=\"S11\">Table S11</a>). Proportional hazards were assessed with Schoenfeld residuals (<a class=\"xref tab\" href=\"#\" data-tab=\"S11\">Table S11</a>). TCGA-OV polarization was compared between the highest and lowest tertiles by log-rank test and tested in Cox models adjusted for epithelial fraction (BayesPrism), stage and age. In ICON7 (GSE140082, stage III/IV, n = 191), tumors were split at the median polarization. The bevacizumab effect on PFS was estimated per group, with a 15-month time split. The treatment x polarization interaction was tested by likelihood-ratio test in a Cox model adjusted for adjusted for FIGO stage, debulking status and age. In each pair of forest plots, q is the Benjamini–Hochberg FDR across the estimates shown."
+    }
+   ]
+  },
+  {
+   "id": "statistical-analyses",
+   "title": "Statistical Analyses",
+   "blocks": [
+    {
+     "type": "p",
+     "html": "Inference used independent units: patients or samples (atlas level conclusions), models (PDOs), sections or TMA patients (Xenium) and patients (survival). Cell- and bin- level analyses are descriptive. Paired comparisons used two-sided Wilcoxon signed-rank tests. Other tests were Kruskal–Wallis tests, DESeq2 Wald and limma-voom moderated t-tests on pseudobulks, permutation tests, Pearson and Spearman correlations, log-rank tests and Cox regression; all tests were two-sided. Benjamini–Hochberg FDR was applied within stated families (genes in each differential-expression analysis, BiLISA cells within each tissue, the KPCA.B loading correlations of <a class=\"xref fig\" href=\"#\" data-fig=\"S10:\">Figure S10</a>, and the Cox model sets of <a class=\"xref fig\" href=\"#\" data-fig=\"7:\">Figure 7</a> and <a class=\"xref tab\" href=\"#\" data-tab=\"S11;S12\">Tables S11–S12</a>); other p values are nominal. Specific test, sample n value and error definitions are defined within figure legends. Analyses used R 4.4.3 (Bioconductor 3.20) and Python 3.12.9; package versions are specified within the repository."
+    },
+    {
+     "type": "p",
+     "html": "Declaration of generative AI and AI-assisted technologist in the manuscript preparation process",
+     "lead": "Declaration of generative AI and AI-assisted technologist in the manuscript preparation process"
+    },
+    {
+     "type": "p",
+     "html": "During the preparation of this work, the authors used Claude Opus 4.8-5.5 for coding and manuscript review. The author(s) reviewed and edited the output as needed and take full responsibility for the content of the published article."
+    }
+   ]
+  }
+ ],
+ "references": [
+  {
+   "n": 1,
+   "text": "González-Martín, A., Ledermann, J. A., & ESMO Guidelines Committee. Electronic address: clinicalguidelines@esmo.org. ESMO Clinical Practice Guideline Express Update on the management of epithelial ovarian cancer. ESMO Open 11, 106032 (2026).",
+   "doi": "10.1016/j.esmoop.2025.106032",
+   "match": "zotero",
+   "title": "ESMO Clinical Practice Guideline Express Update on the management of epithelial ovarian cancer",
+   "pmid": "41741111",
+   "url": "https://doi.org/10.1016/j.esmoop.2025.106032"
+  },
+  {
+   "n": 2,
+   "text": "Balkwill, F. R. et al. Rethinking ovarian cancer III: the past decade and future directions. Nat. Rev. Cancer 26, 452–471 (2026).",
+   "doi": "10.1038/s41568-026-00916-0",
+   "match": "zotero",
+   "title": "Rethinking ovarian cancer III: the past decade and future directions",
+   "url": "https://doi.org/10.1038/s41568-026-00916-0"
+  },
+  {
+   "n": 3,
+   "text": "Tothill, R. W. et al. Novel Molecular Subtypes of Serous and Endometrioid Ovarian Cancer Linked to Clinical Outcome. Clin. Cancer Res. 14, 5198–5208 (2008).",
+   "doi": "10.1158/1078-0432.CCR-08-0196",
+   "match": "zotero",
+   "title": "Novel Molecular Subtypes of Serous and Endometrioid Ovarian Cancer Linked to Clinical Outcome",
+   "url": "https://doi.org/10.1158/1078-0432.CCR-08-0196"
+  },
+  {
+   "n": 4,
+   "text": "Cancer Genome Atlas Research Network. Integrated genomic analyses of ovarian carcinoma. Nature 474, 609–615 (2011).",
+   "doi": "10.1038/nature10166",
+   "match": "zotero",
+   "title": "Integrated genomic analyses of ovarian carcinoma",
+   "pmid": "21720365",
+   "url": "https://doi.org/10.1038/nature10166"
+  },
+  {
+   "n": 5,
+   "text": "Tanis, S. et al. Transcriptomic subtypes in high-grade serous ovarian cancer are driven by tumor cellular composition. 2026.04.16.719000 Preprint at https://doi.org/10.64898/2026.04.16.719000 (2026).",
+   "doi": "10.64898/2026.04.16.719000",
+   "match": "zotero",
+   "title": "Transcriptomic subtypes in high-grade serous ovarian cancer are driven by tumor cellular composition",
+   "url": "https://doi.org/10.64898/2026.04.16.719000"
+  },
+  {
+   "n": 6,
+   "text": "Geistlinger, L. et al. Multiomic Analysis of Subtype Evolution and Heterogeneity in High-Grade Serous Ovarian Carcinoma. Cancer Res. 80, 4335–4345 (2020).",
+   "doi": "10.1158/0008-5472.CAN-20-0521",
+   "match": "zotero",
+   "title": "Multiomic Analysis of Subtype Evolution and Heterogeneity in High-Grade Serous Ovarian Carcinoma",
+   "url": "https://doi.org/10.1158/0008-5472.CAN-20-0521"
+  },
+  {
+   "n": 7,
+   "text": "Hippen, A. A. et al. Deconvolution reveals compositional differences in high-grade serous ovarian cancer subtypes. 2023.06.14.544991 Preprint at https://doi.org/10.1101/2023.06.14.544991 (2023).",
+   "doi": "10.1101/2023.06.14.544991",
+   "match": "zotero",
+   "title": "Deconvolution reveals compositional differences in high-grade serous ovarian cancer subtypes",
+   "url": "https://doi.org/10.1101/2023.06.14.544991"
+  },
+  {
+   "n": 8,
+   "text": "Gaitskell, K. et al. Angiogenesis inhibitors for the treatment of epithelial ovarian cancer. Cochrane Database Syst. Rev. 4, CD007930 (2023).",
+   "doi": "10.1002/14651858.CD007930.pub3",
+   "match": "zotero",
+   "title": "Angiogenesis inhibitors for the treatment of epithelial ovarian cancer",
+   "pmid": "37185961",
+   "url": "https://doi.org/10.1002/14651858.CD007930.pub3"
+  },
+  {
+   "n": 9,
+   "text": "Hornburg, M. et al. Single-cell dissection of cellular components and interactions shaping the tumor immune phenotypes in ovarian cancer. Cancer Cell 39, 928-944.e6 (2021).",
+   "doi": "10.1016/j.ccell.2021.04.004",
+   "match": "zotero",
+   "title": "Single-cell dissection of cellular components and interactions shaping the tumor immune phenotypes in ovarian cancer",
+   "url": "https://doi.org/10.1016/j.ccell.2021.04.004"
+  },
+  {
+   "n": 10,
+   "text": "Olbrecht, S. et al. High-grade serous tubo-ovarian cancer refined with single-cell RNA sequencing: specific cell subtypes influence survival and determine molecular subtype classification. Genome Med. 13, 111 (2021).",
+   "doi": "10.1186/s13073-021-00922-x",
+   "match": "zotero",
+   "title": "High-grade serous tubo-ovarian cancer refined with single-cell RNA sequencing: specific cell subtypes influence survival and determine molecular subtype classification",
+   "url": "https://doi.org/10.1186/s13073-021-00922-x"
+  },
+  {
+   "n": 11,
+   "text": "Vázquez-García, I. et al. Ovarian cancer mutational processes drive site-specific immune evasion. Nature 612, 778–786 (2022).",
+   "doi": "10.1038/s41586-022-05496-1",
+   "match": "zotero",
+   "title": "Ovarian cancer mutational processes drive site-specific immune evasion",
+   "url": "https://doi.org/10.1038/s41586-022-05496-1"
+  },
+  {
+   "n": 12,
+   "text": "Loret, N. et al. Distinct Transcriptional Programs in Ascitic and Solid Cancer Cells Induce Different Responses to Chemotherapy in High-Grade Serous Ovarian Cancer. Mol. Cancer Res. 20, 1532–1547 (2022).",
+   "doi": "10.1158/1541-7786.MCR-21-0565",
+   "match": "zotero",
+   "title": "Distinct Transcriptional Programs in Ascitic and Solid Cancer Cells Induce Different Responses to Chemotherapy in High-Grade Serous Ovarian Cancer",
+   "url": "https://doi.org/10.1158/1541-7786.MCR-21-0565"
+  },
+  {
+   "n": 13,
+   "text": "Nath, A. et al. Evolution of core archetypal phenotypes in progressive high grade serous ovarian cancer. Nat. Commun. 12, 3039 (2021).",
+   "doi": "10.1038/s41467-021-23171-3",
+   "match": "zotero",
+   "title": "Evolution of core archetypal phenotypes in progressive high grade serous ovarian cancer",
+   "url": "https://doi.org/10.1038/s41467-021-23171-3"
+  },
+  {
+   "n": 14,
+   "text": "Luo, Y. et al. Neoadjuvant PARPi or chemotherapy in ovarian cancer informs targeting effector Treg cells for homologous-recombination-deficient tumors. Cell 187, 4905-4925.e24 (2024).",
+   "doi": "10.1016/j.cell.2024.06.013",
+   "match": "zotero",
+   "title": "Neoadjuvant PARPi or chemotherapy in ovarian cancer informs targeting effector Treg cells for homologous-recombination-deficient tumors",
+   "pmid": "38971151",
+   "url": "https://doi.org/10.1016/j.cell.2024.06.013"
+  },
+  {
+   "n": 15,
+   "text": "Zhang, K. et al. Longitudinal single-cell RNA-seq analysis reveals stress-promoted chemoresistance in metastatic ovarian cancer. Sci. Adv. 8, eabm1831 (2022).",
+   "doi": "10.1126/sciadv.abm1831",
+   "match": "zotero",
+   "title": "Longitudinal single-cell RNA-seq analysis reveals stress-promoted chemoresistance in metastatic ovarian cancer",
+   "url": "https://doi.org/10.1126/sciadv.abm1831"
+  },
+  {
+   "n": 16,
+   "text": "Olalekan, S., Xie, B., Back, R., Eckart, H. & Basu, A. Characterizing the tumor microenvironment of metastatic ovarian cancer by single-cell transcriptomics. Cell Rep. 35, 109165 (2021).",
+   "doi": "10.1016/j.celrep.2021.109165",
+   "match": "zotero",
+   "title": "Characterizing the tumor microenvironment of metastatic ovarian cancer by single-cell transcriptomics",
+   "url": "https://doi.org/10.1016/j.celrep.2021.109165"
+  },
+  {
+   "n": 17,
+   "text": "Xu, J. et al. Single-Cell RNA Sequencing Reveals the Tissue Architecture in Human High-Grade Serous Ovarian Cancer. Clin. Cancer Res. Off. J. Am. Assoc. Cancer Res. 28, 3590–3602 (2022).",
+   "doi": "10.1158/1078-0432.CCR-22-0296",
+   "match": "zotero",
+   "title": "Single-Cell RNA Sequencing Reveals the Tissue Architecture in Human High-Grade Serous Ovarian Cancer",
+   "pmid": "35675036",
+   "url": "https://doi.org/10.1158/1078-0432.CCR-22-0296"
+  },
+  {
+   "n": 18,
+   "text": "Zheng, X. et al. Single-cell analyses implicate ascites in remodeling the ecosystems of primary and metastatic tumors in ovarian cancer. Nat. Cancer 4, 1138–1156 (2023).",
+   "doi": "10.1038/s43018-023-00599-8",
+   "match": "zotero",
+   "title": "Single-cell analyses implicate ascites in remodeling the ecosystems of primary and metastatic tumors in ovarian cancer",
+   "pmid": "37488416",
+   "url": "https://doi.org/10.1038/s43018-023-00599-8"
+  },
+  {
+   "n": 19,
+   "text": "Regner, M. J. et al. A multi-omic single-cell landscape of human gynecologic malignancies. Mol. Cell 81, 4924-4941.e10 (2021).",
+   "doi": "10.1016/j.molcel.2021.10.013",
+   "match": "zotero",
+   "title": "A multi-omic single-cell landscape of human gynecologic malignancies",
+   "pmid": "34739872",
+   "url": "https://doi.org/10.1016/j.molcel.2021.10.013"
+  },
+  {
+   "n": 20,
+   "text": "Denisenko, E. et al. Spatial transcriptomics reveals discrete tumour microenvironments and autocrine loops within ovarian cancer subclones. Nat. Commun. 15, 2860 (2024).",
+   "doi": "10.1038/s41467-024-47271-y",
+   "match": "zotero",
+   "title": "Spatial transcriptomics reveals discrete tumour microenvironments and autocrine loops within ovarian cancer subclones",
+   "url": "https://doi.org/10.1038/s41467-024-47271-y"
+  },
+  {
+   "n": 21,
+   "text": "Raghavan, S. et al. Microenvironment drives cell state, plasticity, and drug response in pancreatic cancer. Cell 184, 6119-6137.e26 (2021).",
+   "doi": "10.1016/j.cell.2021.11.017",
+   "match": "zotero",
+   "title": "Microenvironment drives cell state, plasticity, and drug response in pancreatic cancer",
+   "pmid": "34890551",
+   "url": "https://doi.org/10.1016/j.cell.2021.11.017"
+  },
+  {
+   "n": 22,
+   "text": "Greenwald, A. C. et al. Integrative spatial analysis reveals a multi-layered organization of glioblastoma. Cell 187, 2485-2501.e26 (2024).",
+   "doi": "10.1016/j.cell.2024.03.029",
+   "match": "zotero",
+   "title": "Integrative spatial analysis reveals a multi-layered organization of glioblastoma",
+   "pmid": "38653236",
+   "url": "https://doi.org/10.1016/j.cell.2024.03.029"
+  },
+  {
+   "n": 23,
+   "text": "Perren, T. J. et al. A phase 3 trial of bevacizumab in ovarian cancer. N. Engl. J. Med. 365, 2484–2496 (2011).",
+   "doi": "10.1056/NEJMoa1103799",
+   "match": "zotero",
+   "title": "A phase 3 trial of bevacizumab in ovarian cancer",
+   "pmid": "22204725",
+   "url": "https://doi.org/10.1056/NEJMoa1103799"
+  },
+  {
+   "n": 24,
+   "text": "Communal, L. et al. A Keratin 7 and E-Cadherin Signature Is Highly Predictive of Tubo-Ovarian High-Grade Serous Carcinoma Prognosis. Int. J. Mol. Sci. 22, 5325 (2021).",
+   "doi": "10.3390/ijms22105325",
+   "match": "zotero",
+   "title": "A Keratin 7 and E-Cadherin Signature Is Highly Predictive of Tubo-Ovarian High-Grade Serous Carcinoma Prognosis",
+   "pmid": "34070214",
+   "url": "https://doi.org/10.3390/ijms22105325"
+  },
+  {
+   "n": 25,
+   "text": "Izar, B. et al. A single-cell landscape of high-grade serous ovarian cancer. Nat. Med. 26, 1271–1279 (2020).",
+   "doi": "10.1038/s41591-020-0926-0",
+   "match": "zotero",
+   "title": "A single-cell landscape of high-grade serous ovarian cancer",
+   "pmid": "32572264",
+   "url": "https://doi.org/10.1038/s41591-020-0926-0"
+  },
+  {
+   "n": 26,
+   "text": "Migliozzi, S. et al. Restraint of cancer cell plasticity by spatial homotypic clustering. Cancer Cell 43, 2206-2223.e10 (2025).",
+   "doi": "10.1016/j.ccell.2025.08.009",
+   "match": "zotero",
+   "title": "Restraint of cancer cell plasticity by spatial homotypic clustering",
+   "pmid": "40972572",
+   "url": "https://doi.org/10.1016/j.ccell.2025.08.009"
+  },
+  {
+   "n": 27,
+   "text": "Gavish, A. et al. Hallmarks of transcriptional intratumour heterogeneity across a thousand tumours. Nature 618, 598–606 (2023).",
+   "doi": "10.1038/s41586-023-06130-4",
+   "match": "zotero",
+   "title": "Hallmarks of transcriptional intratumour heterogeneity across a thousand tumours",
+   "url": "https://doi.org/10.1038/s41586-023-06130-4"
+  },
+  {
+   "n": 28,
+   "text": "Barkley, D. et al. Cancer cell states recur across tumor types and form specific interactions with the tumor microenvironment. Nat. Genet. 54, 1192–1201 (2022).",
+   "doi": "10.1038/s41588-022-01141-9",
+   "match": "zotero",
+   "title": "Cancer cell states recur across tumor types and form specific interactions with the tumor microenvironment",
+   "url": "https://doi.org/10.1038/s41588-022-01141-9"
+  },
+  {
+   "n": 29,
+   "text": "Shi, Q. et al. Cross-tissue multicellular coordination and its rewiring in cancer. Nature 643, 529–538 (2025).",
+   "doi": "10.1038/s41586-025-09053-4",
+   "match": "zotero",
+   "title": "Cross-tissue multicellular coordination and its rewiring in cancer",
+   "url": "https://doi.org/10.1038/s41586-025-09053-4"
+  },
+  {
+   "n": 30,
+   "text": "Nameki, R. A. et al. Rewiring of master transcription factor cistromes during high-grade serous ovarian cancer development. bioRxiv 2023.04.11.536378 (2023) doi:10.1101/2023.04.11.536378.",
+   "doi": "10.1101/2023.04.11.536378",
+   "match": "zotero",
+   "title": "Rewiring of master transcription factor cistromes during high-grade serous ovarian cancer development",
+   "pmid": "37090516",
+   "url": "https://doi.org/10.1101/2023.04.11.536378"
+  },
+  {
+   "n": 31,
+   "text": "Ng, A. et al. Lgr5 marks stem/progenitor cells in ovary and tubal epithelia. Nat. Cell Biol. 16, 745–757 (2014).",
+   "doi": "10.1038/ncb3000",
+   "match": "zotero",
+   "title": "Lgr5 marks stem/progenitor cells in ovary and tubal epithelia",
+   "pmid": "24997521",
+   "url": "https://doi.org/10.1038/ncb3000"
+  },
+  {
+   "n": 32,
+   "text": "Cohen, E. et al. Significance of stress keratin expression in normal and diseased epithelia. iScience 27, 108805 (2024).",
+   "doi": "10.1016/j.isci.2024.108805",
+   "match": "zotero",
+   "title": "Significance of stress keratin expression in normal and diseased epithelia",
+   "pmid": "38299111",
+   "url": "https://doi.org/10.1016/j.isci.2024.108805"
+  },
+  {
+   "n": 33,
+   "text": "Thorsvik, S. et al. Ulcer-associated cell lineage expresses genes involved in regeneration and is hallmarked by high neutrophil gelatinase-associated lipocalin (NGAL) levels. J. Pathol. 248, 316–325 (2019).",
+   "doi": "10.1002/path.5258",
+   "match": "zotero",
+   "title": "Ulcer-associated cell lineage expresses genes involved in regeneration and is hallmarked by high neutrophil gelatinase-associated lipocalin (NGAL) levels",
+   "url": "https://doi.org/10.1002/path.5258"
+  },
+  {
+   "n": 34,
+   "text": "Ashcroft, G. S. et al. Secretory leukocyte protease inhibitor mediates non-redundant functions necessary for normal wound healing. Nat. Med. 6, 1147–1153 (2000).",
+   "doi": "10.1038/80489",
+   "match": "zotero",
+   "title": "Secretory leukocyte protease inhibitor mediates non-redundant functions necessary for normal wound healing",
+   "pmid": "11017147",
+   "url": "https://doi.org/10.1038/80489"
+  },
+  {
+   "n": 35,
+   "text": "Fernandez Vallone, V. et al. Trop2 marks transient gastric fetal epithelium and adult regenerating cells after epithelial damage. Development 143, 1452–1463 (2016).",
+   "doi": "10.1242/dev.131490",
+   "match": "zotero",
+   "title": "Trop2 marks transient gastric fetal epithelium and adult regenerating cells after epithelial damage",
+   "url": "https://doi.org/10.1242/dev.131490"
+  },
+  {
+   "n": 36,
+   "text": "Patel, A. S. & Yanai, I. A developmental constraint model of cancer cell states and tumor heterogeneity. Cell 187, 2907–2918 (2024).",
+   "doi": "10.1016/j.cell.2024.04.032",
+   "match": "zotero",
+   "title": "A developmental constraint model of cancer cell states and tumor heterogeneity",
+   "pmid": "38848676",
+   "url": "https://doi.org/10.1016/j.cell.2024.04.032"
+  },
+  {
+   "n": 37,
+   "text": "Youssef, O. et al. Cross-Platform Comparative Spatial Transcriptomics in High-Grade Serous Carcinoma. Lab. Invest. 106, (2026).",
+   "doi": "10.1016/j.labinv.2026.106134",
+   "match": "zotero",
+   "title": "Cross-Platform Comparative Spatial Transcriptomics in High-Grade Serous Carcinoma",
+   "pmid": "42142589",
+   "url": "https://doi.org/10.1016/j.labinv.2026.106134"
+  },
+  {
+   "n": 38,
+   "text": "Wang, S. et al. Role of the KRT7 Biomarker in Immune Infiltration and Paclitaxel Resistance in Ovarian. Altern. Ther. Health Med. 29, 132–140 (2023).",
+   "title": "Role of the KRT7 Biomarker in Immune Infiltration and Paclitaxel Resistance in Ovarian",
+   "pmid": "37023314",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/37023314/"
+  },
+  {
+   "n": 39,
+   "text": "Wang, Y.-F. et al. Overexpression of keratin 17 is associated with poor prognosis in epithelial ovarian cancer. Tumour Biol. J. Int. Soc. Oncodevelopmental Biol. Med. 34, 1685–1689 (2013).",
+   "doi": "10.1007/s13277-013-0703-5",
+   "match": "zotero",
+   "title": "Overexpression of keratin 17 is associated with poor prognosis in epithelial ovarian cancer",
+   "pmid": "23430585",
+   "url": "https://doi.org/10.1007/s13277-013-0703-5"
+  },
+  {
+   "n": 40,
+   "text": "Reichenbach, J. et al. Organoid platinum-resistance model identifies KRT17 as a biomarker of targeted therapy in ovarian cancer. iScience 28, 113999 (2025).",
+   "doi": "10.1016/j.isci.2025.113999",
+   "match": "zotero",
+   "title": "Organoid platinum-resistance model identifies KRT17 as a biomarker of targeted therapy in ovarian cancer",
+   "pmid": "41399494",
+   "url": "https://doi.org/10.1016/j.isci.2025.113999"
+  },
+  {
+   "n": 41,
+   "text": "Li, H. et al. Evaluation of ovarian cancer prognosis by nomogram model based on prospective cohort study. Jpn. J. Clin. Oncol. 55, 1333–1341 (2025).",
+   "doi": "10.1093/jjco/hyaf128",
+   "match": "zotero",
+   "title": "Evaluation of ovarian cancer prognosis by nomogram model based on prospective cohort study",
+   "pmid": "40795989",
+   "url": "https://doi.org/10.1093/jjco/hyaf128"
+  },
+  {
+   "n": 42,
+   "text": "Bielesch, S. et al. Keratin 19 as a prognostic marker and contributing factor of metastasis and chemoresistance in high-grade serous ovarian cancer. Mol. Oncol. 20, 2243–2261 (2026).",
+   "doi": "10.1002/1878-0261.70227",
+   "match": "zotero",
+   "title": "Keratin 19 as a prognostic marker and contributing factor of metastasis and chemoresistance in high-grade serous ovarian cancer",
+   "pmid": "41714116",
+   "url": "https://doi.org/10.1002/1878-0261.70227"
+  },
+  {
+   "n": 43,
+   "text": "Jin, C. et al. Evaluation of the value of preoperative CYFRA21-1 in the diagnosis and prognosis of epithelial ovarian cancer in conjunction with CA125. J. Ovarian Res. 12, 114 (2019).",
+   "doi": "10.1186/s13048-019-0587-0",
+   "match": "zotero",
+   "title": "Evaluation of the value of preoperative CYFRA21-1 in the diagnosis and prognosis of epithelial ovarian cancer in conjunction with CA125",
+   "pmid": "31767040",
+   "url": "https://doi.org/10.1186/s13048-019-0587-0"
+  },
+  {
+   "n": 44,
+   "text": "Gadducci, A. et al. The clinical relevance of serum CYFRA 21–1 assay in patients with ovarian cancer. Int. J. Gynecol. Cancer 11, 277–282 (2001).",
+   "doi": "10.1136/ijgc-00009577-200107000-00004",
+   "match": "zotero",
+   "title": "The clinical relevance of serum CYFRA 21–1 assay in patients with ovarian cancer",
+   "url": "https://doi.org/10.1136/ijgc-00009577-200107000-00004"
+  },
+  {
+   "n": 45,
+   "text": "Yuceer, R. O. et al. The prognostic and therapeutic potential of Claudin-6 and Trop-2 expression as targeted biomarkers in serous ovarian cancer: An observational study. Medicine (Baltimore) 104, e43110 (2025).",
+   "doi": "10.1097/MD.0000000000043110",
+   "match": "zotero",
+   "title": "The prognostic and therapeutic potential of Claudin-6 and Trop-2 expression as targeted biomarkers in serous ovarian cancer: An observational study",
+   "pmid": "40587664",
+   "url": "https://doi.org/10.1097/MD.0000000000043110"
+  },
+  {
+   "n": 46,
+   "text": "Bignotti, E. et al. Trop-2 overexpression as an independent marker for poor overall survival in ovarian carcinoma patients. Eur. J. Cancer 46, 944–953 (2010).",
+   "doi": "10.1016/j.ejca.2009.12.019",
+   "match": "zotero",
+   "title": "Trop-2 overexpression as an independent marker for poor overall survival in ovarian carcinoma patients",
+   "pmid": "20060709",
+   "url": "https://doi.org/10.1016/j.ejca.2009.12.019"
+  },
+  {
+   "n": 47,
+   "text": "Zhang, Y. et al. Spatially Resolved Molecular Subtyping Uncovers Tumor Progression and Immune Evasion Mechanisms in High-grade Serous Ovarian Cancer. Cancer Res. OF1–OF22 (2026) doi:10.1158/0008-5472.CAN-25-4749.",
+   "doi": "10.1158/0008-5472.CAN-25-4749",
+   "match": "zotero",
+   "title": "Spatially Resolved Molecular Subtyping Uncovers Tumor Progression and Immune Evasion Mechanisms in High-grade Serous Ovarian Cancer",
+   "url": "https://doi.org/10.1158/0008-5472.CAN-25-4749"
+  },
+  {
+   "n": 48,
+   "text": "Yeh, C. Y. et al. Mapping spatial organization and genetic cell-state regulators to target immune evasion in ovarian cancer. Nat. Immunol. 25, 1943–1958 (2024).",
+   "doi": "10.1038/s41590-024-01943-5",
+   "match": "zotero",
+   "title": "Mapping spatial organization and genetic cell-state regulators to target immune evasion in ovarian cancer",
+   "url": "https://doi.org/10.1038/s41590-024-01943-5"
+  },
+  {
+   "n": 49,
+   "text": "Perez-Villatoro, F. et al. Single-Cell Spatial Atlas of High-Grade Serous Ovarian Cancer Uncovers MHC Class II as a Key Predictor of Spatial Tumor Ecosystems and Clinical Outcomes. Cancer Discov. 16, 1100–1125 (2026).",
+   "doi": "10.1158/2159-8290.CD-25-1492",
+   "match": "zotero",
+   "title": "Single-Cell Spatial Atlas of High-Grade Serous Ovarian Cancer Uncovers MHC Class II as a Key Predictor of Spatial Tumor Ecosystems and Clinical Outcomes",
+   "url": "https://doi.org/10.1158/2159-8290.CD-25-1492"
+  },
+  {
+   "n": 50,
+   "text": "Nersesian, S. et al. Improved overall survival in patients with high-grade serous ovarian cancer is associated with CD16a+ immunologic neighborhoods containing NK cells, T cells and macrophages. Front. Immunol. 14, 1307873 (2023).",
+   "doi": "10.3389/fimmu.2023.1307873",
+   "match": "zotero",
+   "title": "Improved overall survival in patients with high-grade serous ovarian cancer is associated with CD16a+ immunologic neighborhoods containing NK cells, T cells and macrophages",
+   "pmid": "38318505",
+   "url": "https://doi.org/10.3389/fimmu.2023.1307873"
+  },
+  {
+   "n": 51,
+   "text": "Murakami, R. et al. Establishment of a Novel Histopathological Classification of High-Grade Serous Ovarian Carcinoma Correlated with Prognostically Distinct Gene Expression Subtypes. Am. J. Pathol. 186, 1103–1113 (2016).",
+   "doi": "10.1016/j.ajpath.2015.12.029",
+   "match": "zotero",
+   "title": "Establishment of a Novel Histopathological Classification of High-Grade Serous Ovarian Carcinoma Correlated with Prognostically Distinct Gene Expression Subtypes",
+   "pmid": "26993207",
+   "url": "https://doi.org/10.1016/j.ajpath.2015.12.029"
+  },
+  {
+   "n": 52,
+   "text": "Estrella, V. et al. Acidity generated by the tumor microenvironment drives local invasion. Cancer Res. 73, 1524–1535 (2013).",
+   "doi": "10.1158/0008-5472.CAN-12-2796",
+   "match": "zotero",
+   "title": "Acidity generated by the tumor microenvironment drives local invasion",
+   "pmid": "23288510",
+   "url": "https://doi.org/10.1158/0008-5472.CAN-12-2796"
+  },
+  {
+   "n": 53,
+   "text": "Harmon, C. et al. Lactate-Mediated Acidification of Tumor Microenvironment Induces Apoptosis of Liver-Resident NK Cells in Colorectal Liver Metastasis. Cancer Immunol. Res. 7, 335–346 (2019).",
+   "doi": "10.1158/2326-6066.CIR-18-0481",
+   "match": "zotero",
+   "title": "Lactate-Mediated Acidification of Tumor Microenvironment Induces Apoptosis of Liver-Resident NK Cells in Colorectal Liver Metastasis",
+   "pmid": "30563827",
+   "url": "https://doi.org/10.1158/2326-6066.CIR-18-0481"
+  },
+  {
+   "n": 54,
+   "text": "Nelson, B. H. et al. Immunological and molecular features of the tumor microenvironment of long-term survivors of ovarian cancer. J. Clin. Invest. 134, e179501 (2024).",
+   "doi": "10.1172/JCI179501",
+   "match": "zotero",
+   "title": "Immunological and molecular features of the tumor microenvironment of long-term survivors of ovarian cancer",
+   "pmid": "39470729",
+   "url": "https://doi.org/10.1172/JCI179501"
+  },
+  {
+   "n": 55,
+   "text": "Feng, C. et al. Spatial tumor evolution panorama of ovarian cancer. Cell Rep. Med. 7, 102666 (2026).",
+   "doi": "10.1016/j.xcrm.2026.102666",
+   "match": "zotero",
+   "title": "Spatial tumor evolution panorama of ovarian cancer",
+   "pmid": "41850247",
+   "url": "https://doi.org/10.1016/j.xcrm.2026.102666"
+  },
+  {
+   "n": 56,
+   "text": "Taggart, C. C. et al. Cathepsin B, L, and S Cleave and Inactivate Secretory Leucoprotease Inhibitor. J. Biol. Chem. 276, 33345–33352 (2001).",
+   "doi": "10.1074/jbc.M103220200",
+   "match": "zotero",
+   "title": "Cathepsin B, L, and S Cleave and Inactivate Secretory Leucoprotease Inhibitor",
+   "url": "https://doi.org/10.1074/jbc.M103220200"
+  },
+  {
+   "n": 57,
+   "text": "Sacks Suarez, J. et al. CD44 Regulates Formation of Spheroids and Controls Organ-Specific Metastatic Colonization in Epithelial Ovarian Carcinoma. Mol. Cancer Res. MCR 17, 1801–1814 (2019).",
+   "doi": "10.1158/1541-7786.MCR-18-1205",
+   "match": "zotero",
+   "title": "CD44 Regulates Formation of Spheroids and Controls Organ-Specific Metastatic Colonization in Epithelial Ovarian Carcinoma",
+   "pmid": "31147393",
+   "url": "https://doi.org/10.1158/1541-7786.MCR-18-1205"
+  },
+  {
+   "n": 58,
+   "text": "Yin, M. et al. Tumor-associated macrophages drive spheroid formation during early transcoelomic metastasis of ovarian cancer. J. Clin. Invest. 126, 4157–4173 (2016).",
+   "doi": "10.1172/JCI87252",
+   "match": "zotero",
+   "title": "Tumor-associated macrophages drive spheroid formation during early transcoelomic metastasis of ovarian cancer",
+   "pmid": "27721235",
+   "url": "https://doi.org/10.1172/JCI87252"
+  },
+  {
+   "n": 59,
+   "text": "Yakubov, B. et al. Extracellular tissue transglutaminase activates noncanonical NF-κB signaling and promotes metastasis in ovarian cancer. Neoplasia 15, 609–619 (2013).",
+   "doi": "10.1593/neo.121878",
+   "match": "zotero",
+   "title": "Extracellular tissue transglutaminase activates noncanonical NF-κB signaling and promotes metastasis in ovarian cancer",
+   "pmid": "23730209",
+   "url": "https://doi.org/10.1593/neo.121878"
+  },
+  {
+   "n": 60,
+   "text": "Valdivia, A. et al. Novel PROTACs targeting tissue transglutaminase (TG2) suppress tumorigenicity of ovarian cancer cells. Eur. J. Med. Chem. 301, 118228 (2026).",
+   "doi": "10.1016/j.ejmech.2025.118228",
+   "match": "zotero",
+   "title": "Novel PROTACs targeting tissue transglutaminase (TG2) suppress tumorigenicity of ovarian cancer cells",
+   "url": "https://doi.org/10.1016/j.ejmech.2025.118228"
+  },
+  {
+   "n": 61,
+   "text": "Kim, K.-S. et al. Hypoxia enhances lysophosphatidic acid responsiveness in ovarian cancer cells and lysophosphatidic acid induces ovarian tumor metastasis in vivo. Cancer Res. 66, 7983–7990 (2006).",
+   "doi": "10.1158/0008-5472.CAN-05-4381",
+   "match": "zotero",
+   "title": "Hypoxia enhances lysophosphatidic acid responsiveness in ovarian cancer cells and lysophosphatidic acid induces ovarian tumor metastasis in vivo",
+   "pmid": "16912173",
+   "url": "https://doi.org/10.1158/0008-5472.CAN-05-4381"
+  },
+  {
+   "n": 62,
+   "text": "Iyer, S. et al. Genetically Defined Syngeneic Mouse Models of Ovarian Cancer as Tools for the Discovery of Combination Immunotherapy. Cancer Discov. 11, 384–407 (2021).",
+   "doi": "10.1158/2159-8290.CD-20-0818",
+   "match": "zotero",
+   "title": "Genetically Defined Syngeneic Mouse Models of Ovarian Cancer as Tools for the Discovery of Combination Immunotherapy",
+   "pmid": "33158843",
+   "url": "https://doi.org/10.1158/2159-8290.CD-20-0818"
+  },
+  {
+   "n": 63,
+   "text": "Wolock, S. L., Lopez, R. & Klein, A. M. Scrublet: Computational Identification of Cell Doublets in Single-Cell Transcriptomic Data. Cell Syst. 8, 281-291.e9 (2019).",
+   "doi": "10.1016/j.cels.2018.11.005",
+   "match": "zotero",
+   "title": "Scrublet: Computational Identification of Cell Doublets in Single-Cell Transcriptomic Data",
+   "pmid": "30954476",
+   "url": "https://doi.org/10.1016/j.cels.2018.11.005"
+  },
+  {
+   "n": 64,
+   "text": "Xu, C. et al. Probabilistic harmonization and annotation of single-cell transcriptomics data with deep generative models. Mol. Syst. Biol. 17, e9620 (2021).",
+   "doi": "10.15252/msb.20209620",
+   "match": "zotero",
+   "title": "Probabilistic harmonization and annotation of single-cell transcriptomics data with deep generative models",
+   "pmid": "33491336",
+   "url": "https://doi.org/10.15252/msb.20209620"
+  },
+  {
+   "n": 65,
+   "text": "Zhang, A. W. et al. Probabilistic cell-type assignment of single-cell RNA-seq for tumor microenvironment profiling. Nat. Methods 16, 1007–1015 (2019).",
+   "doi": "10.1038/s41592-019-0529-1",
+   "match": "zotero",
+   "title": "Probabilistic cell-type assignment of single-cell RNA-seq for tumor microenvironment profiling",
+   "pmid": "31501550",
+   "url": "https://doi.org/10.1038/s41592-019-0529-1"
+  },
+  {
+   "n": 66,
+   "text": "Gao, R. et al. Delineating copy number and clonal substructure in human tumors from single-cell transcriptomes. Nat. Biotechnol. 39, 599–608 (2021).",
+   "doi": "10.1038/s41587-020-00795-2",
+   "match": "zotero",
+   "title": "Delineating copy number and clonal substructure in human tumors from single-cell transcriptomes",
+   "pmid": "33462507",
+   "url": "https://doi.org/10.1038/s41587-020-00795-2"
+  },
+  {
+   "n": 67,
+   "text": "Schubert, M. et al. Perturbation-response genes reveal signaling footprints in cancer gene expression. Nat. Commun. 9, 20 (2018).",
+   "doi": "10.1038/s41467-017-02391-6",
+   "match": "zotero",
+   "title": "Perturbation-response genes reveal signaling footprints in cancer gene expression",
+   "pmid": "29295995",
+   "url": "https://doi.org/10.1038/s41467-017-02391-6"
+  },
+  {
+   "n": 68,
+   "text": "Garcia-Alonso, L., Holland, C. H., Ibrahim, M. M., Turei, D. & Saez-Rodriguez, J. Benchmark and integration of resources for the estimation of human transcription factor activities. Genome Res. 29, 1363–1375 (2019).",
+   "doi": "10.1101/gr.240663.118",
+   "match": "zotero",
+   "title": "Benchmark and integration of resources for the estimation of human transcription factor activities",
+   "pmid": "31340985",
+   "url": "https://doi.org/10.1101/gr.240663.118"
+  },
+  {
+   "n": 69,
+   "text": "Alghamdi, N. et al. A graph neural network model to estimate cell-wise metabolic flux using single-cell RNA-seq data. Genome Res. 31, 1867–1884 (2021).",
+   "doi": "10.1101/gr.271205.120",
+   "match": "zotero",
+   "title": "A graph neural network model to estimate cell-wise metabolic flux using single-cell RNA-seq data",
+   "pmid": "34301623",
+   "url": "https://doi.org/10.1101/gr.271205.120"
+  },
+  {
+   "n": 70,
+   "text": "Chen, G. M. et al. Consensus on Molecular Subtypes of High-grade Serous Ovarian Carcinoma. Clin. Cancer Res. Off. J. Am. Assoc. Cancer Res. 24, 5037–5047 (2018).",
+   "doi": "10.1158/1078-0432.CCR-18-0784",
+   "match": "zotero",
+   "title": "Consensus on Molecular Subtypes of High-grade Serous Ovarian Carcinoma",
+   "pmid": "30084834",
+   "url": "https://doi.org/10.1158/1078-0432.CCR-18-0784"
+  },
+  {
+   "n": 71,
+   "text": "Andreatta, M. & Carmona, S. J. UCell: Robust and scalable single-cell gene signature scoring. Comput. Struct. Biotechnol. J. 19, 3796–3798 (2021).",
+   "doi": "10.1016/j.csbj.2021.06.043",
+   "match": "zotero",
+   "title": "UCell: Robust and scalable single-cell gene signature scoring",
+   "pmid": "34285779",
+   "url": "https://doi.org/10.1016/j.csbj.2021.06.043"
+  },
+  {
+   "n": 72,
+   "text": "Neiswender, J. V. et al. A dependency map enhanced with next-generation 3D cancer models. Nature 657, 789–799 (2026).",
+   "doi": "10.1038/s41586-026-10843-7",
+   "match": "zotero",
+   "title": "A dependency map enhanced with next-generation 3D cancer models",
+   "pmid": "42557315",
+   "url": "https://doi.org/10.1038/s41586-026-10843-7"
+  },
+  {
+   "n": 73,
+   "text": "Plesselova, S. et al. Patient-derived model capturing hypoxia and extracellular matrix remodelling of immunologically cold high-grade serous tumours. Nat. Commun. 17, 8568 (2026).",
+   "doi": "10.1038/s41467-026-75262-8",
+   "match": "zotero",
+   "title": "Patient-derived model capturing hypoxia and extracellular matrix remodelling of immunologically cold high-grade serous tumours",
+   "pmid": "42436127",
+   "url": "https://doi.org/10.1038/s41467-026-75262-8"
+  },
+  {
+   "n": 74,
+   "text": "Tomas, E. J. et al. Exploiting Cancer Dormancy Signaling Mechanisms in Epithelial Ovarian Cancer Through Spheroid and Organoid Analysis. Cells 14, 133 (2025).",
+   "doi": "10.3390/cells14020133",
+   "match": "zotero",
+   "title": "Exploiting Cancer Dormancy Signaling Mechanisms in Epithelial Ovarian Cancer Through Spheroid and Organoid Analysis",
+   "pmid": "39851561",
+   "url": "https://doi.org/10.3390/cells14020133"
+  }
+ ],
+ "abstract": "High-grade serous ovarian carcinoma (HGSC) is among the most genomically unstable cancers, yet how this diversity relates to malignant-cell states and how they influence treatment response remain unclear. Integrating 1.98 million single-cell transcriptomes across 13 studies, we identify a dominant axis of polarization in malignant secretory cells, from proliferative, progenitor-like (SecA) to quiescent, injury-like (SecB) states that recur across patients and coexist within genetic clones. Spatial profiling of eight whole tumors and tissue microarrays from 378 patients links this polarization to tumor architecture: SecB cells occupy avascular, hypoxic niches, where they adopt HIF/NF-κB survival programs, exclude lymphocytes, and co-organize with macrophages exhibiting similar glycolytic states. Their localization and enrichment in ascites link SecB to metastasis. SecB predicts poor survival across independent cohorts, but preferential benefit from bevacizumab in the ICON7 trial. Together, these findings reveal shared malignant phenotypes across genomically diverse tumors and highlight their potential to guide treatment selection.",
+ "_checks": {
+  "n_refs": 74,
+  "cited": 74,
+  "first_mention_out_of_order": [],
+  "uncited": []
+ }
+}

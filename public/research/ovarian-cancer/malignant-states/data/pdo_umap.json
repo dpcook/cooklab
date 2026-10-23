@@ -1,0 +1,61 @@
+{
+ "name": "pdo_umap",
+ "n": 10455,
+ "coords": "umap",
+ "bbox": [
+  -11.1645,
+  -17.02516,
+  15.39775,
+  15.32787
+ ],
+ "fields": [
+  {
+   "name": "x",
+   "type": "u16"
+  },
+  {
+   "name": "y",
+   "type": "u16"
+  },
+  {
+   "name": "model",
+   "type": "u8",
+   "categories": [
+    "OPTO98",
+    "OPTO129",
+    "OPTO112",
+    "PDO66",
+    "OCAD106",
+    "OCAD97",
+    "OCAD93",
+    "OCAD96"
+   ],
+   "label": "PDO model"
+  },
+  {
+   "name": "origin",
+   "type": "u8",
+   "categories": [
+    "Primary",
+    "Ascites"
+   ],
+   "label": "Origin of the PDO"
+  },
+  {
+   "name": "secB",
+   "type": "u8",
+   "range": [
+    0.0,
+    0.78
+   ],
+   "label": "SecB UCell score"
+  }
+ ],
+ "bin": "pdo_umap.bin",
+ "source": "PDO snRNA-seq (Parse), 8 models after scDblFinder + QC; UMAP from seurat_untreated_baseline.rds (models/organoids/scripts/03); SecB UCell from organoid_secB_classified_v5.csv (04 -> 04v5). y increases upward (UMAP 2).",
+ "panel": "Fig 3a",
+ "axis_labels": [
+  "UMAP 1",
+  "UMAP 2"
+ ]
+}

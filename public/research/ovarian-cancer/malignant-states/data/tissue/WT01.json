@@ -1,0 +1,189 @@
+{
+ "name": "WT01",
+ "n": 181413,
+ "coords": "um",
+ "bbox": [
+  3,
+  5599,
+  4845,
+  11944
+ ],
+ "fields": [
+  {
+   "name": "x",
+   "type": "u16"
+  },
+  {
+   "name": "y",
+   "type": "u16"
+  },
+  {
+   "name": "celltype",
+   "type": "u8",
+   "categories": [
+    "SecA epithelium",
+    "Intermediate epithelium",
+    "SecB epithelium",
+    "Ciliated epithelium",
+    "Mesothelial",
+    "Fibroblast",
+    "Smooth muscle",
+    "Pericyte",
+    "Endothelial",
+    "T cell",
+    "NK cell",
+    "B cell",
+    "Plasma cell",
+    "Macrophage",
+    "Conventional dendritic cell",
+    "Neutrophil",
+    "Mast cell",
+    "Plasmacytoid dendritic cell"
+   ],
+   "label": "Cell type (SingleR; secretory split on polarization)"
+  },
+  {
+   "name": "polarization",
+   "type": "u8",
+   "range": [
+    -0.3267,
+    0.3582
+   ],
+   "label": "Polarization (SecB − SecA UCell)",
+   "applies_to": [
+    "SecA epithelium",
+    "Intermediate epithelium",
+    "SecB epithelium"
+   ],
+   "thresholds": {
+    "SecA_max": 0.109429,
+    "SecB_min": 0.210501
+   }
+  },
+  {
+   "name": "hypoxia",
+   "type": "u8",
+   "range": [
+    0.472,
+    0.8324
+   ],
+   "label": "Hypoxia (UCell, per cell)",
+   "applies_to": "all cells",
+   "note": "per-cell hypoxia UCell score, as drawn in Fig 4j",
+   "figure_range": [
+    0.5384,
+    0.8263
+   ]
+  },
+  {
+   "name": "hypoxia_nb",
+   "type": "u8",
+   "range": [
+    0.5516,
+    0.7743
+   ],
+   "label": "Neighbourhood hypoxia (UCell, mean within 50 µm)",
+   "applies_to": "all cells",
+   "note": "mean per-cell hypoxia UCell of the other cells within 50 µm, the Fig 4f / Fig S16d feature"
+  },
+  {
+   "name": "vasc_dist",
+   "type": "u8",
+   "range": [
+    0.0,
+    203.2
+   ],
+   "label": "Distance to nearest pericyte or endothelial cell (µm)",
+   "applies_to": "all cells",
+   "note": "0 for pericytes and endothelial cells; values above the range are clipped",
+   "figure_range": [
+    0.0,
+    221.3
+   ]
+  },
+  {
+   "name": "glycolysis",
+   "type": "u8",
+   "range": [
+    0.5576,
+    0.9618
+   ],
+   "label": "Glycolysis (UCell)",
+   "applies_to": [
+    "SecA epithelium",
+    "Intermediate epithelium",
+    "SecB epithelium",
+    "Ciliated epithelium"
+   ],
+   "figure_range": [
+    0.6453,
+    0.963
+   ],
+   "note": "epithelial cells only (Fig 5d colours SecA, Intermediate, SecB and ciliated cells)"
+  },
+  {
+   "name": "proliferation",
+   "type": "u8",
+   "range": [
+    0.4458,
+    0.9513
+   ],
+   "label": "Proliferation (UCell)",
+   "applies_to": [
+    "SecA epithelium",
+    "Intermediate epithelium",
+    "SecB epithelium",
+    "Ciliated epithelium"
+   ],
+   "figure_range": [
+    0.4694,
+    0.9341
+   ],
+   "note": "epithelial cells only (Fig 5d colours SecA, Intermediate, SecB and ciliated cells)"
+  },
+  {
+   "name": "LDHA",
+   "type": "u8",
+   "range": [
+    0.0,
+    5.412
+   ],
+   "label": "LDHA (log-normalized expression)",
+   "applies_to": [
+    "SecA epithelium",
+    "Intermediate epithelium",
+    "SecB epithelium",
+    "Ciliated epithelium"
+   ],
+   "figure_range": [
+    2.245,
+    5.452
+   ],
+   "note": "epithelial cells only (Fig 5d colours SecA, Intermediate, SecB and ciliated cells)"
+  },
+  {
+   "name": "nfkb",
+   "type": "u8",
+   "range": [
+    0.3331,
+    0.6541
+   ],
+   "label": "NF-κB (UCell)",
+   "applies_to": [
+    "SecA epithelium",
+    "Intermediate epithelium",
+    "SecB epithelium",
+    "Ciliated epithelium"
+   ],
+   "figure_range": [
+    0.3516,
+    0.6207
+   ],
+   "note": "epithelial cells only (Fig 5d colours SecA, Intermediate, SecB and ciliated cells)"
+  }
+ ],
+ "bin": "WT01.bin",
+ "source": "Xenium whole tissue; per-cell labels = SingleR label split on polarization_UCell (SecA <= 0.109429, SecB >= 0.210501); UCell scores from the analysis SFE (pre-final copy, composition identical to Supp Table 8). Coordinates: Xenium µm, y down (Fig 4b orientation).",
+ "treatment": "Treatment-naive",
+ "orientation": "y increases downward; matches Fig 4b (WT01) and Fig S11"
+}

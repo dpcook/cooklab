@@ -59,6 +59,8 @@ const imageURL = new URL(image, Astro.site ?? Astro.url);
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Inter:ital,wght@0,400;0,500;0,600;1,400&display=swap"
       rel="stylesheet"
     />
+    <!-- a page's own stylesheets and scripts (the malignant-states pages) -->
+    <slot name="head" />
   </head>
   <body class:list={['min-h-screen flex flex-col', dark && 'dark-band']}>
     <Header currentPath={currentPath} dark={dark} overlay={overlayHeader} />

@@ -1,0 +1,44 @@
+{
+ "name": "kpca_umap",
+ "n": 20598,
+ "coords": "umap",
+ "bbox": [
+  -6.841263,
+  -5.308311,
+  14.41821,
+  14.77527
+ ],
+ "fields": [
+  {
+   "name": "x",
+   "type": "u16"
+  },
+  {
+   "name": "y",
+   "type": "u16"
+  },
+  {
+   "name": "celltype",
+   "type": "u8",
+   "categories": [
+    "Epithelial",
+    "Macrophage",
+    "T/NK",
+    "Endothelial",
+    "Neutrophil",
+    "Fibroblast",
+    "Monocyte",
+    "Dendritic",
+    "B"
+   ],
+   "label": "Cell type"
+  }
+ ],
+ "bin": "kpca_umap.bin",
+ "source": "KPCA.B orthotopic syngeneic tumour (day 34), 10x Flex, after CellBender, QC and doublet removal; X_umap and celltype of the handoff object kpca_final_annotated.h5ad (models/kpca_mouse 21, 27, 33; drawn by 41b). Tumour cells are labelled Epithelial, as in the figure legend. y increases upward.",
+ "panel": "Fig 3i",
+ "axis_labels": [
+  "UMAP 1",
+  "UMAP 2"
+ ]
+}

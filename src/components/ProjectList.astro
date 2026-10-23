@@ -5,6 +5,8 @@ interface Project {
   title: string;
   body: string;
   funding?: string;
+  /** A page of ours about the project's work, linked under it. */
+  link?: { href: string; label: string };
 }
 interface Props {
   projects: Project[];
@@ -26,6 +28,7 @@ const { projects, class: className = '' } = Astro.props;
           <div>
             <p class="m-0 text-[15px] text-navy-700/70">{p.body}</p>
             {p.funding && <p class="meta mt-3 mb-0">{p.funding}</p>}
+            {p.link && <a href={p.link.href} class="arrow-link mt-4">{p.link.label} →</a>}
           </div>
         </li>
       ))}

@@ -1,0 +1,66 @@
+{
+ "name": "WT01_rois",
+ "coords": "um",
+ "frame": "WT01.json (Xenium µm, y down)",
+ "rois": [
+  {
+   "id": "fig4c",
+   "panels": [
+    "4b",
+    "4c",
+    "4h",
+    "4j"
+   ],
+   "label": "Fig 4c ROI (also 4h, 4j)",
+   "x0": 2800,
+   "y0": 6600,
+   "x1": 4000,
+   "y1": 7800,
+   "n_cells": 12048,
+   "scalebar_um": 200,
+   "figure_ranges": {
+    "vasc_dist": [
+     0.0,
+     221.3
+    ],
+    "hypoxia": [
+     0.5384,
+     0.8263
+    ]
+   }
+  },
+  {
+   "id": "fig5c",
+   "panels": [
+    "5c",
+    "5d"
+   ],
+   "label": "Fig 5c ROI (800 × 800 µm, also 5d)",
+   "x0": 1499,
+   "y0": 7133,
+   "x1": 2299,
+   "y1": 7933,
+   "n_cells": 4687,
+   "scalebar_um": 100,
+   "figure_ranges": {
+    "glycolysis": [
+     0.6453,
+     0.963
+    ],
+    "proliferation": [
+     0.4694,
+     0.9341
+    ],
+    "LDHA": [
+     2.245,
+     5.452
+    ],
+    "nfkb": [
+     0.3516,
+     0.6207
+    ]
+   }
+  }
+ ],
+ "source": "Boxes from figures/figure4/README.md (4c) and figures/figure5/README.md (5c), in the final SFE spatialCoords frame = raw Xenium µm; figure_ranges = 2nd-98th percentile colour limits recomputed on these cells."
+}

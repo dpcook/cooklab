@@ -1,0 +1,21 @@
+{
+ "name": "TMA-P003_rois",
+ "coords": "um",
+ "frame": "TMA-P003.json (core-local µm, y down)",
+ "rois": [
+  {
+   "id": "fig5g",
+   "panels": [
+    "5g",
+    "5h"
+   ],
+   "label": "SecB-enriched hypoxic region",
+   "x0": 80.06,
+   "y0": 147.2,
+   "x1": 292.3,
+   "y1": 460.4,
+   "rule": "5th-95th percentile of SecB cell-polygon centroids ± 25 µm (11_fig5_compose_panels.py)"
+  }
+ ],
+ "scalebar_um": 100
+}

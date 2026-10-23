@@ -75,6 +75,17 @@ Built: Home (dark, glass-mosaic tagline hero), Research hub, People, Publication
 
 Top nav (5 items): **Home · Research · People · Publications · Join.**
 
+## Paper pages: malignant states in HGSC
+
+`/research/ovarian-cancer/malignant-states` (overview) and `…/malignant-states/article` (full text) are the interactive
+version of the SecA/SecB preprint (Nersesian, Abou-Hamad et al. 2026). They are generated: the source is
+`~/My Drive/Lab/Manuscripts/hgsc_epitypes/web/site/` (a standalone static site with its own preview) and
+`python3 build/stamp.py && python3 build/cooklab.py` in that folder writes `src/pages/research/ovarian-cancer/malignant-states/`,
+`src/components/malignant-states/` and `public/research/ovarian-cancer/malignant-states/`. Don't edit those three by hand;
+edit the source and re-run. The pages use `BaseLayout` (lab header and footer, `head` slot for their stylesheets), add a
+sticky paper bar under the header, and scope their own CSS to a `.ms` wrapper. Their hero is WT01's toned H&E with the
+same cells as tiles fading in on hover (`build/hero2/` there). The Publications entry and the ovarian-cancer project list link to them.
+
 ## What's deliberately out of scope for v1
 
 (From the brief — these are content gaps, not design questions.)
@@ -94,7 +105,7 @@ Top nav (5 items): **Home · Research · People · Publications · Join.**
 - Real lab data drives the visuals. The glass-mosaic images in `public/mosaic/` are Xenium sections from the HGSC cohort, rendered one tile per cell, coloured by cell type. The renderer and region scripts live in `~/Desktop/Mosaic video/glass/`; its `SPEC.md` explains them.
   - `home-hero.webp`: 1.2 × 0.7 mm of SP24_24824, mirrored so the tissue sits on the right. `home-shimmer.json` holds the same tiles' outlines for the shimmer.
   - `header-*-{800,1600,2400}.jpg`: one set per inside page, rendered at 4 px/µm on a pale floor (`?ground=clear&pale=1`), thinned toward the left, top and bottom, and over a shorter distance toward the right, so the tiles fade into white on every side; then flattened onto white. `PageHeader` places the image inside the content column, its right edge at the column's edge, not in the page margin. They are saved as JPEGs without chroma subsampling: lossy WebP's half-resolution colour frayed the tile edges against white. `PageHeader` serves them with `srcset`.
-  - `q-*-he.webp`, `q-*-tiles.webp`, `q-*.json`: the homepage question cards (`QuestionTiles.astro`). Each is a 300 × 167 µm window of a deck region with real cell outlines and 2 px/µm H&E. The toned H&E shows at rest. On hover (or once in view on touch screens) the tiles fade in over it, each in place: the question's cell types first, then the other cells, then the background. No drop or other movement; David didn't like it.
+  - `q-*-he.webp`, `q-*-tiles.webp`, `q-*.json`: the homepage question cards (`QuestionTiles.astro`). Each is a 300 × 167 µm window of a deck region with real cell outlines and 2 px/µm H&E. The toned H&E shows at rest. On hover (or once in view on touch screens) the tiles fade in over it, each in place: the question's cell types first, then the other cells. No drop or other movement; David didn't like it. No background tiles either (October 2026): only segmented cells get a tile, so lumen and empty space keep the stain; the tiles image is flattened onto the H&E (`render_tiles.py card <name>` in the malignant-states build folder, below).
   - `card-ovarian-he-*.jpg`: the ovarian card on the Research page, the H&E of OTB_2384_roi06 toned to slate on white. The coloured tiles are kept for the homepage and the page headers, so they don't appear everywhere.
   - Research page layout: each disease card carries its own three questions; the two cards share one row grid (`grid-template-rows: subgrid`), so their questions line up. No statistic on the cards. The four approach pillars sit in one row.
   - Endometriosis tissue is EAOC-2 (Xenium, graph clusters; sources in `~/My Drive/Lab/Branding/assets/README.md`). It appears on the homepage card (`q-endo-*`) and the Research card (`card-endometriosis-he-*`), and `header-endometriosis-*` is ready for that page's header. The page header itself still shows `DiagnosisTimeline` (with `light`).

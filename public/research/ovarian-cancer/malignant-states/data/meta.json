@@ -1,0 +1,15 @@
+{
+  "title": "Tumor architecture shapes polarized malignant states that predict outcome and treatment response in high-grade serous ovarian cancer",
+  "short_authors": "Nersesian S*, Abou-Hamad J*, … Cook DP",
+  "year": 2026,
+  "links": {
+    "biorxiv": "https://www.biorxiv.org/content/10.64898/2026.05.27.727977",
+    "doi": "10.64898/2026.05.27.727977",
+    "code": "https://github.com/cook-lab/hgsc-malignant-states",
+    "lab": "https://cooklab.ca",
+    "data": null
+  },
+  "contact": "dacook@ohri.ca",
+  "funding": "Canadian Institutes of Health Research Project Grant (PJT-203857); Canadian Cancer Society Breakthrough Team Grant (BTG25-708640); Canada Postdoctoral Research Award (FRN 208279) to S.N.",
+  "_note": "bioRxiv DOI from Crossref (v1 posted 2026-06-01 under an earlier title). Add the version suffix (e.g. v2) once the updated version is live."
+}

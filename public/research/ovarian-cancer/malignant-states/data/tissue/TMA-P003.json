@@ -1,0 +1,63 @@
+{
+ "name": "TMA-P003",
+ "n": 3038,
+ "coords": "um",
+ "bbox": [
+  0,
+  0,
+  627,
+  673
+ ],
+ "fields": [
+  {
+   "name": "x",
+   "type": "u16"
+  },
+  {
+   "name": "y",
+   "type": "u16"
+  },
+  {
+   "name": "celltype",
+   "type": "u8",
+   "categories": [
+    "SecA epithelium",
+    "Intermediate epithelium",
+    "SecB epithelium",
+    "Ciliated epithelium",
+    "Mesothelial",
+    "Fibroblast",
+    "Smooth muscle",
+    "Pericyte",
+    "Endothelial",
+    "T cell",
+    "NK cell",
+    "B cell",
+    "Plasma cell",
+    "Macrophage",
+    "Conventional dendritic cell",
+    "Neutrophil",
+    "Mast cell",
+    "Plasmacytoid dendritic cell"
+   ],
+   "label": "Cell type"
+  },
+  {
+   "name": "hypoxia",
+   "type": "u8",
+   "range": [
+    0.4644,
+    0.8502
+   ],
+   "label": "Hypoxia (UCell, per cell)",
+   "figure_range": [
+    0.477,
+    0.8374
+   ]
+  }
+ ],
+ "bin": "TMA-P003.bin",
+ "source": "TMA A tumour core of TMA-P003 (Fig 5e, g, h); SingleR labels split on polarization; hypoxia UCell per cell. Core-local µm, y down (Fig 5e orientation).",
+ "cohort": "TMA A",
+ "orientation": "y increases downward; matches Fig 5e"
+}
