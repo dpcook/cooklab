@@ -1,0 +1,138 @@
+/* ---- OvCAN gene explorer. Cook Lab brand, September 2026 revision (Branding/docs/design-system.md):
+       Manrope display, Inter body and numbers, no monospace, no uppercase labels, gene symbols italic.
+       Everything is scoped to .ov so the same stylesheet works inside the cooklab.ca layout. ---- */
+.ov{
+  --rust-500:#C2410C;
+  --navy-50:#F1F5F9; --navy-100:#E2E8F0; --navy-200:#CBD5E1; --navy-300:#94A3B8; --navy-400:#64748B;
+  --navy-500:#334155; --navy-600:#1E293B; --navy-700:#0F172A;
+  --ink:#334155; --muted:rgba(15,23,42,.64); --faint:rgba(15,23,42,.42);
+  --border:rgba(15,23,42,.10); --border-strong:rgba(15,23,42,.18);
+  --track:#F1F5F9;
+  --font-display:'Manrope',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --font-body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --shadow-xs:0 1px 2px rgba(15,23,42,.04);
+  --shadow-sm:0 1px 3px rgba(15,23,42,.06),0 1px 2px rgba(15,23,42,.04);
+  --shadow-lg:0 12px 32px rgba(15,23,42,.10),0 4px 8px rgba(15,23,42,.06);
+  /* height of the site's sticky header; the column heads stick under it */
+  --ov-top:64px;
+  color:var(--navy-700);font:400 16px/1.6 var(--font-body);padding-bottom:96px;
+}
+.ov *,.ov *::before,.ov *::after{box-sizing:border-box}
+.ov button{font:inherit;color:inherit}
+.ov :focus-visible{outline:2px solid var(--rust-500);outline-offset:2px}
+.ov-wrap{max-width:72rem;margin:0 auto;padding:0 20px}
+@media (min-width:768px){.ov-wrap{padding:0 48px}}
+.ov .gs{font-style:italic}
+
+/* ---- Page header: bold name, light line, metadata (as PageHeader.astro on the site) ---- */
+.ov-head{padding:48px 0 40px}
+.ov-title{margin:0;max-width:640px;font:700 clamp(40px,4.6vw,60px)/1.02 var(--font-display);
+  letter-spacing:-.035em;color:var(--navy-700)}
+.ov-intro{margin:20px 0 0;max-width:540px;font:300 clamp(19px,1.7vw,23px)/1.35 var(--font-display);
+  letter-spacing:-.015em;color:rgba(15,23,42,.72)}
+.ov-meta{margin:16px 0 0;max-width:720px;font-size:14px;line-height:1.55;color:var(--muted)}
+.ov-meta .n{font-variant-numeric:tabular-nums}
+
+/* ---- Search ---- */
+.ov-search{position:relative}
+.ov-field{position:relative;max-width:560px}
+.ov-field svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:18px;height:18px;
+  color:var(--navy-400);pointer-events:none}
+.ov-input{display:block;width:100%;height:50px;margin:0;padding:0 16px 0 44px;font:400 17px/1 var(--font-body);
+  color:var(--navy-700);background:#fff;border:1px solid var(--border-strong);border-radius:10px;
+  box-shadow:var(--shadow-xs);-webkit-appearance:none;appearance:none}
+.ov-input::placeholder{color:var(--faint);opacity:1}
+.ov-input:hover{border-color:rgba(15,23,42,.28)}
+.ov-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);
+  white-space:nowrap;border:0}
+.ov-status{margin:10px 0 0;font-size:14px;color:var(--muted)}
+.ov-status:empty{display:none}
+.ov-examples{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:14px;font-size:14px;color:var(--muted)}
+.ov-examples>span{margin-right:2px}
+.ov .ov-chip{font:italic 400 13.5px/1 var(--font-body);color:var(--navy-600);background:var(--navy-50);
+  border:0;border-radius:999px;padding:7px 12px;cursor:pointer;transition:background-color .2s,color .2s}
+.ov .ov-chip:hover{background:var(--navy-100);color:var(--navy-700)}
+.ov-suggest{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:30;display:none;max-height:min(420px,60vh);
+  overflow-y:auto;background:#fff;border:1px solid var(--border-strong);border-radius:10px;box-shadow:var(--shadow-lg)}
+.ov-suggest.on{display:block}
+.ov-sug{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:9px 14px;
+  font-size:15px;cursor:pointer}
+.ov-sug+.ov-sug{border-top:1px solid var(--border)}
+.ov-sug .s{font-style:italic;color:var(--navy-700)}
+.ov-sug .a{font-size:13px;color:var(--muted)}
+.ov-sug.active,.ov-sug:hover{background:var(--navy-50)}
+
+/* ---- Result ---- */
+.ov-result{margin-top:48px;padding-top:40px;border-top:1px solid var(--border);min-height:160px}
+.ov-gene{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px}
+.ov-symbol{margin:0;font:italic 600 clamp(34px,3.4vw,42px)/1.05 var(--font-body);letter-spacing:-.025em;
+  color:var(--navy-700)}
+.ov-ids{font-size:14px;color:var(--muted)}
+.ov-ids a{color:var(--navy-700);font-weight:500;text-decoration:none}
+.ov-ids a:hover{text-decoration:underline;text-underline-offset:3px}
+.ov-line{margin:12px 0 0;font:300 clamp(18px,1.6vw,21px)/1.4 var(--font-display);letter-spacing:-.015em;
+  color:rgba(15,23,42,.72)}
+.ov-line .n{font-weight:500;color:var(--navy-700);font-variant-numeric:tabular-nums}
+.ov-note{margin:16px 0 0;max-width:720px;padding:10px 14px;background:var(--navy-50);border-radius:8px;
+  font-size:14px;line-height:1.5;color:var(--ink)}
+
+/* ---- Controls: segmented buttons as on the malignant-states pages ---- */
+.ov-toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:12px 28px;margin-top:32px}
+.ov-ctl{display:flex;align-items:center;gap:10px}
+.ov-ctl-l{font-size:14px;color:var(--muted)}
+.ov-seg{display:inline-flex;flex-wrap:wrap;gap:2px;padding:3px;background:var(--navy-50);border-radius:10px}
+.ov-seg button{border:0;background:transparent;padding:7px 12px;border-radius:8px;cursor:pointer;
+  font:500 13px/1 var(--font-body);color:var(--navy-500);transition:color .2s}
+.ov-seg button:hover{color:var(--navy-700)}
+.ov-seg button[aria-pressed="true"]{background:#fff;color:var(--navy-700);box-shadow:var(--shadow-sm)}
+
+/* ---- Chart: one row per line, RNA and protein side by side ---- */
+.ov-legend{display:flex;flex-wrap:wrap;gap:6px 20px;margin-top:20px;font-size:13.5px;color:var(--ink)}
+.ov-lg{display:inline-flex;align-items:center;gap:7px}
+.ov-sw{width:10px;height:10px;border-radius:2px;flex:none}
+.ov-chart{margin-top:16px}
+.ov-cols,.ov-row{display:grid;grid-template-columns:128px minmax(0,1fr) minmax(0,1fr);column-gap:28px;align-items:center}
+.ov-cols{position:sticky;top:var(--ov-top);z-index:5;align-items:end;padding:12px 0 10px;background:#fff;
+  border-bottom:1px solid var(--border)}
+.ov-colh{font:600 15px/1.2 var(--font-display);letter-spacing:-.01em;color:var(--navy-700)}
+.ov-colh span{display:block;margin-top:3px;font:400 12.5px/1.3 var(--font-body);letter-spacing:0;color:var(--muted)}
+.ov-grp{display:flex;align-items:center;gap:8px;margin:20px 0 4px;font-size:14px;font-weight:600;color:var(--navy-700)}
+.ov-grp .c{font-weight:400;color:var(--muted)}
+.ov-row{padding:3px 0;border-radius:6px}
+.ov-row:hover{background:var(--navy-50)}
+.ov-ln{display:flex;align-items:center;justify-content:flex-end;gap:6px;min-width:0;padding-right:2px;
+  font-size:13px;color:var(--ink);white-space:nowrap}
+.ov-ln .t{overflow:hidden;text-overflow:ellipsis}
+.ov-dot{width:8px;height:8px;border-radius:50%;flex:none}
+.ov-conf{font-weight:600;color:var(--navy-500);cursor:help}
+.ov-cell{display:flex;align-items:center;gap:10px;min-width:0}
+.ov-track{flex:1;height:12px;background:var(--track);border-radius:3px;overflow:hidden}
+.ov-fill{height:100%;min-width:2px;border-radius:3px}
+.ov-val{flex:none;width:52px;text-align:right;font-size:12.5px;color:var(--ink);font-variant-numeric:tabular-nums}
+.ov-val.nd,.ov-na{color:var(--faint)}
+.ov-na{font-size:12.5px}
+
+/* ---- Empty and error states ---- */
+.ov-state{padding:40px 24px;text-align:center;font-size:15px;color:var(--muted);border:1px solid var(--border);
+  border-radius:12px}
+.ov-state .gs{color:var(--navy-700)}
+
+/* ---- Notes ---- */
+.ov-notes{margin-top:72px;padding-top:40px;border-top:1px solid var(--border)}
+.ov-notes h2{margin:0 0 28px;font:600 clamp(22px,2vw,26px)/1.2 var(--font-display);letter-spacing:-.02em;
+  color:var(--navy-700)}
+.ov-notes dl{display:grid;grid-template-columns:minmax(0,1fr);gap:28px 56px;margin:0}
+.ov-notes dt{margin:0 0 6px;font:600 16px/1.3 var(--font-display);letter-spacing:-.01em;color:var(--navy-700)}
+.ov-notes dd{margin:0;max-width:62ch;font-size:14.5px;line-height:1.6;color:var(--ink)}
+@media (min-width:768px){.ov-notes dl{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+
+@media (max-width:640px){
+  .ov-head{padding:36px 0 32px}
+  .ov-result{margin-top:36px;padding-top:32px}
+  .ov-cols,.ov-row{grid-template-columns:84px minmax(0,1fr) minmax(0,1fr);column-gap:10px}
+  .ov-ln{font-size:11.5px;gap:4px}
+  .ov-cell{gap:6px}
+  .ov-val{width:40px;font-size:11px}
+  .ov-colh{font-size:14px}
+  .ov-colh span{font-size:11.5px}
+}

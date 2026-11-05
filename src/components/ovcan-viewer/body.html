@@ -1,0 +1,80 @@
+<div class="ov">
+  <div class="ov-wrap">
+
+    <section class="ov-head">
+      <h1 class="ov-title">OvCAN gene explorer</h1>
+      <p class="ov-intro">RNA and protein abundance for any gene across <span id="m_all">32</span> patient-derived ovarian cancer cell lines.</p>
+      <p class="ov-meta">OvCAN Collection, Ovarian Cancer Canada · RNA-seq (TPM) for <span class="n" id="m_rna">31</span> lines and <span class="n" id="m_rnag">–</span> genes · TMT proteomics (log₂ abundance) for <span class="n" id="m_prot">31</span> lines and <span class="n" id="m_protg">–</span> proteins · Data build <span class="n" id="m_build">–</span></p>
+    </section>
+
+    <div class="ov-search">
+      <label class="ov-sr" for="q">Gene symbol</label>
+      <div class="ov-field">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="q" class="ov-input" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false"
+          placeholder="Gene symbol, e.g. PAX8" role="combobox" aria-expanded="false" aria-controls="suggest" aria-autocomplete="list">
+        <div id="suggest" class="ov-suggest" role="listbox"></div>
+      </div>
+      <p class="ov-status" id="hint" aria-live="polite">Loading data…</p>
+      <div class="ov-examples">
+        <span>Examples</span>
+        <button type="button" class="ov-chip" data-g="WT1">WT1</button>
+        <button type="button" class="ov-chip" data-g="MSLN">MSLN</button>
+        <button type="button" class="ov-chip" data-g="PAX8">PAX8</button>
+        <button type="button" class="ov-chip" data-g="FOLR1">FOLR1</button>
+        <button type="button" class="ov-chip" data-g="ERBB2">ERBB2</button>
+        <button type="button" class="ov-chip" data-g="MUC16">MUC16</button>
+        <button type="button" class="ov-chip" data-g="CLDN6">CLDN6</button>
+      </div>
+    </div>
+
+    <div id="result" class="ov-result">
+      <div class="ov-state">Enter a gene symbol to see its RNA and protein levels.</div>
+    </div>
+
+    <section class="ov-notes">
+      <h2>Reading the values</h2>
+      <dl>
+        <div>
+          <dt>Bar length</dt>
+          <dd>By default each assay's bars are scaled to the gene's own range: RNA from zero to the highest line,
+            on a log₁₀(TPM + 1) scale; protein from the lowest to the highest quantified line, on the log₂ scale.
+            Shared axis keeps each assay's range fixed across genes. Protein baselines are not calibrated for
+            comparing absolute abundance between proteins. Printed values keep the supplied units.</dd>
+        </div>
+        <div>
+          <dt>RNA and protein</dt>
+          <dd>TPM (within-sample normalised transcript abundance) and TMT log₂ protein abundance are different
+            assays in different units. Compare them by rank and pattern, not by matching numbers. Protein
+            differences can reflect post-transcriptional biology as well as TMT measurement effects.</dd>
+        </div>
+        <div>
+          <dt>n.d.</dt>
+          <dd>No quantified value in that assay. About 9% of protein values are missing, in blocks: a protein
+            absent from a TMT plex is missing for every line in that plex, not necessarily absent from the cells.
+            Absence of protein is weaker evidence than presence.</dd>
+        </div>
+        <div>
+          <dt>Histotype, site and plex</dt>
+          <dd>Histotype, source site and TMT plex are partly confounded, and several histotype-by-centre
+            combinations are not represented. A difference that tracks subtype may partly reflect batch or site.
+            Models from the same patient are not independent biological replicates.</dd>
+        </div>
+        <div>
+          <dt>Gene identifiers</dt>
+          <dd>RNA is keyed by Ensembl gene ID (release 93) and mapped to symbols. Where several Ensembl genes share
+            a symbol, their TPM values are summed and every contributing ID is listed under the gene name. Protein
+            rows use a representative symbol, or a symbol plus UniProt identifier for secondary features.
+            Unmatched features and unmeasured assays are labelled.</dd>
+        </div>
+        <div>
+          <dt>Replicates</dt>
+          <dd>Each line has one library or replicate per assay, so values are single measurements, rounded for
+            display. <span class="ov-conf">‡</span> marks a line with a subtype label conflict, described in the
+            resource notes.</dd>
+        </div>
+      </dl>
+    </section>
+
+  </div>
+</div>
