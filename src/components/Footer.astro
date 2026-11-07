@@ -10,7 +10,7 @@ const currentYear = new Date().getFullYear();
 
 <footer class:list={['border-t', dark ? 'bg-ground border-white/8 text-on-dark' : 'bg-surface-200 border-navy-700/10 text-navy-700']}>
   <div class="wrap py-10 grid gap-6 md:gap-12 items-start grid-cols-1 md:grid-cols-[1fr_1.2fr_auto]">
-    <TaglineMark size={16} markSize={22} markColor={dark ? 'var(--color-rust-400)' : undefined} />
+    <TaglineMark size={16} markSize={44} dark={dark} animate />
 
     <p class="meta m-0 max-w-[44ch]">
       We are grateful to the patients and funders who continue to support our work.

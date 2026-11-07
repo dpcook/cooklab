@@ -202,7 +202,16 @@ The lab does **not** use a heavy iconography system. Icons are functional, never
 - Icon size is usually 16–20px inline with body text, 24–28px beside card headings, 32–40px in approach pillars (single-cell genomics, organoid models, computational biology, biobank).
 
 ### Brand-asset icons
-The four logos (mark + 3 wordmarks) live in `brand/`. Always SVG, with text outlined. Available colorways: rust (`#C2410C`), navy (`#1E2A44`), white (reverse on dark), black. Never recolor by hand — use the right file. On the dark ground, use the white wordmark.
+The logos (mark, horizontal wordmark, stacked wordmark) live in `brand/`. Always SVG, with text outlined. Never recolor by hand — use the right file.
+
+**The mark** is a cluster graph, the summary drawn after grouping single-cell data into states: five cell states, each circle sized by how many cells it holds, joined by four edges that narrow toward the smaller state. One state is rust: the state under study. Don't redraw it or swap in a generic icon; `brand/make_brand.py` holds its coordinates and draws every file.
+
+- **Two-colour (default):** navy states `#1E2A44`, slate edges `#94A3B8`, the rust state `#C2410C` and its edge in rust-300 `#F59065`. Files without a colour suffix (`cooklab-mark.svg`, `cooklab-wordmark.svg`).
+- **Dark ground:** states `#E2E8F0`, edges `#64748B`, the rust state in rust-400 `#EB6235`, white text. The `-dark` files. Use these on title and section slides, report covers and the website homepage.
+- **One colour:** navy, rust, black or white, solid, for print, embroidery and single-colour reproduction, and white on a rust tile or a photo. The `-navy`, `-rust`, `-black` and `-white` files.
+- **Small sizes:** the mark holds its shape at 16 px; the edges get thin there, so favicons use the two-colour or one-colour file as is, without an outline or extra weight.
+
+The animated mark (the cells-to-states reveal) is in `motion/`; see Animation.
 
 ### Unicode
 Used for arrows (`→`, `↗`), bullets (`·`), and ellipsis. No box-drawing characters.

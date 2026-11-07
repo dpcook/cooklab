@@ -49,7 +49,7 @@ function footer(meta, art) {
   const f = document.getElementById('footer');
   if (!f) return;
   f.innerHTML = `<div class="wrap"><div class="grid">
-    <div><img src="${asset('assets/img/brand/cooklab-wordmark-white.svg')}" alt="Cook Lab" style="height:30px"><div class="tagline">Decode. Design. Deliver.</div>
+    <div><img src="${asset('assets/img/brand/cooklab-wordmark-dark.svg')}" alt="Cook Lab" style="height:30px"><div class="tagline">Decode. Design. Deliver.</div>
       <p style="margin-top:12px;max-width:30em">Improving outcomes for those with gynecologic disease. Ottawa Hospital Research Institute · University of Ottawa.</p></div>
     <div><h5>This study</h5><ul>
       <li><a href="index.html">Overview</a></li><li><a href="article.html">Full article</a></li>

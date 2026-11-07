@@ -1,0 +1,216 @@
+---
+/**
+ * The lab mark: a cluster graph of five cell states joined by tapered edges, one state in rust.
+ * Drawn in a 64-unit box from the same coordinates as ~/Lab/Branding/brand/make_brand.py.
+ *
+ * With `animate`, the mark forms from a cloud of cells (the small version of the logo reveal in
+ * ~/Lab/Branding/motion/): `'load'` each time the page loads (the header, with Wordmark); `true`
+ * only on hover (the footer). On hover either one comes apart into its cells, which drift back
+ * into a cloud, and then forms again. Without JavaScript, or with reduced motion, it is the still mark.
+ */
+interface Props {
+  size?: number;
+  dark?: boolean;
+  animate?: boolean | 'load';
+  label?: string;
+}
+const { size = 32, dark = false, animate = false, label } = Astro.props;
+
+// [x, y, radius, rust?]; edges as [from, to], each 0.55 of the radius wide at either end
+const NODES: [number, number, number, boolean][] = [
+  [20.6, 45.7, 8, false], [47.8, 13.1, 6.4, true], [10.2, 26.3, 5.6, false], [41.3, 36.8, 3.8, false], [55.8, 53.7, 3.6, false],
+];
+const EDGES: [number, number][] = [[0, 2], [0, 3], [3, 4], [3, 1]];
+
+const f = (v: number) => +v.toFixed(2);
+function taper([i, j]: [number, number]) {
+  const [ax, ay, ar] = NODES[i], [bx, by, br] = NODES[j];
+  const L = Math.hypot(bx - ax, by - ay), ux = (bx - ax) / L, uy = (by - ay) / L, nx = -uy, ny = ux;
+  const wa = 0.55 * ar, wb = 0.55 * br;
+  const sa = Math.sqrt(ar * ar - wa * wa / 4), sb = Math.sqrt(br * br - wb * wb / 4);
+  const P = [ax + ux * sa, ay + uy * sa], Q = [bx - ux * sb, by - uy * sb];
+  const pts = [[P[0] + nx * wa / 2, P[1] + ny * wa / 2], [Q[0] + nx * wb / 2, Q[1] + ny * wb / 2],
+    [Q[0] - nx * wb / 2, Q[1] - ny * wb / 2], [P[0] - nx * wa / 2, P[1] - ny * wa / 2]];
+  return 'M' + pts.map(([x, y]) => `${f(x)} ${f(y)}`).join('L') + 'Z';
+}
+---
+
+<svg
+  class:list={['cluster-mark', dark && 'is-dark']}
+  width={size}
+  height={size}
+  viewBox="0 0 64 64"
+  role={label ? 'img' : undefined}
+  aria-label={label}
+  aria-hidden={label ? undefined : 'true'}
+  data-mark-build={animate === 'load' ? 'load' : animate ? 'hover' : undefined}
+  style="display:block;flex-shrink:0;overflow:visible"
+>
+  <g class="cm-all">
+    <g class="cm-edges">
+      {EDGES.map((e) => <path d={taper(e)} class={NODES[e[0]][3] || NODES[e[1]][3] ? 'cm-rust-edge' : 'cm-edge'} />)}
+    </g>
+    <g class="cm-states">
+      {NODES.map(([x, y, r, rust]) => <ellipse cx={x} cy={y} rx={r} ry={r} class={rust ? 'cm-rust' : 'cm-state'} />)}
+    </g>
+  </g>
+</svg>
+
+<style>
+  .cluster-mark { --mk-state: #1E2A44; --mk-edge: #94A3B8; --mk-rust: #C2410C; --mk-rust-edge: #F59065; }
+  .cluster-mark.is-dark { --mk-state: #E2E8F0; --mk-edge: #64748B; --mk-rust: #EB6235; }
+  .cluster-mark :global(.cm-state) { fill: var(--mk-state); }
+  .cluster-mark :global(.cm-edge) { fill: var(--mk-edge); }
+  .cluster-mark :global(.cm-rust) { fill: var(--mk-rust); }
+  .cluster-mark :global(.cm-rust-edge) { fill: var(--mk-rust-edge); }
+  .cluster-mark[data-mark-build] { cursor: default; }
+  /* A mark that forms on load stays blank until its script draws the cloud, so the still mark never
+     flashes first; if the script has not run within 2 s the still mark shows anyway. */
+  :global(html.mk-motion) .cluster-mark[data-mark-build='load']:not(.is-live) .cm-all { opacity: 0; animation: cm-show 0s 2s forwards; }
+  @keyframes cm-show { to { opacity: 1; } }
+</style>
+
+<script>
+  // The cells-to-states build, ported from the small Motion film (~/Lab/Branding/motion/source/mark-small).
+  const NODES: [number, number, number, boolean][] = [
+    [20.6, 45.7, 8, false], [47.8, 13.1, 6.4, true], [10.2, 26.3, 5.6, false], [41.3, 36.8, 3.8, false], [55.8, 53.7, 3.6, false],
+  ];
+  const EDGES: [number, number][] = [[0, 2], [0, 3], [3, 4], [3, 1]];
+  // When each state pops (the rust state last, after its cells squeeze) and when each edge grows, in seconds
+  const POP = [1.45, 2.3, 1.6, 1.75, 1.88];
+  const GROW = [[1.9, 2.15], [2.0, 2.25], [2.25, 2.45], [2.5, 2.8]];
+  const END = 3.3;
+  // the header build plays on every page, so it runs faster; past LATE ms after the page started
+  // loading, the still mark has already been shown and the build is skipped
+  const LOAD_RATE = 1.35, LATE = 2000;
+  // on hover the build first runs backwards from the still mark (APART[0]) to the grey cloud
+  // (APART[1], where the cells are mixed but the build has not yet stalled) over APART_S seconds,
+  // easing at both ends, then forwards again from there, picking up speed over TURN seconds
+  const APART = [2.8, 0.7], APART_S = 1.3, TURN = 0.25;
+  const NS = 'http://www.w3.org/2000/svg';
+
+  const clamp = (x: number) => Math.max(0, Math.min(1, x));
+  const seg = (t: number, a: number, b: number) => clamp((t - a) / (b - a));
+  const lerp = (a: number, b: number, p: number) => a + (b - a) * p;
+  const ei = (x: number) => Math.pow(clamp(x), 3);
+  const eo = (x: number) => 1 - Math.pow(1 - clamp(x), 3);
+  const eio = (x: number) => { x = clamp(x); return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+  // a damped spring from 0: overshoots past 1, dips back and settles
+  const spring = (a: number, w: number, g: number) => (a <= 0 ? 0 : 1 - Math.exp(-g * a) * Math.cos(w * a));
+  const f = (v: number) => v.toFixed(3);
+  function rng(seed: number) {
+    let a = seed >>> 0;
+    return () => { a = (a + 0x6d2b79f5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  }
+
+  // Each cluster's tint as its cells sort: the state colour, rust, and mixes of state and edge colours
+  const TINT = ['var(--mk-state)', 'var(--mk-rust)', 'color-mix(in srgb, var(--mk-state) 55%, var(--mk-edge))',
+    'color-mix(in srgb, var(--mk-edge) 80%, var(--mk-state))', 'color-mix(in srgb, var(--mk-edge) 60%, var(--mk-state))'];
+
+  function setup(svg: SVGSVGElement) {
+    const all = svg.querySelector('.cm-all')!;
+    const edges = Array.from(svg.querySelectorAll<SVGPathElement>('.cm-edges path'));
+    const states = Array.from(svg.querySelectorAll<SVGEllipseElement>('.cm-states ellipse'));
+    const still = edges.map((e) => e.getAttribute('d')!);
+    // cells stay at least about a pixel across, however small the mark is drawn; a mark under 36 px
+    // (the header) gets half as many cells, a little larger, so they read as separate dots
+    const size = svg.getBoundingClientRect().width || 64, small = size < 36;
+    const cr = Math.max(1.45, (64 / size) * (small ? 1.3 : 1.1));
+    const r = rng(9), g = () => (r() + r() + r() + r() - 2) * 1.2;
+    const cells: { c: number; mx: number; my: number; dx: number; dy: number; lag: number; ph: number; sp: number; el: SVGCircleElement }[] = [];
+    const cloud = document.createElementNS(NS, 'g');
+    NODES.forEach((n, c) => {
+      for (let i = 0, k = small ? Math.max(2, Math.round(n[2] * n[2] * 0.15)) : Math.max(4, Math.round(n[2] * n[2] * 0.3)); i < k; i++) {
+        const u = r() * 6.283, R = 25 * Math.sqrt(r()), el = document.createElementNS(NS, 'circle');
+        el.setAttribute('r', f(cr)); cloud.appendChild(el);
+        cells.push({ c, mx: 32 + R * Math.cos(u), my: 32 + R * Math.sin(u), dx: g() * n[2] * 0.7, dy: g() * n[2] * 0.7, lag: r() * 0.45, ph: r() * 6.283, sp: 2.2 + r() * 2, el });
+      }
+    });
+    const tips = edges.map((e) => { const c = document.createElementNS(NS, 'circle'); c.setAttribute('class', e.getAttribute('class')!); e.after(c); return c; });
+
+    function bar(i: number, A: number[], ra: number, B: number[], rb: number, k: number, w0: number, w1: number) {
+      const path = edges[i], tip = tips[i];
+      if (k <= 0 || ra <= 0) { path.style.opacity = '0'; tip.style.opacity = '0'; return; }
+      const dx = B[0] - A[0], dy = B[1] - A[1], D = Math.hypot(dx, dy) || 1e-6, ux = dx / D, uy = dy / D, nx = -uy, ny = ux;
+      const sa = Math.sqrt(Math.max(0, ra * ra - w0 * w0 / 4)), sb = Math.sqrt(Math.max(0, rb * rb - w1 * w1 / 4));
+      const P = [A[0] + ux * sa, A[1] + uy * sa], Q = [B[0] - ux * sb, B[1] - uy * sb];
+      const T = [lerp(P[0], Q[0], k), lerp(P[1], Q[1], k)], wt = lerp(w0, w1, k);
+      path.setAttribute('d', `M${f(P[0] + nx * w0 / 2)} ${f(P[1] + ny * w0 / 2)}L${f(T[0] + nx * wt / 2)} ${f(T[1] + ny * wt / 2)}L${f(T[0] - nx * wt / 2)} ${f(T[1] - ny * wt / 2)}L${f(P[0] - nx * w0 / 2)} ${f(P[1] - ny * w0 / 2)}Z`);
+      path.style.opacity = '1';
+      tip.setAttribute('cx', f(T[0])); tip.setAttribute('cy', f(T[1])); tip.setAttribute('r', f(wt / 2));
+      tip.style.opacity = k < 1 ? '1' : '0';
+    }
+
+    // apart: running backwards, so the states shrink smoothly into their cells instead of springing
+    function render(t: number, apart = false) {
+      all.setAttribute('transform', `translate(32 32) scale(${lerp(0.92, 1, eio(seg(t, -0.3, 2.9))).toFixed(4)}) translate(-32 -32)`);
+      // cells jitter in a mixed cloud, sort into clusters taking on their tint, then rush into their state as it pops
+      const tone = Math.round(100 * eio(seg(t, 0.4, 1.3)));
+      cells.forEach((p) => {
+        const n = NODES[p.c], pc = POP[p.c], s = eio(seg(t, 0.2 + p.lag, 1.05 + p.lag)), k = ei(seg(t, pc - 0.28, pc));
+        const sq = p.c === 1 ? 1 - 0.35 * eio(seg(t, pc - 0.6, pc - 0.3)) : 1, j = 0.9 * (1 - k);
+        p.el.setAttribute('cx', f(lerp(p.mx, n[0] + p.dx * sq * (1 - k), s) + j * Math.sin(t * p.sp + p.ph)));
+        p.el.setAttribute('cy', f(lerp(p.my, n[1] + p.dy * sq * (1 - k), s) + j * Math.cos(t * p.sp * 1.3 + p.ph)));
+        p.el.style.fill = `color-mix(in srgb, ${TINT[p.c]} ${tone}%, var(--mk-edge))`;
+        p.el.style.opacity = f(1 - seg(t, pc - 0.05, pc + 0.03));
+      });
+      // only the state an edge reaches gives a small nudge as it connects
+      const pos = NODES.map((n) => [n[0], n[1]]);
+      EDGES.forEach(([a, b], j) => {
+        const age = t - GROW[j][1];
+        if (age <= 0 || apart) return;
+        const A = NODES[a], B = NODES[b], D = Math.hypot(B[0] - A[0], B[1] - A[1]), m = 1.4 * Math.sin(age * 14) * Math.exp(-age * 9);
+        pos[b][0] -= ((B[0] - A[0]) / D) * m / B[2]; pos[b][1] -= ((B[1] - A[1]) / D) * m / B[2];
+      });
+      // states pop on a spring with a little squash; the rust state rings a touch longer
+      const R = NODES.map((n, c) => {
+        const age = t - POP[c], damp = n[3] ? 7.5 : 9;
+        const rad = apart ? n[2] * eo(seg(t, POP[c] - 0.02, POP[c] + 0.22)) : n[2] * spring(age, 15, damp);
+        const q = age > 0 && !apart ? 0.1 * Math.sin(age * 15) * Math.exp(-age * damp) : 0;
+        const el = states[c];
+        el.setAttribute('cx', f(pos[c][0])); el.setAttribute('cy', f(pos[c][1])); el.setAttribute('rx', f(rad * (1 + q))); el.setAttribute('ry', f(rad * (1 - q)));
+        return rad;
+      });
+      EDGES.forEach(([a, b], j) => bar(j, pos[a], R[a], pos[b], R[b], eo(seg(t, GROW[j][0], GROW[j][1])), 0.55 * NODES[a][2], 0.55 * NODES[b][2]));
+    }
+
+    // the still mark, exactly as drawn on the server
+    function rest() {
+      cloud.remove(); tips.forEach((c) => (c.style.opacity = '0'));
+      all.removeAttribute('transform');
+      edges.forEach((e, i) => { e.setAttribute('d', still[i]); e.style.opacity = ''; });
+      states.forEach((el, c) => { const [x, y, r0] = NODES[c]; el.setAttribute('cx', String(x)); el.setAttribute('cy', String(y)); el.setAttribute('rx', String(r0)); el.setAttribute('ry', String(r0)); });
+    }
+
+    let playing = false;
+    function play(rate = 1, apart = false) {
+      if (playing) return;
+      playing = true;
+      all.prepend(cloud);
+      const t0 = performance.now(), back = apart ? APART_S / rate : 0, from = apart ? APART[1] : 0;
+      const step = (now: number) => {
+        const s = (now - t0) / 1000;
+        if (s < back) {
+          render(lerp(APART[0], APART[1], (1 - Math.cos((Math.PI * s) / back)) / 2), true);
+          requestAnimationFrame(step); return;
+        }
+        const u = s - back, t = from + rate * (apart ? (u < TURN ? (u * u) / (2 * TURN) : u - TURN / 2) : u);
+        if (t >= END) { rest(); playing = false; return; }
+        render(t); requestAnimationFrame(step);
+      };
+      step(t0);
+    }
+    return { play };
+  }
+
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll<SVGSVGElement>('svg[data-mark-build]').forEach((svg) => {
+    if (still) return;
+    const m = setup(svg), load = svg.dataset.markBuild === 'load', rate = load ? LOAD_RATE : 1;
+    if (load) {
+      if (performance.now() < LATE) m.play(rate);
+      svg.classList.add('is-live');
+    }
+    svg.addEventListener('pointerenter', () => m.play(rate, true));
+  });
+</script>

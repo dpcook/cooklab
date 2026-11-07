@@ -1,4 +1,6 @@
 ---
+import Wordmark from './Wordmark.astro';
+
 interface Props {
   currentPath?: string;
   dark?: boolean;
@@ -32,7 +34,7 @@ function isActive(href: string): boolean {
 >
   <nav class="wrap h-16 flex items-center gap-8" aria-label="Main">
     <a href="/" class="shrink-0" aria-label="Cook Lab home">
-      <img src={dark ? '/brand/cooklab-wordmark-white.svg' : '/brand/cooklab-wordmark.svg'} alt="Cook Lab" width="118" height="28" class="block h-7 w-auto" />
+      <Wordmark height={28} dark={dark} animate />
     </a>
 
     <div class="flex-1"></div>

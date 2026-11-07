@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <title>Cook Lab</title>
   <style>
-    .mark { fill: #0F172A; }
-    @media (prefers-color-scheme: dark) { .mark { fill: #F8FAFC; } }
+    .state { fill: #1E2A44; } .edge { fill: #94A3B8; } .rust { fill: #C2410C; } .rust-edge { fill: #F59065; }
+    @media (prefers-color-scheme: dark) { .state { fill: #E2E8F0; } .edge { fill: #64748B; } .rust { fill: #EB6235; } }
   </style>
-  <!-- The mark as a solid disc, with the nucleus and the small dot cut out (same centres and radii as cooklab-mark.svg) -->
-  <path class="mark" fill-rule="evenodd" d="M1 16a15 15 0 1 0 30 0a15 15 0 1 0 -30 0Z M15.5 13a4.5 4.5 0 1 0 9 0a4.5 4.5 0 1 0 -9 0Z M10.5 19a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0Z"/>
+  <!-- The cluster-graph mark, as drawn by ~/Lab/Branding/brand/make_brand.py -->
+  <path d="M18.9 37.88L14.1 30.32L11.39 31.77L15.03 39.96Z" class="edge"/>
+  <path d="M28.54 44.68L38.36 39.2L37.53 37.28L26.8 40.64Z" class="edge"/>
+  <path d="M42.89 40.25L52.79 51.72L54.3 50.43L44.47 38.89Z" class="edge"/>
+  <path d="M43.27 33.55L47.87 19.5L44.48 18.57L41.26 33Z" class="rust-edge"/>
+  <circle cx="20.6" cy="45.7" r="8" class="state"/>
+  <circle cx="47.8" cy="13.1" r="6.4" class="rust"/>
+  <circle cx="10.2" cy="26.3" r="5.6" class="state"/>
+  <circle cx="41.3" cy="36.8" r="3.8" class="state"/>
+  <circle cx="55.8" cy="53.7" r="3.6" class="state"/>
 </svg>

@@ -1,0 +1,40 @@
+---
+/**
+ * The horizontal lockup (mark + "cooklab") drawn inline rather than as an <img>, so the mark can
+ * form from cells as the page loads. Same geometry as brand/cooklab-wordmark.svg: the mark in a
+ * 97.5-unit square left of the text, the text paths from brand/cooklab-text-navy.svg.
+ * The mark sits beside the text SVG rather than inside it: Astro writes ClusterMark's script where
+ * the component is first used, and a module script inside an SVG does not run.
+ */
+import ClusterMark from './ClusterMark.astro';
+import textSvg from '../../brand/cooklab-text-navy.svg?raw';
+
+interface Props {
+  /** Height in px; the width follows the lockup's proportions */
+  height?: number;
+  dark?: boolean;
+  /** Form the mark from cells each time the page loads (see ClusterMark) */
+  animate?: boolean;
+}
+const { height = 28, dark = false, animate = false } = Astro.props;
+
+const TEXT = [...textSvg.matchAll(/<path d="([^"]+)"/g)].map((m) => m[1]);
+const k = height / 120, width = 508.15 * k;
+const px = (v: number) => `${+v.toFixed(3)}px`;
+---
+
+{animate && (
+  <script is:inline>
+    try { if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('mk-motion'); } catch (e) {}
+  </script>
+)}
+<span class="relative block" style={`width:${px(width)};height:${px(height)}`} aria-hidden="true">
+  <svg width={width} height={height} viewBox="0 0 508.15 120" style="display:block">
+    <g transform="translate(143.75 96)" fill={dark ? '#FFFFFF' : '#1E2A44'}>
+      {TEXT.map((d) => <path d={d} />)}
+    </g>
+  </svg>
+  <span class="absolute" style={`left:${px(11.25 * k)};top:${px(11.25 * k)}`}>
+    <ClusterMark size={97.5 * k} dark={dark} animate={animate ? 'load' : false} />
+  </span>
+</span>

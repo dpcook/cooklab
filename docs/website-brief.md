@@ -26,7 +26,7 @@ Use the existing **Cook Lab Design Spec** as the source of truth for colors, typ
 
 - **Palette (default):** Rust `#C2410C` primary, Navy `#1E3A5F` secondary, white `#FFFFFF` background (light mode). Alternates: Rust/Teal, Teal Noir (dark mode hero moments), Warm Research.
 - **Type:** Manrope (light weights for display) + Inter (body). Fraunces as editorial alternative.
-- **Mark:** the three-reading cell/droplet/ovary — don't substitute.
+- **Mark:** the cluster graph (five cell states, one in rust) — don't substitute. On the dark homepage use the `-dark` files.
 - **Modes:** light and dark, both shipped. Most of the site lives in light; dark mode is a toggle for eye comfort and a few hero/section moments. The dark ground is `#0A1120` (see `design-system.md → Dark ground`).
 
 ### 2b. Signature visual moves — the site's motion language
@@ -61,7 +61,7 @@ Six signature moves to draw from:
 
 ### 2c. Asset library (assume these exist)
 
-- **SVG logos** — full set in `~/Lab/Branding/brand/` (mark + wordmarks in rust/navy/white/black, horizontal + stacked).
+- **SVG logos** — full set in `~/Lab/Branding/brand/` (mark + wordmarks: two-colour, dark ground, and one-colour navy/rust/black/white; horizontal + stacked). The animated mark is in `~/Lab/Branding/motion/`.
 - **Data figures** — real scRNA-seq UMAPs, Visium/Xenium spatial grids, cell-type trajectories from the lab's published and unpublished work. Designer should mock these using representative stylized versions; engineer will swap in actual SVGs/WebGL components.
 - **Microscopy** — real multiplex immunofluorescence and H&E histology from Ottawa GynePath Biobank samples. Use stylized stand-ins for mocks.
 - **Headshots** — to be photographed.
